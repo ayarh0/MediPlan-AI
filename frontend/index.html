@@ -3,147 +3,6810 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediPlan-AI</title>
+
+    <title>MediPlan AI</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f9;
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
             margin: 0;
-            padding: 40px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            margin-top: 20px;
-            border-radius: 10px;
-        }
-
-        input, button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
+            padding: 0;
             box-sizing: border-box;
         }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: var(--bg);
+            color: var(--text);
+
+            min-height: 100vh;
+
+            font-size: 15px;
+
+            line-height: 1.5;
+
+            transition:
+                background 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
 
         button {
             cursor: pointer;
         }
 
-        .medication {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 8px;
+
+        /* =====================================================
+           DARK THEME
+        ===================================================== */
+
+        :root {
+
+            --bg: #0b1220;
+
+            --sidebar: #111a2b;
+
+            --surface: #172338;
+
+            --surface-2: #1d2a40;
+
+            --surface-3: #24344d;
+
+            --border: #2d3d56;
+
+            --text: #f5f7fb;
+
+            --text-soft: #c6d0df;
+
+            --muted: #91a0b5;
+
+            --primary: #38bdf8;
+
+            --primary-hover: #67cdf9;
+
+            --primary-soft: rgba(56, 189, 248, 0.14);
+
+            --green: #22c55e;
+
+            --green-soft: rgba(34, 197, 94, 0.14);
+
+            --red: #ef4444;
+
+            --red-soft: rgba(239, 68, 68, 0.14);
+
+            --yellow: #f59e0b;
+
+            --shadow:
+                0 12px 35px rgba(0, 0, 0, 0.18);
+
+            --radius: 16px;
         }
+
+
+        /* =====================================================
+           LIGHT THEME
+        ===================================================== */
+
+        body.light {
+
+            --bg: #f4f7fb;
+
+            --sidebar: #ffffff;
+
+            --surface: #ffffff;
+
+            --surface-2: #f8fafc;
+
+            --surface-3: #eef3f8;
+
+            --border: #d8e0ea;
+
+            --text: #162033;
+
+            --text-soft: #34445a;
+
+            --muted: #64748b;
+
+            --primary: #0284c7;
+
+            --primary-hover: #0369a1;
+
+            --primary-soft: rgba(2, 132, 199, 0.10);
+
+            --green: #16a34a;
+
+            --green-soft: rgba(22, 163, 74, 0.10);
+
+            --red: #dc2626;
+
+            --red-soft: rgba(220, 38, 38, 0.10);
+
+            --yellow: #d97706;
+
+            --shadow:
+                0 10px 28px rgba(15, 23, 42, 0.08);
+        }
+
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
+
+        body {
+            display: flex;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .sidebar {
+
+            width: 250px;
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            background: var(--sidebar);
+
+            border-right:
+                1px solid var(--border);
+
+            padding: 24px 16px;
+
+            z-index: 100;
+
+            overflow-y: auto;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                4px 10px 28px;
+        }
+
+
+        .brand-logo {
+
+            width: 44px;
+            height: 44px;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #38bdf8,
+                    #6366f1
+                );
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(56, 189, 248, 0.18);
+        }
+
+
+        .brand-name {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.4px;
+        }
+
+
+        .brand-name span {
+            color: var(--primary);
+        }
+
+
+        .menu-title {
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.1px;
+
+            padding:
+                10px 12px 9px;
+        }
+
+
+        .menu {
+
+            list-style: none;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .nav-btn {
+
+            width: 100%;
+
+            min-height: 45px;
+
+            border: 0;
+
+            background: transparent;
+
+            color: var(--text-soft);
+
+            border-radius: 11px;
+
+            padding:
+                10px 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            text-align: left;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .nav-btn:hover {
+
+            background:
+                var(--primary-soft);
+
+            color: var(--primary);
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .nav-btn.active {
+
+            background:
+                var(--primary-soft);
+
+            color: var(--primary);
+
+            box-shadow:
+                inset 3px 0 0
+                var(--primary);
+        }
+
+
+        .nav-icon {
+
+            width: 24px;
+
+            display: flex;
+
+            justify-content: center;
+
+            font-size: 17px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .main {
+
+            margin-left: 250px;
+
+            width:
+                calc(100% - 250px);
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .topbar {
+
+            height: 76px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+
+            background:
+                color-mix(
+                    in srgb,
+                    var(--bg) 94%,
+                    transparent
+                );
+
+            backdrop-filter:
+                blur(12px);
+
+            border-bottom:
+                1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 32px;
+        }
+
+
+        .page-heading h1 {
+
+            font-size: 22px;
+
+            line-height: 1.2;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .page-heading p {
+
+            margin-top: 3px;
+
+            font-size: 13px;
+
+            color: var(--muted);
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .top-clock {
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            color: var(--primary);
+
+            min-width: 52px;
+
+            text-align: right;
+        }
+
+
+        .theme-button {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                var(--surface);
+
+            color: var(--text);
+
+            font-size: 17px;
+        }
+
+
+        .theme-button:hover {
+
+            border-color:
+                var(--primary);
+
+            color:
+                var(--primary);
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .content {
+
+            padding:
+                30px 32px 50px;
+
+            max-width: 1600px;
+
+            margin: 0 auto;
+        }
+
+
+        .page {
+            display: none;
+        }
+
+
+        .page.active {
+            display: block;
+        }
+
+
+        /* =====================================================
+           WELCOME
+        ===================================================== */
+
+        .welcome {
+
+            margin-bottom: 25px;
+        }
+
+
+        .welcome h2 {
+
+            font-size: 29px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.7px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .welcome p {
+
+            color: var(--muted);
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 18px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .stat-card {
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius);
+
+            padding: 20px;
+
+            box-shadow:
+                var(--shadow);
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease;
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                rgba(56, 189, 248, .4);
+        }
+
+
+        .stat-row {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 15px;
+        }
+
+
+        .stat-label {
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+        }
+
+
+        .stat-number {
+
+            font-size: 29px;
+
+            line-height: 1;
+
+            font-weight: 800;
+        }
+
+
+        .stat-icon {
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 12px;
+
+            background:
+                var(--primary-soft);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .card {
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius);
+
+            padding: 22px;
+
+            box-shadow:
+                var(--shadow);
+
+            margin-bottom: 20px;
+        }
+
+
+        .card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .card-header h3 {
+
+            font-size: 17px;
+
+            font-weight: 750;
+        }
+
+
+        .card-header p {
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .grid-2 {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 20px;
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .btn {
+
+            border: 0;
+
+            border-radius: 9px;
+
+            min-height: 40px;
+
+            padding:
+                9px 15px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition:
+                .2s ease;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+        }
+
+
+        .btn-primary {
+
+            background:
+                var(--primary);
+
+            color:
+                #06283d;
+        }
+
+
+        .btn-primary:hover {
+
+            background:
+                var(--primary-hover);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .btn-secondary {
+
+            background:
+                var(--surface-3);
+
+            color:
+                var(--text);
+        }
+
+
+        .btn-secondary:hover {
+
+            border-color:
+                var(--primary);
+
+            color:
+                var(--primary);
+        }
+
+
+        .btn-danger {
+
+            background:
+                var(--red-soft);
+
+            color:
+                var(--red);
+        }
+
+
+        .btn-danger:hover {
+
+            background:
+                rgba(239, 68, 68, .2);
+        }
+
+
+        .btn-small {
+
+            min-height: 34px;
+
+            padding:
+                7px 11px;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           MEDICATION ITEM
+        ===================================================== */
+
+        .med-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .medication-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            background:
+                var(--surface-2);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 13px 15px;
+
+            transition:
+                border-color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .medication-item:hover {
+
+            border-color:
+                rgba(56, 189, 248, .35);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .med-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+        }
+
+
+        .med-icon {
+
+            width: 43px;
+            height: 43px;
+
+            flex-shrink: 0;
+
+            border-radius: 11px;
+
+            background:
+                var(--primary-soft);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 19px;
+        }
+
+
+        .med-name {
+
+            font-size: 15px;
+
+            font-weight: 750;
+
+            margin-bottom: 2px;
+        }
+
+
+        .med-info {
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+        }
+
+
+        .med-actions {
+
+            display: flex;
+
+            gap: 7px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================================
+           ALARM ITEM
+        ===================================================== */
+
+        .alarm-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .alarm-item {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 18px;
+
+            background:
+                var(--surface-2);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 14px 16px;
+        }
+
+
+        .alarm-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            min-width: 0;
+        }
+
+
+        .alarm-time {
+
+            color:
+                var(--primary);
+
+            font-size: 21px;
+
+            line-height: 1;
+
+            font-weight: 800;
+
+            min-width: 60px;
+        }
+
+
+        .alarm-med {
+
+            font-size: 14px;
+
+            font-weight: 750;
+        }
+
+
+        .alarm-days {
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+            margin-top: 2px;
+        }
+
+
+        .alarm-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        /* =====================================================
+           TOGGLE
+        ===================================================== */
+
+        .toggle {
+
+            position: relative;
+
+            width: 43px;
+
+            height: 24px;
+
+            flex-shrink: 0;
+        }
+
+
+        .toggle input {
+
+            opacity: 0;
+
+            width: 0;
+            height: 0;
+        }
+
+
+        .slider {
+
+            position: absolute;
+
+            inset: 0;
+
+            border-radius: 20px;
+
+            background:
+                #64748b;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .slider::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 18px;
+            height: 18px;
+
+            left: 3px;
+            top: 3px;
+
+            border-radius: 50%;
+
+            background:
+                white;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .toggle input:checked + .slider {
+
+            background:
+                var(--green);
+        }
+
+
+        .toggle input:checked + .slider::before {
+
+            transform:
+                translateX(19px);
+        }
+
+
+        /* =====================================================
+           FORMS
+        ===================================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 18px;
+        }
+
+
+        .form-group {
+
+            margin-bottom: 17px;
+        }
+
+
+        .form-group.full {
+
+            grid-column:
+                1 / -1;
+        }
+
+
+        label {
+
+            display: block;
+
+            color:
+                var(--text-soft);
+
+            font-size: 13px;
+
+            font-weight: 650;
+
+            margin-bottom: 7px;
+        }
+
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            min-height: 43px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                var(--bg);
+
+            color:
+                var(--text);
+
+            padding:
+                10px 12px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        input::placeholder,
+        textarea::placeholder {
+
+            color:
+                var(--muted);
+        }
+
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 0 3px
+                var(--primary-soft);
+        }
+
+
+        textarea {
+
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+
+        /* =====================================================
+           DAYS
+        ===================================================== */
+
+        .days {
+
+            display: flex;
+
+            gap: 7px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .day-btn {
+
+            width: 40px;
+            height: 38px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                var(--surface-2);
+
+            color:
+                var(--text-soft);
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .day-btn:hover {
+
+            border-color:
+                var(--primary);
+
+            color:
+                var(--primary);
+        }
+
+
+        .day-btn.selected {
+
+            background:
+                var(--primary);
+
+            color:
+                #06283d;
+
+            border-color:
+                var(--primary);
+        }
+
+
+        /* =====================================================
+           CLOCK
+        ===================================================== */
+
+        .clock-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.05fr)
+                minmax(350px, .95fr);
+
+            gap: 20px;
+
+            align-items: stretch;
+
+            margin-bottom: 20px;
+        }
+
+
+        .clock-card {
+
+            min-height: 330px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+        }
+
+
+        .clock-label {
+
+            color:
+                var(--muted);
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .big-clock {
+
+            font-size: clamp(
+                58px,
+                7vw,
+                82px
+            );
+
+            line-height: 1;
+
+            font-weight: 850;
+
+            letter-spacing: -2px;
+
+            color:
+                var(--primary);
+
+            margin:
+                16px 0 10px;
+        }
+
+
+        .big-date {
+
+            color:
+                var(--text-soft);
+
+            font-size: 14px;
+        }
+
+
+        .clock-status {
+
+            margin-top: 20px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                7px 13px;
+
+            border-radius: 20px;
+
+            background:
+                var(--green-soft);
+
+            color:
+                var(--green);
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .status-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background:
+                var(--green);
+
+            box-shadow:
+                0 0 0 4px
+                var(--green-soft);
+        }
+
+
+        /* =====================================================
+           SOUND
+        ===================================================== */
+
+        .sound-options {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 10px;
+        }
+
+
+        .sound-option {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding:
+                12px 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            background:
+                var(--surface-2);
+
+            color:
+                var(--text-soft);
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .sound-option:hover {
+
+            border-color:
+                var(--primary);
+        }
+
+
+        .sound-option input {
+
+            width: auto;
+
+            min-height: auto;
+        }
+
+
+        .sound-buttons {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 13px;
+
+            flex-wrap: wrap;
+        }
+
+
+        /* =====================================================
+           CALENDAR
+        ===================================================== */
+
+        .calendar {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, minmax(0, 1fr));
+
+            gap: 8px;
+        }
+
+
+        .calendar-head {
+
+            text-align: center;
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            padding:
+                7px;
+        }
+
+
+        .calendar-day {
+
+            min-height: 85px;
+
+            background:
+                var(--surface-2);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            padding: 9px;
+
+            transition:
+                border-color .2s ease;
+        }
+
+
+        .calendar-day:hover {
+
+            border-color:
+                var(--primary);
+        }
+
+
+        .calendar-day.today {
+
+            border:
+                2px solid var(--primary);
+        }
+
+
+        .calendar-number {
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+
+        .calendar-event {
+
+            color:
+                var(--primary);
+
+            font-size: 10px;
+
+            margin-top: 7px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =====================================================
+           REPORTS
+        ===================================================== */
+
+        .progress-box {
+
+            margin-bottom: 20px;
+        }
+
+
+        .progress-label {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+
+        .progress {
+
+            height: 9px;
+
+            background:
+                var(--surface-3);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+
+        .progress-bar {
+
+            height: 100%;
+
+            border-radius: 20px;
+
+            background:
+                var(--primary);
+
+            transition:
+                width .4s ease;
+        }
+
+
+        /* =====================================================
+           AI
+        ===================================================== */
+
+        .ai-box {
+
+            text-align: center;
+
+            padding:
+                50px 20px;
+        }
+
+
+        .ai-icon {
+
+            width: 70px;
+            height: 70px;
+
+            margin:
+                0 auto 18px;
+
+            border-radius: 20px;
+
+            background:
+                var(--primary-soft);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 35px;
+        }
+
+
+        .ai-box h2 {
+
+            font-size: 23px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .ai-box > p {
+
+            max-width: 620px;
+
+            margin:
+                0 auto;
+
+            color:
+                var(--muted);
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        .ai-response {
+
+            max-width: 700px;
+
+            margin:
+                24px auto 0;
+
+            padding: 17px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                var(--surface-2);
+
+            text-align: left;
+
+            display: none;
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty {
+
+            text-align: center;
+
+            padding:
+                28px 15px;
+
+            color:
+                var(--muted);
+
+            font-size: 14px;
+        }
+
+
+        .empty-icon {
+
+            font-size: 32px;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ===================================================== */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 1000;
+
+            background:
+                rgba(2, 6, 23, .72);
+
+            backdrop-filter:
+                blur(5px);
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+
+        .modal.show {
+
+            display: flex;
+        }
+
+
+        .modal-box {
+
+            width: 100%;
+
+            max-width: 460px;
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 18px;
+
+            padding: 26px;
+
+            box-shadow:
+                0 30px 80px
+                rgba(0,0,0,.35);
+        }
+
+
+        .alarm-popup {
+
+            text-align: center;
+        }
+
+
+        .alarm-bell {
+
+            font-size: 55px;
+
+            margin-bottom: 7px;
+
+            animation:
+                bellShake .5s infinite;
+        }
+
+
+        @keyframes bellShake {
+
+            0% {
+                transform:
+                    rotate(-7deg);
+            }
+
+            50% {
+                transform:
+                    rotate(7deg);
+            }
+
+            100% {
+                transform:
+                    rotate(-7deg);
+            }
+        }
+
+
+        .popup-time {
+
+            color:
+                var(--primary);
+
+            font-size: 43px;
+
+            font-weight: 850;
+
+            margin:
+                10px 0;
+        }
+
+
+        .popup-med {
+
+            font-size: 20px;
+
+            font-weight: 800;
+        }
+
+
+        .popup-dosage {
+
+            color:
+                var(--muted);
+
+            margin-top: 3px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .popup-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            flex-wrap: wrap;
+        }
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
+
+        .toast-container {
+
+            position: fixed;
+
+            right: 20px;
+
+            bottom: 20px;
+
+            z-index: 2000;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+        }
+
+
+        .toast {
+
+            min-width: 280px;
+
+            max-width: 380px;
+
+            background:
+                var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-left:
+                4px solid var(--primary);
+
+            border-radius: 10px;
+
+            padding:
+                13px 15px;
+
+            color:
+                var(--text);
+
+            font-size: 13px;
+
+            box-shadow:
+                var(--shadow);
+
+            animation:
+                toastIn .25s ease;
+        }
+
+
+        .toast.success {
+
+            border-left-color:
+                var(--green);
+        }
+
+
+        .toast.error {
+
+            border-left-color:
+                var(--red);
+        }
+
+
+        @keyframes toastIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            .clock-layout {
+
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+
+                width: 72px;
+
+                padding:
+                    18px 9px;
+            }
+
+
+            .brand {
+
+                justify-content: center;
+
+                padding:
+                    3px 0 25px;
+            }
+
+
+            .brand-name,
+            .menu-title,
+            .nav-btn span:not(.nav-icon) {
+
+                display: none;
+            }
+
+
+            .nav-btn {
+
+                justify-content: center;
+
+                padding:
+                    11px 5px;
+            }
+
+
+            .nav-icon {
+
+                font-size: 19px;
+            }
+
+
+            .main {
+
+                margin-left: 72px;
+
+                width:
+                    calc(100% - 72px);
+            }
+
+
+            .topbar {
+
+                padding:
+                    0 18px;
+            }
+
+
+            .content {
+
+                padding:
+                    24px 18px 40px;
+            }
+
+
+            .grid-2 {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .sound-options {
+
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+
+        @media (max-width: 560px) {
+
+            body {
+
+                font-size: 14px;
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .welcome h2 {
+
+                font-size: 25px;
+            }
+
+
+            .top-clock {
+
+                display: none;
+            }
+
+
+            .medication-item,
+            .alarm-item {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .med-actions,
+            .alarm-actions {
+
+                width: 100%;
+            }
+
+
+            .calendar {
+
+                gap: 4px;
+            }
+
+
+            .calendar-day {
+
+                min-height: 65px;
+
+                padding: 6px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <div class="container">
 
-        <h1>MediPlan-AI</h1>
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
 
-        <div class="card">
-            <h2>Add Medication</h2>
+<aside class="sidebar">
 
-            <input id="name" type="text" placeholder="Medication name">
-            <input id="dosage" type="text" placeholder="Dosage">
-            <input id="frequency" type="text" placeholder="Frequency">
-            <input id="start_date" type="date">
-            <input id="end_date" type="date">
+    <div class="brand">
 
-            <button onclick="addMedication()">
-                Add Medication
-            </button>
+        <div class="brand-logo">
+            💊
         </div>
 
-        <div class="card">
-            <h2>My Medications</h2>
-
-            <div id="medications">
-                Loading...
-            </div>
+        <div class="brand-name">
+            Medi<span>Plan</span>
         </div>
 
     </div>
 
-    <script>
 
-        async function loadMedications() {
+    <div class="menu-title">
+        Main
+    </div>
 
-            const response = await fetch("/medications");
 
-            const medications = await response.json();
+    <ul class="menu">
 
-            const container = document.getElementById("medications");
+        <li>
+            <button
+                class="nav-btn active"
+                data-page="dashboard">
 
-            container.innerHTML = "";
+                <span class="nav-icon">
+                    🏠
+                </span>
 
-            medications.forEach(medication => {
+                <span>
+                    Dashboard
+                </span>
 
-                const div = document.createElement("div");
+            </button>
+        </li>
 
-                div.className = "medication";
 
-                div.innerHTML = `
-                    <strong>${medication.name}</strong><br>
-                    Dosage: ${medication.dosage}<br>
-                    Frequency: ${medication.frequency}<br>
-                    Start: ${medication.start_date}<br>
-                    End: ${medication.end_date}
-                `;
+        <li>
+            <button
+                class="nav-btn"
+                data-page="medications">
 
-                container.appendChild(div);
-            });
+                <span class="nav-icon">
+                    💊
+                </span>
+
+                <span>
+                    My Medications
+                </span>
+
+            </button>
+        </li>
+
+
+        <li>
+            <button
+                class="nav-btn"
+                data-page="alarms">
+
+                <span class="nav-icon">
+                    ⏰
+                </span>
+
+                <span>
+                    Alarm Clock
+                </span>
+
+            </button>
+        </li>
+
+
+        <li>
+            <button
+                class="nav-btn"
+                data-page="addMedication">
+
+                <span class="nav-icon">
+                    ＋
+                </span>
+
+                <span>
+                    Add Medication
+                </span>
+
+            </button>
+        </li>
+
+    </ul>
+
+
+    <div class="menu-title">
+        Tools
+    </div>
+
+
+    <ul class="menu">
+
+        <li>
+            <button
+                class="nav-btn"
+                data-page="calendar">
+
+                <span class="nav-icon">
+                    📅
+                </span>
+
+                <span>
+                    Calendar
+                </span>
+
+            </button>
+        </li>
+
+
+        <li>
+            <button
+                class="nav-btn"
+                data-page="reports">
+
+                <span class="nav-icon">
+                    📊
+                </span>
+
+                <span>
+                    Reports
+                </span>
+
+            </button>
+        </li>
+
+
+        <li>
+            <button
+                class="nav-btn"
+                data-page="ai">
+
+                <span class="nav-icon">
+                    🤖
+                </span>
+
+                <span>
+                    AI Assistant
+                </span>
+
+            </button>
+        </li>
+
+    </ul>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+        <div class="page-heading">
+
+            <h1 id="topPageTitle">
+                Dashboard
+            </h1>
+
+            <p id="topDate">
+                Loading...
+            </p>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <div
+                class="top-clock"
+                id="miniClock">
+
+                --:--
+
+            </div>
+
+
+            <button
+                class="theme-button"
+                id="themeBtn"
+                title="Change theme">
+
+                🌙
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================= -->
+
+        <section
+            class="page active"
+            id="dashboard">
+
+
+            <div class="welcome">
+
+                <h2>
+                    Welcome to MediPlan AI
+                </h2>
+
+                <p>
+                    Manage your medications
+                    and never miss a dose.
+                </p>
+
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="stats">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-row">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Total Medications
+                            </div>
+
+                            <div
+                                class="stat-number"
+                                id="statMedications">
+
+                                0
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stat-icon">
+                            💊
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-row">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Active Alarms
+                            </div>
+
+                            <div
+                                class="stat-number"
+                                id="statAlarms">
+
+                                0
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stat-icon">
+                            ⏰
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-row">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Today's Doses
+                            </div>
+
+                            <div
+                                class="stat-number"
+                                id="statToday">
+
+                                0
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stat-icon">
+                            📋
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-row">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Adherence
+                            </div>
+
+                            <div
+                                class="stat-number">
+
+                                100%
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stat-icon">
+                            📈
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD LISTS -->
+
+            <div class="grid-2">
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            Recent Medications
+                        </h3>
+
+                        <button
+                            class="btn btn-primary btn-small"
+                            onclick="showPage('medications')">
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="med-list"
+                        id="dashboardMedications">
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            Upcoming Alarms
+                        </h3>
+
+                        <button
+                            class="btn btn-primary btn-small"
+                            onclick="showPage('alarms')">
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="alarm-list"
+                        id="dashboardAlarms">
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MEDICATIONS
+        ================================================= -->
+
+        <section
+            class="page"
+            id="medications">
+
+
+            <div class="welcome">
+
+                <h2>
+                    My Medications
+                </h2>
+
+                <p>
+                    Manage all your medications
+                    in one place.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Medication List
+                    </h3>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="showPage('addMedication')">
+
+                        ＋ Add Medication
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="med-list"
+                    id="medicationsList">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ADD MEDICATION
+        ================================================= -->
+
+        <section
+            class="page"
+            id="addMedication">
+
+
+            <div class="welcome">
+
+                <h2 id="formTitle">
+                    Add Medication
+                </h2>
+
+                <p>
+                    Add a medication to your
+                    treatment plan.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <form id="medicationForm">
+
+                    <input
+                        type="hidden"
+                        id="editMedicationId">
+
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Medication Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="medName"
+                                placeholder="Example: Paracetamol"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Dosage
+                            </label>
+
+                            <input
+                                type="text"
+                                id="medDosage"
+                                placeholder="Example: 500 mg">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Frequency
+                            </label>
+
+                            <select
+                                id="medFrequency">
+
+                                <option value="">
+                                    Select frequency
+                                </option>
+
+                                <option value="Once a day">
+                                    Once a day
+                                </option>
+
+                                <option value="Twice a day">
+                                    Twice a day
+                                </option>
+
+                                <option value="Three times a day">
+                                    Three times a day
+                                </option>
+
+                                <option value="Every 4 hours">
+                                    Every 4 hours
+                                </option>
+
+                                <option value="Every 6 hours">
+                                    Every 6 hours
+                                </option>
+
+                                <option value="Every 8 hours">
+                                    Every 8 hours
+                                </option>
+
+                                <option value="Every 12 hours">
+                                    Every 12 hours
+                                </option>
+
+                                <option value="As needed">
+                                    As needed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="startDate">
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="endDate">
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div
+                        style="
+                            display:flex;
+                            gap:9px;
+                            margin-top:5px;
+                        ">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            Save Medication
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            onclick="
+                                resetMedicationForm();
+                                showPage('medications');
+                            ">
+
+                            Cancel
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ALARMS
+        ================================================= -->
+
+        <section
+            class="page"
+            id="alarms">
+
+
+            <div class="welcome">
+
+                <h2>
+                    Alarm Clock
+                </h2>
+
+                <p>
+                    Create medication reminders
+                    using your computer's local time.
+                </p>
+
+            </div>
+
+
+            <div class="clock-layout">
+
+
+                <!-- CLOCK -->
+
+                <div
+                    class="card clock-card">
+
+                    <div class="clock-label">
+                        Current Local Time
+                    </div>
+
+
+                    <div
+                        class="big-clock"
+                        id="liveClock">
+
+                        --:--
+
+                    </div>
+
+
+                    <div
+                        class="big-date"
+                        id="liveDate">
+
+                        Loading...
+
+                    </div>
+
+
+                    <div class="clock-status">
+
+                        <span
+                            class="status-dot">
+                        </span>
+
+                        Alarm system active
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CREATE ALARM -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            Create Alarm
+                        </h3>
+
+                    </div>
+
+
+                    <form id="alarmForm">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Medication *
+                            </label>
+
+                            <select
+                                id="alarmMedication"
+                                required>
+
+                                <option value="">
+                                    Select medication
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Alarm Time *
+                            </label>
+
+                            <input
+                                type="time"
+                                id="alarmTime"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Days
+                            </label>
+
+
+                            <div class="days">
+
+
+                                <button
+                                    type="button"
+                                    class="day-btn"
+                                    data-day="Mon">
+                                    M
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="day-btn"
+                                    data-day="Tue">
+                                    T
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="day-btn"
+                                    data-day="Wed">
+                                    W
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="day-btn"
+                                    data-day="Thu">
+                                    T
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="day-btn"
+                                    data-day="Fri">
+                                    F
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="day-btn"
+                                    data-day="Sat">
+                                    S
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="day-btn"
+                                    data-day="Sun">
+                                    S
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Snooze Duration
+                            </label>
+
+                            <select
+                                id="snoozeMinutes">
+
+                                <option value="5">
+                                    5 minutes
+                                </option>
+
+                                <option
+                                    value="10"
+                                    selected>
+
+                                    10 minutes
+
+                                </option>
+
+                                <option value="15">
+                                    15 minutes
+                                </option>
+
+                                <option value="20">
+                                    20 minutes
+                                </option>
+
+                                <option value="30">
+                                    30 minutes
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            ＋ Create Alarm
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MY ALARMS -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>
+                        My Alarms
+                    </h3>
+
+                </div>
+
+
+                <div
+                    class="alarm-list"
+                    id="alarmsList">
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SOUND -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Alarm Sound
+                    </h3>
+
+                </div>
+
+
+                <div class="sound-options">
+
+
+                    <label class="sound-option">
+
+                        <input
+                            type="radio"
+                            name="sound"
+                            value="bell"
+                            checked>
+
+                        🔔 Gentle Bell
+
+                    </label>
+
+
+                    <label class="sound-option">
+
+                        <input
+                            type="radio"
+                            name="sound"
+                            value="classic">
+
+                        ⏰ Classic Alarm
+
+                    </label>
+
+
+                    <label class="sound-option">
+
+                        <input
+                            type="radio"
+                            name="sound"
+                            value="beep">
+
+                        🔊 Digital Beep
+
+                    </label>
+
+
+                    <label class="sound-option">
+
+                        <input
+                            type="radio"
+                            name="sound"
+                            value="soft">
+
+                        🌙 Soft Reminder
+
+                    </label>
+
+
+                    <label class="sound-option">
+
+                        <input
+                            type="radio"
+                            name="sound"
+                            value="custom">
+
+                        🎵 My Music
+
+                    </label>
+
+                </div>
+
+
+                <div
+                    style="
+                        margin-top:16px;
+                    ">
+
+                    <label>
+                        Choose your own sound
+                    </label>
+
+                    <input
+                        type="file"
+                        id="customSound"
+                        accept="audio/*">
+
+                </div>
+
+
+                <div class="sound-buttons">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="testSelectedSound()">
+
+                        ▶ Test Sound
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="stopAlarmSound()">
+
+                        ■ Stop Sound
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CALENDAR
+        ================================================= -->
+
+        <section
+            class="page"
+            id="calendar">
+
+
+            <div class="welcome">
+
+                <h2>
+                    Calendar
+                </h2>
+
+                <p>
+                    View your medication schedule.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="previousMonth()">
+
+                        ←
+
+                    </button>
+
+
+                    <h3
+                        id="calendarTitle">
+
+                        Calendar
+
+                    </h3>
+
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="nextMonth()">
+
+                        →
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="calendar"
+                    id="calendarGrid">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             REPORTS
+        ================================================= -->
+
+        <section
+            class="page"
+            id="reports">
+
+
+            <div class="welcome">
+
+                <h2>
+                    Reports
+                </h2>
+
+                <p>
+                    Overview of your medication
+                    management.
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Total Medications
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="reportTotal">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Active Alarms
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="reportAlarms">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Adherence
+                    </div>
+
+                    <div class="stat-number">
+                        100%
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        System Status
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        style="
+                            color:var(--green);
+                        ">
+
+                        OK
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Medication Overview
+                    </h3>
+
+                </div>
+
+
+                <div class="progress-box">
+
+                    <div class="progress-label">
+
+                        <span>
+                            Medication Management
+                        </span>
+
+                        <span>
+                            100%
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width:100%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-box">
+
+                    <div class="progress-label">
+
+                        <span>
+                            Alarm Configuration
+                        </span>
+
+                        <span
+                            id="reportAlarmPercent">
+
+                            0%
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            id="reportAlarmBar"
+                            style="width:0%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             AI
+        ================================================= -->
+
+        <section
+            class="page"
+            id="ai">
+
+
+            <div class="welcome">
+
+                <h2>
+                    AI Assistant
+                </h2>
+
+                <p>
+                    Smart assistance for your
+                    medication organization.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="ai-box">
+
+                    <div class="ai-icon">
+                        🤖
+                    </div>
+
+
+                    <h2>
+                        MediPlan AI Assistant
+                    </h2>
+
+
+                    <p>
+                        Get a quick overview of your
+                        medication and reminder plan.
+                    </p>
+
+
+                    <button
+                        class="btn btn-primary"
+                        style="margin-top:22px;"
+                        onclick="runAI()">
+
+                        ✨ Analyze My Plan
+
+                    </button>
+
+
+                    <div
+                        class="ai-response"
+                        id="aiResponse">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     ALARM MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="alarmModal">
+
+
+    <div class="modal-box">
+
+        <div class="alarm-popup">
+
+            <div class="alarm-bell">
+                🔔
+            </div>
+
+
+            <h2>
+                Medication Reminder
+            </h2>
+
+
+            <div
+                class="popup-time"
+                id="popupTime">
+
+                --:--
+
+            </div>
+
+
+            <div
+                class="popup-med"
+                id="popupMedication">
+
+                Medication
+
+            </div>
+
+
+            <div
+                class="popup-dosage"
+                id="popupDosage">
+
+                Dosage
+
+            </div>
+
+
+            <div class="popup-buttons">
+
+                <button
+                    class="btn btn-danger"
+                    onclick="stopAlarmAndClose()">
+
+                    Stop Alarm
+
+                </button>
+
+
+                <button
+                    class="btn btn-primary"
+                    onclick="snoozeCurrentAlarm()">
+
+                    Snooze
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast-container"
+    id="toastContainer">
+</div>
+
+
+
+<script>
+
+
+/* ============================================================
+   GLOBAL VARIABLES
+============================================================ */
+
+let medications = [];
+
+let alarms = [];
+
+let systemLocalTime = "00:00";
+
+let systemLocalDay = "Mon";
+
+let systemLocalDate = "";
+
+let triggeredAlarms = new Set();
+
+let currentAlarm = null;
+
+let currentSound = null;
+
+let customMusicUrl = null;
+
+let soundInterval = null;
+
+let calendarDate = new Date();
+
+
+/* ============================================================
+   PAGE TITLES
+============================================================ */
+
+const pageTitles = {
+
+    dashboard:
+        "Dashboard",
+
+    medications:
+        "My Medications",
+
+    alarms:
+        "Alarm Clock",
+
+    addMedication:
+        "Add Medication",
+
+    calendar:
+        "Calendar",
+
+    reports:
+        "Reports",
+
+    ai:
+        "AI Assistant"
+
+};
+
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+
+function showPage(pageName) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const page =
+        document.getElementById(
+            pageName
+        );
+
+
+    if (page) {
+
+        page.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(button => {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const activeButton =
+        document.querySelector(
+            `.nav-btn[data-page="${pageName}"]`
+        );
+
+
+    if (activeButton) {
+
+        activeButton.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document.getElementById(
+        "topPageTitle"
+    ).textContent =
+        pageTitles[pageName] ||
+        "MediPlan AI";
+
+
+    if (pageName === "calendar") {
+
+        renderCalendar();
+
+    }
+
+
+    if (pageName === "reports") {
+
+        updateReports();
+
+    }
+
+
+    if (pageName === "alarms") {
+
+        renderAlarms();
+
+    }
+
+}
+
+
+document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                showPage(
+                    button.dataset.page
+                );
+
+            }
+        );
+
+    });
+
+
+/* ============================================================
+   TOAST
+============================================================ */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    const container =
+        document.getElementById(
+            "toastContainer"
+        );
+
+
+    const toast =
+        document.createElement(
+            "div"
+        );
+
+
+    toast.className =
+        `toast ${type}`;
+
+
+    toast.textContent =
+        message;
+
+
+    container.appendChild(
+        toast
+    );
+
+
+    setTimeout(
+        () => {
+
+            toast.remove();
+
+        },
+        3500
+    );
+
+}
+
+
+/* ============================================================
+   LOCAL SYSTEM TIME
+============================================================ */
+
+async function updateSystemTime() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/local-time",
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Time request failed"
+            );
+
         }
 
 
-        async function addMedication() {
+        const data =
+            await response.json();
 
-            const medication = {
 
-                name: document.getElementById("name").value,
-                dosage: document.getElementById("dosage").value,
-                frequency: document.getElementById("frequency").value,
-                start_date: document.getElementById("start_date").value,
-                end_date: document.getElementById("end_date").value
+        systemLocalTime =
+            data.time;
 
-            };
 
-            const response = await fetch("/medications", {
+        systemLocalDay =
+            data.day;
 
-                method: "POST",
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+        systemLocalDate =
+            data.date;
 
-                body: JSON.stringify(medication)
-            });
 
-            const result = await response.json();
+        updateClockDisplay();
 
-            alert(result.message);
 
-            loadMedications();
+    } catch (error) {
+
+        console.error(
+            "Time error:",
+            error
+        );
+
+    }
+
+}
+
+
+function updateClockDisplay() {
+
+    const clock =
+        document.getElementById(
+            "liveClock"
+        );
+
+
+    const miniClock =
+        document.getElementById(
+            "miniClock"
+        );
+
+
+    const liveDate =
+        document.getElementById(
+            "liveDate"
+        );
+
+
+    const topDate =
+        document.getElementById(
+            "topDate"
+        );
+
+
+    if (clock) {
+
+        clock.textContent =
+            systemLocalTime;
+
+    }
+
+
+    if (miniClock) {
+
+        miniClock.textContent =
+            systemLocalTime;
+
+    }
+
+
+    if (
+        systemLocalDate
+    ) {
+
+        const parts =
+            systemLocalDate.split(
+                "-"
+            );
+
+
+        if (
+            parts.length === 3
+        ) {
+
+            const date =
+                new Date(
+                    Number(parts[0]),
+                    Number(parts[1]) - 1,
+                    Number(parts[2])
+                );
+
+
+            const formatted =
+                date.toLocaleDateString(
+                    undefined,
+                    {
+                        weekday:
+                            "long",
+
+                        year:
+                            "numeric",
+
+                        month:
+                            "long",
+
+                        day:
+                            "numeric"
+                    }
+                );
+
+
+            if (liveDate) {
+
+                liveDate.textContent =
+                    formatted;
+
+            }
+
+
+            if (topDate) {
+
+                topDate.textContent =
+                    formatted;
+
+            }
+
+        }
+
+    }
+
+}
+
+
+updateSystemTime();
+
+
+setInterval(
+    updateSystemTime,
+    1000
+);
+
+
+/* ============================================================
+   MEDICATIONS
+============================================================ */
+
+async function loadMedications() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/medications"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load medications"
+            );
+
         }
 
 
-        loadMedications();
+        medications =
+            await response.json();
 
-    </script>
+
+        renderMedications();
+
+        updateMedicationSelect();
+
+        updateDashboard();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Could not load medications.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   SAVE MEDICATION
+============================================================ */
+
+async function saveMedication(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const id =
+        document.getElementById(
+            "editMedicationId"
+        ).value;
+
+
+    const name =
+        document.getElementById(
+            "medName"
+        ).value.trim();
+
+
+    const dosage =
+        document.getElementById(
+            "medDosage"
+        ).value.trim();
+
+
+    const frequency =
+        document.getElementById(
+            "medFrequency"
+        ).value;
+
+
+    const start_date =
+        document.getElementById(
+            "startDate"
+        ).value;
+
+
+    const end_date =
+        document.getElementById(
+            "endDate"
+        ).value;
+
+
+    if (!name) {
+
+        showToast(
+            "Medication name is required.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        start_date &&
+        end_date &&
+        end_date < start_date
+    ) {
+
+        showToast(
+            "End date cannot be before start date.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const data = {
+
+        name:
+            name,
+
+        dosage:
+            dosage,
+
+        frequency:
+            frequency,
+
+        start_date:
+            start_date,
+
+        end_date:
+            end_date
+
+    };
+
+
+    try {
+
+        let response;
+
+
+        if (id) {
+
+            response =
+                await fetch(
+                    `/medications/${id}`,
+                    {
+                        method:
+                            "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                data
+                            )
+                    }
+                );
+
+        } else {
+
+            response =
+                await fetch(
+                    "/medications",
+                    {
+                        method:
+                            "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                data
+                            )
+                    }
+                );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            showToast(
+                result.error ||
+                "Could not save medication.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showToast(
+            id
+                ? "Medication updated successfully."
+                : "Medication added successfully."
+        );
+
+
+        resetMedicationForm();
+
+
+        await loadMedications();
+
+
+        await loadAlarms();
+
+
+        showPage(
+            "medications"
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Server error.",
+            "error"
+        );
+
+    }
+
+}
+
+
+document.getElementById(
+    "medicationForm"
+).addEventListener(
+    "submit",
+    saveMedication
+);
+
+
+/* ============================================================
+   RENDER MEDICATIONS
+============================================================ */
+
+function renderMedications() {
+
+    const container =
+        document.getElementById(
+            "medicationsList"
+        );
+
+
+    if (!medications.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    💊
+                </div>
+
+                <div>
+                    No medications yet.
+                </div>
+
+                <br>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="
+                        showPage('addMedication')
+                    ">
+
+                    ＋ Add Medication
+
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        medications
+            .map(
+                med => `
+
+                    <div
+                        class="medication-item">
+
+                        <div class="med-left">
+
+                            <div class="med-icon">
+                                💊
+                            </div>
+
+                            <div>
+
+                                <div class="med-name">
+
+                                    ${escapeHtml(
+                                        med.name
+                                    )}
+
+                                </div>
+
+                                <div class="med-info">
+
+                                    ${
+                                        med.dosage
+                                            ? escapeHtml(
+                                                med.dosage
+                                            )
+                                            : "No dosage"
+                                    }
+
+                                    ${
+                                        med.frequency
+                                            ? " • " +
+                                              escapeHtml(
+                                                  med.frequency
+                                              )
+                                            : ""
+                                    }
+
+                                </div>
+
+                                ${
+                                    med.start_date ||
+                                    med.end_date
+                                        ? `
+
+                                            <div class="med-info">
+
+                                                ${
+                                                    med.start_date ||
+                                                    "?"
+                                                }
+
+                                                →
+
+                                                ${
+                                                    med.end_date ||
+                                                    "No end date"
+                                                }
+
+                                            </div>
+
+                                        `
+                                        : ""
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="med-actions">
+
+                            <button
+                                class="btn btn-secondary btn-small"
+                                onclick="
+                                    editMedication(
+                                        ${med.id}
+                                    )
+                                ">
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                class="btn btn-danger btn-small"
+                                onclick="
+                                    deleteMedication(
+                                        ${med.id}
+                                    )
+                                ">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* ============================================================
+   EDIT MEDICATION
+============================================================ */
+
+function editMedication(
+    id
+) {
+
+    const med =
+        medications.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!med) {
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "editMedicationId"
+    ).value =
+        med.id;
+
+
+    document.getElementById(
+        "medName"
+    ).value =
+        med.name || "";
+
+
+    document.getElementById(
+        "medDosage"
+    ).value =
+        med.dosage || "";
+
+
+    document.getElementById(
+        "medFrequency"
+    ).value =
+        med.frequency || "";
+
+
+    document.getElementById(
+        "startDate"
+    ).value =
+        med.start_date || "";
+
+
+    document.getElementById(
+        "endDate"
+    ).value =
+        med.end_date || "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Edit Medication";
+
+
+    showPage(
+        "addMedication"
+    );
+
+}
+
+
+/* ============================================================
+   DELETE MEDICATION
+============================================================ */
+
+async function deleteMedication(
+    id
+) {
+
+    const med =
+        medications.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!med) {
+
+        return;
+
+    }
+
+
+    if (
+        !confirm(
+            `Delete "${med.name}"?`
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/medications/${id}`,
+                {
+                    method:
+                        "DELETE"
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            showToast(
+                result.error ||
+                "Could not delete medication.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showToast(
+            "Medication deleted."
+        );
+
+
+        await loadMedications();
+
+        await loadAlarms();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Server error.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   RESET FORM
+============================================================ */
+
+function resetMedicationForm() {
+
+    document.getElementById(
+        "medicationForm"
+    ).reset();
+
+
+    document.getElementById(
+        "editMedicationId"
+    ).value =
+        "";
+
+
+    document.getElementById(
+        "formTitle"
+    ).textContent =
+        "Add Medication";
+
+}
+
+
+/* ============================================================
+   ALARMS
+============================================================ */
+
+async function loadAlarms() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/alarms"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Failed to load alarms"
+            );
+
+        }
+
+
+        alarms =
+            await response.json();
+
+
+        renderAlarms();
+
+        updateDashboard();
+
+        updateMedicationSelect();
+
+        updateReports();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Could not load alarms.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   CREATE ALARM
+============================================================ */
+
+async function createAlarm(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const medication_id =
+        document.getElementById(
+            "alarmMedication"
+        ).value;
+
+
+    const alarm_time =
+        document.getElementById(
+            "alarmTime"
+        ).value;
+
+
+    const snooze_minutes =
+        Number(
+            document.getElementById(
+                "snoozeMinutes"
+            ).value
+        );
+
+
+    const selectedDays =
+        Array.from(
+            document.querySelectorAll(
+                ".day-btn.selected"
+            )
+        ).map(
+            button =>
+                button.dataset.day
+        );
+
+
+    if (!medication_id) {
+
+        showToast(
+            "Please select a medication.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!alarm_time) {
+
+        showToast(
+            "Please choose an alarm time.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!selectedDays.length) {
+
+        showToast(
+            "Please select at least one day.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const data = {
+
+        medication_id:
+            Number(
+                medication_id
+            ),
+
+        alarm_time:
+            alarm_time,
+
+        days:
+            selectedDays.join(","),
+
+        enabled:
+            1,
+
+        snooze_minutes:
+            snooze_minutes
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/alarms",
+                {
+                    method:
+                        "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(
+                            data
+                        )
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            showToast(
+                result.error ||
+                "Could not create alarm.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showToast(
+            "Alarm created successfully."
+        );
+
+
+        document.getElementById(
+            "alarmForm"
+        ).reset();
+
+
+        document
+            .querySelectorAll(
+                ".day-btn"
+            )
+            .forEach(
+                button =>
+                    button.classList.remove(
+                        "selected"
+                    )
+            );
+
+
+        await loadAlarms();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Server error.",
+            "error"
+        );
+
+    }
+
+}
+
+
+document.getElementById(
+    "alarmForm"
+).addEventListener(
+    "submit",
+    createAlarm
+);
+
+
+/* ============================================================
+   RENDER ALARMS
+============================================================ */
+
+function renderAlarms() {
+
+    const container =
+        document.getElementById(
+            "alarmsList"
+        );
+
+
+    if (!alarms.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ⏰
+                </div>
+
+                <div>
+                    No alarms yet.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        alarms
+            .map(
+                alarm => {
+
+                    const med =
+                        medicationById(
+                            alarm.medication_id
+                        );
+
+
+                    const name =
+                        med
+                            ? med.name
+                            : "Unknown medication";
+
+
+                    const dosage =
+                        med &&
+                        med.dosage
+                            ? med.dosage
+                            : "";
+
+
+                    const days =
+                        String(
+                            alarm.days || ""
+                        )
+                        .replaceAll(
+                            ",",
+                            " • "
+                        );
+
+
+                    return `
+
+                        <div class="alarm-item">
+
+                            <div class="alarm-left">
+
+                                <div class="alarm-time">
+
+                                    ${
+                                        escapeHtml(
+                                            alarm.alarm_time
+                                        )
+                                    }
+
+                                </div>
+
+
+                                <div>
+
+                                    <div class="alarm-med">
+
+                                        ${
+                                            escapeHtml(
+                                                name
+                                            )
+                                        }
+
+                                    </div>
+
+
+                                    <div class="alarm-days">
+
+                                        ${
+                                            escapeHtml(
+                                                days
+                                            )
+                                        }
+
+                                        ${
+                                            dosage
+                                                ? " • " +
+                                                  escapeHtml(
+                                                      dosage
+                                                  )
+                                                : ""
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="alarm-actions">
+
+                                <label class="toggle">
+
+                                    <input
+                                        type="checkbox"
+                                        ${
+                                            Number(
+                                                alarm.enabled
+                                            ) === 1
+                                                ? "checked"
+                                                : ""
+                                        }
+                                        onchange="
+                                            toggleAlarm(
+                                                ${alarm.id},
+                                                this.checked
+                                            )
+                                        "
+                                    >
+
+                                    <span
+                                        class="slider">
+                                    </span>
+
+                                </label>
+
+
+                                <button
+                                    class="btn btn-danger btn-small"
+                                    onclick="
+                                        deleteAlarm(
+                                            ${alarm.id}
+                                        )
+                                    ">
+
+                                    Delete
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* ============================================================
+   TOGGLE ALARM
+============================================================ */
+
+async function toggleAlarm(
+    id,
+    enabled
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                `/alarms/${id}`,
+                {
+                    method:
+                        "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            enabled:
+                                enabled
+                                    ? 1
+                                    : 0
+                        })
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            showToast(
+                result.error ||
+                "Could not update alarm.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        await loadAlarms();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Server error.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   DELETE ALARM
+============================================================ */
+
+async function deleteAlarm(
+    id
+) {
+
+    if (
+        !confirm(
+            "Delete this alarm?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/alarms/${id}`,
+                {
+                    method:
+                        "DELETE"
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            showToast(
+                result.error ||
+                "Could not delete alarm.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        showToast(
+            "Alarm deleted."
+        );
+
+
+        await loadAlarms();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Server error.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   MEDICATION SELECT
+============================================================ */
+
+function updateMedicationSelect() {
+
+    const select =
+        document.getElementById(
+            "alarmMedication"
+        );
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    const current =
+        select.value;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Select medication
+        </option>
+
+    `;
+
+
+    medications.forEach(
+        med => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                med.id;
+
+
+            option.textContent =
+                med.name +
+                (
+                    med.dosage
+                        ? ` — ${med.dosage}`
+                        : ""
+                );
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    if (
+        medications.some(
+            med =>
+                String(med.id) ===
+                String(current)
+        )
+    ) {
+
+        select.value =
+            current;
+
+    }
+
+}
+
+
+/* ============================================================
+   DASHBOARD
+============================================================ */
+
+function updateDashboard() {
+
+    document.getElementById(
+        "statMedications"
+    ).textContent =
+        medications.length;
+
+
+    const active =
+        alarms.filter(
+            alarm =>
+                Number(
+                    alarm.enabled
+                ) === 1
+        );
+
+
+    document.getElementById(
+        "statAlarms"
+    ).textContent =
+        active.length;
+
+
+    const today =
+        active.filter(
+            alarm => {
+
+                const days =
+                    String(
+                        alarm.days || ""
+                    )
+                    .split(",")
+                    .map(
+                        day =>
+                            day.trim()
+                    );
+
+
+                return days.includes(
+                    systemLocalDay
+                );
+
+            }
+        );
+
+
+    document.getElementById(
+        "statToday"
+    ).textContent =
+        today.length;
+
+
+    renderDashboardMedications();
+
+    renderDashboardAlarms();
+
+}
+
+
+/* ============================================================
+   DASHBOARD MEDICATIONS
+============================================================ */
+
+function renderDashboardMedications() {
+
+    const container =
+        document.getElementById(
+            "dashboardMedications"
+        );
+
+
+    if (!medications.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                No medications yet.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        medications
+            .slice(0, 4)
+            .map(
+                med => `
+
+                    <div
+                        class="medication-item">
+
+                        <div class="med-left">
+
+                            <div class="med-icon">
+                                💊
+                            </div>
+
+                            <div>
+
+                                <div class="med-name">
+
+                                    ${escapeHtml(
+                                        med.name
+                                    )}
+
+                                </div>
+
+                                <div class="med-info">
+
+                                    ${
+                                        escapeHtml(
+                                            med.dosage ||
+                                            "No dosage"
+                                        )
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* ============================================================
+   DASHBOARD ALARMS
+============================================================ */
+
+function renderDashboardAlarms() {
+
+    const container =
+        document.getElementById(
+            "dashboardAlarms"
+        );
+
+
+    const active =
+        alarms.filter(
+            alarm =>
+                Number(
+                    alarm.enabled
+                ) === 1
+        );
+
+
+    if (!active.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+                No active alarms.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        active
+            .slice(0, 4)
+            .map(
+                alarm => {
+
+                    const med =
+                        medicationById(
+                            alarm.medication_id
+                        );
+
+
+                    return `
+
+                        <div
+                            class="alarm-item">
+
+                            <div class="alarm-left">
+
+                                <div class="alarm-time">
+
+                                    ${
+                                        escapeHtml(
+                                            alarm.alarm_time
+                                        )
+                                    }
+
+                                </div>
+
+
+                                <div>
+
+                                    <div class="alarm-med">
+
+                                        ${
+                                            med
+                                                ? escapeHtml(
+                                                    med.name
+                                                )
+                                                : "Medication"
+                                        }
+
+                                    </div>
+
+
+                                    <div class="alarm-days">
+
+                                        ${
+                                            escapeHtml(
+                                                String(
+                                                    alarm.days ||
+                                                    ""
+                                                ).replaceAll(
+                                                    ",",
+                                                    " • "
+                                                )
+                                            )
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* ============================================================
+   CHECK ALARMS
+============================================================ */
+
+function checkAlarms() {
+
+    if (
+        !Array.isArray(
+            alarms
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const currentTime =
+        systemLocalTime;
+
+
+    const currentDay =
+        systemLocalDay;
+
+
+    if (
+        !currentTime ||
+        !currentDay ||
+        !systemLocalDate
+    ) {
+
+        return;
+
+    }
+
+
+    alarms.forEach(
+        alarm => {
+
+            if (
+                Number(
+                    alarm.enabled
+                ) !== 1
+            ) {
+
+                return;
+
+            }
+
+
+            const days =
+                String(
+                    alarm.days || ""
+                )
+                .split(",")
+                .map(
+                    day =>
+                        day.trim()
+                );
+
+
+            if (
+                !days.includes(
+                    currentDay
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                String(
+                    alarm.alarm_time
+                ).trim() !==
+                currentTime
+            ) {
+
+                return;
+
+            }
+
+
+            const key =
+                `${alarm.id}-${systemLocalDate}-${currentTime}`;
+
+
+            if (
+                triggeredAlarms.has(
+                    key
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            triggeredAlarms.add(
+                key
+            );
+
+
+            const med =
+                medicationById(
+                    alarm.medication_id
+                );
+
+
+            if (med) {
+
+                showAlarmPopup(
+                    alarm,
+                    med
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+setInterval(
+    checkAlarms,
+    1000
+);
+
+
+/* ============================================================
+   ALARM POPUP
+============================================================ */
+
+function showAlarmPopup(
+    alarm,
+    medication
+) {
+
+    currentAlarm =
+        alarm;
+
+
+    document.getElementById(
+        "popupTime"
+    ).textContent =
+        alarm.alarm_time;
+
+
+    document.getElementById(
+        "popupMedication"
+    ).textContent =
+        medication.name;
+
+
+    document.getElementById(
+        "popupDosage"
+    ).textContent =
+        medication.dosage ||
+        "Medication reminder";
+
+
+    document.getElementById(
+        "alarmModal"
+    ).classList.add(
+        "show"
+    );
+
+
+    playSelectedSound();
+
+    showBrowserNotification(
+        medication.name,
+        medication.dosage
+    );
+
+}
+
+
+/* ============================================================
+   STOP ALARM
+============================================================ */
+
+function stopAlarmAndClose() {
+
+    stopAlarmSound();
+
+
+    document.getElementById(
+        "alarmModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    currentAlarm =
+        null;
+
+}
+
+
+/* ============================================================
+   SNOOZE
+============================================================ */
+
+function snoozeCurrentAlarm() {
+
+    if (!currentAlarm) {
+
+        return;
+
+    }
+
+
+    const minutes =
+        Number(
+            currentAlarm.snooze_minutes
+        ) || 10;
+
+
+    const originalAlarm =
+        currentAlarm;
+
+
+    const medId =
+        originalAlarm.medication_id;
+
+
+    stopAlarmSound();
+
+
+    document.getElementById(
+        "alarmModal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    currentAlarm =
+        null;
+
+
+    showToast(
+        `Alarm snoozed for ${minutes} minutes.`
+    );
+
+
+    const target =
+        Date.now() +
+        minutes * 60 * 1000;
+
+
+    const checkSnooze =
+        setInterval(
+            () => {
+
+                if (
+                    Date.now() >=
+                    target
+                ) {
+
+                    clearInterval(
+                        checkSnooze
+                    );
+
+
+                    const med =
+                        medicationById(
+                            medId
+                        );
+
+
+                    if (med) {
+
+                        showAlarmPopup(
+                            {
+                                ...originalAlarm,
+
+                                alarm_time:
+                                    systemLocalTime,
+
+                                days:
+                                    systemLocalDay
+                            },
+                            med
+                        );
+
+                    }
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+/* ============================================================
+   SOUND
+============================================================ */
+
+function createBeep(
+    frequency,
+    duration,
+    volume
+) {
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+
+        if (!AudioContext) {
+
+            return null;
+
+        }
+
+
+        const context =
+            new AudioContext();
+
+
+        const oscillator =
+            context.createOscillator();
+
+
+        const gain =
+            context.createGain();
+
+
+        oscillator.type =
+            "sine";
+
+
+        oscillator.frequency.value =
+            frequency;
+
+
+        gain.gain.value =
+            volume;
+
+
+        oscillator.connect(
+            gain
+        );
+
+
+        gain.connect(
+            context.destination
+        );
+
+
+        oscillator.start();
+
+
+        oscillator.stop(
+            context.currentTime +
+            duration
+        );
+
+
+        return context;
+
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+/* ============================================================
+   SELECTED SOUND
+============================================================ */
+
+function playSelectedSound() {
+
+    stopAlarmSound();
+
+
+    const selected =
+        document.querySelector(
+            'input[name="sound"]:checked'
+        );
+
+
+    const type =
+        selected
+            ? selected.value
+            : "bell";
+
+
+    if (
+        type === "custom" &&
+        customMusicUrl
+    ) {
+
+        currentSound =
+            new Audio(
+                customMusicUrl
+            );
+
+
+        currentSound.loop =
+            true;
+
+
+        currentSound.volume =
+            0.75;
+
+
+        currentSound.play()
+            .catch(
+                error =>
+                    console.log(
+                        error
+                    )
+            );
+
+
+        return;
+
+    }
+
+
+    if (type === "bell") {
+
+        playBell();
+
+    }
+
+
+    else if (
+        type === "classic"
+    ) {
+
+        playClassic();
+
+    }
+
+
+    else if (
+        type === "beep"
+    ) {
+
+        playDigital();
+
+    }
+
+
+    else if (
+        type === "soft"
+    ) {
+
+        playSoft();
+
+    }
+
+}
+
+
+/* ============================================================
+   BELL
+============================================================ */
+
+function playBell() {
+
+    stopAlarmSound();
+
+
+    playBellOnce();
+
+
+    soundInterval =
+        setInterval(
+            playBellOnce,
+            2200
+        );
+
+}
+
+
+function playBellOnce() {
+
+    createBeep(
+        780,
+        0.25,
+        0.16
+    );
+
+
+    setTimeout(
+        () => {
+
+            createBeep(
+                1050,
+                0.35,
+                0.16
+            );
+
+        },
+        300
+    );
+
+}
+
+
+/* ============================================================
+   CLASSIC
+============================================================ */
+
+function playClassic() {
+
+    stopAlarmSound();
+
+
+    playClassicOnce();
+
+
+    soundInterval =
+        setInterval(
+            playClassicOnce,
+            1400
+        );
+
+}
+
+
+function playClassicOnce() {
+
+    createBeep(
+        900,
+        0.32,
+        0.18
+    );
+
+
+    setTimeout(
+        () => {
+
+            createBeep(
+                900,
+                0.32,
+                0.18
+            );
+
+        },
+        450
+    );
+
+}
+
+
+/* ============================================================
+   DIGITAL
+============================================================ */
+
+function playDigital() {
+
+    stopAlarmSound();
+
+
+    playDigitalOnce();
+
+
+    soundInterval =
+        setInterval(
+            playDigitalOnce,
+            900
+        );
+
+}
+
+
+function playDigitalOnce() {
+
+    createBeep(
+        1200,
+        0.22,
+        0.18
+    );
+
+}
+
+
+/* ============================================================
+   SOFT
+============================================================ */
+
+function playSoft() {
+
+    stopAlarmSound();
+
+
+    playSoftOnce();
+
+
+    soundInterval =
+        setInterval(
+            playSoftOnce,
+            1800
+        );
+
+}
+
+
+function playSoftOnce() {
+
+    createBeep(
+        550,
+        0.5,
+        0.08
+    );
+
+}
+
+
+/* ============================================================
+   STOP SOUND
+============================================================ */
+
+function stopAlarmSound() {
+
+    if (
+        soundInterval
+    ) {
+
+        clearInterval(
+            soundInterval
+        );
+
+
+        soundInterval =
+            null;
+
+    }
+
+
+    if (
+        currentSound
+    ) {
+
+        try {
+
+            currentSound.pause();
+
+            currentSound.currentTime =
+                0;
+
+        } catch (error) {}
+
+        currentSound =
+            null;
+
+    }
+
+}
+
+
+/* ============================================================
+   TEST SOUND
+============================================================ */
+
+function testSelectedSound() {
+
+    playSelectedSound();
+
+
+    showToast(
+        "Testing alarm sound..."
+    );
+
+}
+
+
+/* ============================================================
+   CUSTOM SOUND
+============================================================ */
+
+document.getElementById(
+    "customSound"
+).addEventListener(
+    "change",
+    event => {
+
+        const file =
+            event.target.files[0];
+
+
+        if (!file) {
+
+            return;
+
+        }
+
+
+        if (
+            customMusicUrl
+        ) {
+
+            URL.revokeObjectURL(
+                customMusicUrl
+            );
+
+        }
+
+
+        customMusicUrl =
+            URL.createObjectURL(
+                file
+            );
+
+
+        const radio =
+            document.querySelector(
+                'input[name="sound"][value="custom"]'
+            );
+
+
+        if (radio) {
+
+            radio.checked =
+                true;
+
+        }
+
+
+        showToast(
+            "Your custom sound is ready."
+        );
+
+    }
+);
+
+
+/* ============================================================
+   NOTIFICATIONS
+============================================================ */
+
+function showBrowserNotification(
+    name,
+    dosage
+) {
+
+    if (
+        !("Notification" in window)
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        Notification.permission ===
+        "granted"
+    ) {
+
+        new Notification(
+            "MediPlan AI",
+            {
+                body:
+                    `${name} ${
+                        dosage || ""
+                    }`
+            }
+        );
+
+    }
+
+}
+
+
+async function requestNotificationPermission() {
+
+    if (
+        "Notification" in window &&
+        Notification.permission ===
+        "default"
+    ) {
+
+        try {
+
+            await Notification.requestPermission();
+
+        } catch (error) {
+
+            console.log(
+                error
+            );
+
+        }
+
+    }
+
+}
+
+
+/* ============================================================
+   DAYS
+============================================================ */
+
+document
+    .querySelectorAll(
+        ".day-btn"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    button.classList.toggle(
+                        "selected"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* ============================================================
+   CALENDAR
+============================================================ */
+
+function previousMonth() {
+
+    calendarDate.setMonth(
+        calendarDate.getMonth() - 1
+    );
+
+
+    renderCalendar();
+
+}
+
+
+function nextMonth() {
+
+    calendarDate.setMonth(
+        calendarDate.getMonth() + 1
+    );
+
+
+    renderCalendar();
+
+}
+
+
+function renderCalendar() {
+
+    const grid =
+        document.getElementById(
+            "calendarGrid"
+        );
+
+
+    const year =
+        calendarDate.getFullYear();
+
+
+    const month =
+        calendarDate.getMonth();
+
+
+    const title =
+        calendarDate.toLocaleDateString(
+            undefined,
+            {
+                month:
+                    "long",
+
+                year:
+                    "numeric"
+            }
+        );
+
+
+    document.getElementById(
+        "calendarTitle"
+    ).textContent =
+        title;
+
+
+    const headers = [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+    ];
+
+
+    let html =
+        headers
+            .map(
+                day => `
+                    <div class="calendar-head">
+                        ${day}
+                    </div>
+                `
+            )
+            .join("");
+
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        );
+
+
+    let startDay =
+        firstDay.getDay();
+
+
+    startDay =
+        startDay === 0
+            ? 6
+            : startDay - 1;
+
+
+    const daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    for (
+        let i = 0;
+        i < startDay;
+        i++
+    ) {
+
+        html +=
+            "<div></div>";
+
+    }
+
+
+    for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+    ) {
+
+        const dateString =
+            `${year}-${String(
+                month + 1
+            ).padStart(2, "0")}-${String(
+                day
+            ).padStart(2, "0")}`;
+
+
+        const today =
+            systemLocalDate ===
+            dateString;
+
+
+        const date =
+            new Date(
+                year,
+                month,
+                day
+            );
+
+
+        const dayName =
+            [
+                "Sun",
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat"
+            ][
+                date.getDay()
+            ];
+
+
+        const dayAlarms =
+            alarms.filter(
+                alarm => {
+
+                    if (
+                        Number(
+                            alarm.enabled
+                        ) !== 1
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    const days =
+                        String(
+                            alarm.days || ""
+                        )
+                        .split(",")
+                        .map(
+                            d =>
+                                d.trim()
+                        );
+
+
+                    return days.includes(
+                        dayName
+                    );
+
+                }
+            );
+
+
+        html += `
+
+            <div
+                class="calendar-day
+                ${today ? "today" : ""}">
+
+                <div
+                    class="calendar-number">
+
+                    ${day}
+
+                </div>
+
+
+                ${
+                    dayAlarms
+                        .slice(0, 2)
+                        .map(
+                            alarm => {
+
+                                const med =
+                                    medicationById(
+                                        alarm.medication_id
+                                    );
+
+
+                                return `
+
+                                    <div
+                                        class="calendar-event">
+
+                                        ⏰
+                                        ${
+                                            escapeHtml(
+                                                alarm.alarm_time
+                                            )
+                                        }
+
+                                        ${
+                                            med
+                                                ? " • " +
+                                                  escapeHtml(
+                                                      med.name
+                                                  )
+                                                : ""
+                                        }
+
+                                    </div>
+
+                                `;
+
+                            }
+                        )
+                        .join("")
+                }
+
+            </div>
+
+        `;
+
+    }
+
+
+    grid.innerHTML =
+        html;
+
+}
+
+
+/* ============================================================
+   REPORTS
+============================================================ */
+
+function updateReports() {
+
+    const total =
+        medications.length;
+
+
+    const active =
+        alarms.filter(
+            alarm =>
+                Number(
+                    alarm.enabled
+                ) === 1
+        ).length;
+
+
+    document.getElementById(
+        "reportTotal"
+    ).textContent =
+        total;
+
+
+    document.getElementById(
+        "reportAlarms"
+    ).textContent =
+        active;
+
+
+    const percentage =
+        total > 0
+            ? Math.min(
+                100,
+                Math.round(
+                    active /
+                    total *
+                    100
+                )
+            )
+            : 0;
+
+
+    document.getElementById(
+        "reportAlarmPercent"
+    ).textContent =
+        `${percentage}%`;
+
+
+    document.getElementById(
+        "reportAlarmBar"
+    ).style.width =
+        `${percentage}%`;
+
+}
+
+
+/* ============================================================
+   AI
+============================================================ */
+
+function runAI() {
+
+    const response =
+        document.getElementById(
+            "aiResponse"
+        );
+
+
+    const active =
+        alarms.filter(
+            alarm =>
+                Number(
+                    alarm.enabled
+                ) === 1
+        );
+
+
+    response.style.display =
+        "block";
+
+
+    response.innerHTML = `
+
+        <strong>
+            AI Plan Overview
+        </strong>
+
+        <br><br>
+
+        You currently have
+
+        <strong>
+            ${medications.length}
+        </strong>
+
+        medication(s) registered.
+
+        <br><br>
+
+        You have
+
+        <strong>
+            ${active.length}
+        </strong>
+
+        active alarm(s).
+
+        <br><br>
+
+        ${
+            active.length
+                ? "Your reminder system is configured and active."
+                : "You can create alarms to organize your medication schedule."
+        }
+
+        <br><br>
+
+        <span
+            style="
+                color:var(--muted);
+                font-size:12px;
+            ">
+
+            MediPlan AI provides general
+            organizational support and does not
+            replace advice from a healthcare
+            professional.
+
+        </span>
+
+    `;
+
+}
+
+
+/* ============================================================
+   THEME
+============================================================ */
+
+document.getElementById(
+    "themeBtn"
+).addEventListener(
+    "click",
+    () => {
+
+        document.body.classList.toggle(
+            "light"
+        );
+
+
+        const isLight =
+            document.body.classList.contains(
+                "light"
+            );
+
+
+        document.getElementById(
+            "themeBtn"
+        ).textContent =
+            isLight
+                ? "☀️"
+                : "🌙";
+
+
+        localStorage.setItem(
+            "mediplan-theme",
+            isLight
+                ? "light"
+                : "dark"
+        );
+
+    }
+);
+
+
+const savedTheme =
+    localStorage.getItem(
+        "mediplan-theme"
+    );
+
+
+if (
+    savedTheme === "light"
+) {
+
+    document.body.classList.add(
+        "light"
+    );
+
+
+    document.getElementById(
+        "themeBtn"
+    ).textContent =
+        "☀️";
+
+}
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function medicationById(
+    id
+) {
+
+    return medications.find(
+        med =>
+            String(
+                med.id
+            ) ===
+            String(
+                id
+            )
+    );
+
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* ============================================================
+   MODAL OUTSIDE CLICK
+============================================================ */
+
+document.getElementById(
+    "alarmModal"
+).addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            event.currentTarget
+        ) {
+
+            stopAlarmAndClose();
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   INITIALIZE
+============================================================ */
+
+async function initializeApp() {
+
+    await loadMedications();
+
+    await loadAlarms();
+
+    await updateSystemTime();
+
+    renderCalendar();
+
+    requestNotificationPermission();
+
+}
+
+
+initializeApp();
+
+</script>
 
 </body>
 </html> 

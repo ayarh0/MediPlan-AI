@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1530,54 +1530,229 @@
            REPORTS
         ===================================================== */
 
-        .progress-box {
-
+        .report-charts {
+            display: grid;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 18px;
             margin-bottom: 20px;
         }
 
+        .chart-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: var(--shadow);
+        }
 
-        .progress-label {
+        .chart-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
 
+        .chart-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        .donut-layout {
+            min-height: 230px;
             display: flex;
-
             align-items: center;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            margin-bottom: 7px;
+            justify-content: center;
+            gap: 28px;
         }
 
-
-        .progress {
-
-            height: 9px;
-
-            background:
-                var(--surface-3);
-
-            border-radius: 20px;
-
-            overflow: hidden;
+        .donut {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--green) 0deg,
+                var(--green) 0deg,
+                var(--surface-3) 0deg,
+                var(--surface-3) 360deg
+            );
+            display: grid;
+            place-items: center;
+            position: relative;
+            flex-shrink: 0;
         }
 
+        .donut::after {
+            content: "";
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            background: var(--surface);
+            position: absolute;
+        }
 
-        .progress-bar {
+        .donut-center {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
 
+        .donut-center strong {
+            display: block;
+            font-size: 27px;
+            font-weight: 850;
+        }
+
+        .donut-center span {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-width: 120px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .legend-dot.enabled {
+            background: var(--green);
+        }
+
+        .legend-dot.disabled {
+            background: var(--red);
+        }
+
+        .legend-value {
+            margin-left: auto;
+            font-weight: 800;
+        }
+
+        .bar-chart {
+            height: 230px;
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            padding: 10px 4px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bar-column {
+            flex: 1;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+            min-width: 0;
+        }
 
-            border-radius: 20px;
+        .bar-value {
+            font-size: 9px;
+            color: var(--muted);
+            min-height: 12px;
+        }
 
-            background:
-                var(--primary);
+        .bar {
+            width: min(28px, 100%);
+            min-height: 3px;
+            border-radius: 7px 7px 2px 2px;
+            background: linear-gradient(
+                180deg,
+                var(--primary-hover),
+                var(--primary)
+            );
+            transition: transform .2s ease, filter .2s ease;
+        }
 
-            transition:
-                width .4s ease;
+        .bar:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.12);
+        }
+
+        .bar-label {
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 3px;
+        }
+
+        .report-insight {
+            padding: 16px 18px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--primary-soft);
+            color: var(--text-soft);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .report-table-wrap {
+            overflow-x: auto;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        .report-table th,
+        .report-table td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+        }
+
+        .report-table th {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .report-table td {
+            color: var(--text-soft);
+        }
+
+        .report-table td strong {
+            color: var(--text);
+        }
+
+        @media (max-width: 900px) {
+            .report-charts {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .donut-layout {
+                flex-direction: column;
+                padding: 8px 0 20px;
+            }
+
+            .bar-chart {
+                gap: 3px;
+            }
+
+            .bar-label {
+                font-size: 8px;
+            }
         }
 
 
@@ -2078,6 +2253,183 @@
             }
         }
 
+
+        /* =====================================================
+           MEDIPLAN BRAND + TYPOGRAPHY UPGRADE
+        ===================================================== */
+
+        .brand-logo {
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 0;
+            transition:
+                transform .22s ease,
+                box-shadow .22s ease;
+        }
+
+        .mediplan-logo-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            transition: transform .22s ease;
+        }
+
+        .brand-logo:hover {
+            transform: translateY(-2px) scale(1.06);
+            box-shadow:
+                0 12px 28px rgba(56, 189, 248, 0.28);
+        }
+
+        .brand-logo:hover .mediplan-logo-svg {
+            transform: rotate(-2deg) scale(1.04);
+        }
+
+        .brand-name {
+            font-size: 22px;
+            transition:
+                transform .2s ease,
+                letter-spacing .2s ease;
+            transform-origin: left center;
+        }
+
+        .brand-name:hover {
+            transform: scale(1.07);
+            letter-spacing: -0.2px;
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        .nav-btn {
+            font-size: 15px;
+        }
+
+        .nav-btn span:not(.nav-icon) {
+            display: inline-block;
+            transition:
+                transform .18s ease,
+                letter-spacing .18s ease;
+            transform-origin: left center;
+        }
+
+        .nav-btn:hover span:not(.nav-icon) {
+            transform: scale(1.06);
+            letter-spacing: .05px;
+        }
+
+        .menu-title {
+            font-size: 12px;
+        }
+
+        .page-heading h1 {
+            font-size: 24px;
+        }
+
+        .page-heading p {
+            font-size: 14px;
+        }
+
+        .btn {
+            font-size: 14px;
+        }
+
+        .btn,
+        .theme-btn,
+        .icon-btn,
+        .close-btn,
+        .alarm-action,
+        .calendar-day,
+        .sound-option,
+        .tab-btn {
+            transition:
+                transform .18s ease,
+                background .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .btn:hover,
+        .theme-btn:hover,
+        .icon-btn:hover,
+        .close-btn:hover,
+        .alarm-action:hover,
+        .sound-option:hover,
+        .tab-btn:hover {
+            transform: scale(1.04);
+        }
+
+        /* Words and titles gently enlarge when the pointer is over them. */
+        .page-heading h1,
+        .page-heading p,
+        .section-heading h2,
+        .section-heading h3,
+        .card h2,
+        .card h3,
+        .card h4,
+        .chart-title,
+        .chart-subtitle,
+        .report-insight,
+        .legend-item,
+        .table-title,
+        label {
+            transition:
+                transform .18s ease,
+                color .18s ease;
+        }
+
+        .page-heading h1:hover,
+        .section-heading h2:hover,
+        .section-heading h3:hover,
+        .card h2:hover,
+        .card h3:hover,
+        .card h4:hover,
+        .chart-title:hover,
+        .table-title:hover,
+        label:hover {
+            transform: scale(1.035);
+            transform-origin: left center;
+        }
+
+        .page-heading p:hover,
+        .chart-subtitle:hover,
+        .report-insight:hover,
+        .legend-item:hover {
+            transform: scale(1.025);
+            transform-origin: left center;
+        }
+
+        /* Better readability for form fields and table text. */
+        input,
+        select,
+        textarea {
+            font-size: 15px;
+        }
+
+        .report-table {
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                font-size: 15px;
+            }
+
+            .brand-name {
+                font-size: 20px;
+            }
+
+            .page-heading h1 {
+                font-size: 21px;
+            }
+
+            .nav-btn {
+                font-size: 14px;
+            }
+        }
+
     </style>
 </head>
 
@@ -2093,8 +2445,30 @@
 
     <div class="brand">
 
-        <div class="brand-logo">
-            💊
+        <div class="brand-logo" aria-label="MediPlan AI logo" title="MediPlan AI">
+            <svg class="mediplan-logo-svg" viewBox="0 0 64 64" role="img" aria-hidden="true">
+                <defs>
+                    <linearGradient id="mpLogoBlue" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#4cc9ff"/>
+                        <stop offset="100%" stop-color="#5967ff"/>
+                    </linearGradient>
+                    <linearGradient id="mpLogoPill" x1="0" y1="1" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#ff9f43"/>
+                        <stop offset="52%" stop-color="#ff5b8a"/>
+                        <stop offset="100%" stop-color="#d94cff"/>
+                    </linearGradient>
+                </defs>
+
+                <rect x="1" y="1" width="62" height="62" rx="18" fill="url(#mpLogoBlue)"/>
+
+                <g transform="rotate(-42 32 32)">
+                    <rect x="20" y="14" width="24" height="36" rx="12" fill="url(#mpLogoPill)"/>
+                    <path d="M20 32h24" stroke="rgba(255,255,255,.72)" stroke-width="2"/>
+                    <path d="M28 18h8" stroke="rgba(255,255,255,.28)" stroke-width="3" stroke-linecap="round"/>
+                </g>
+
+                <circle cx="31" cy="31" r="3.5" fill="#ffffff" opacity=".92"/>
+            </svg>
         </div>
 
         <div class="brand-name">
@@ -3212,16 +3586,15 @@
             class="page"
             id="reports">
 
-
             <div class="welcome">
 
                 <h2>
-                    Reports
+                    Reports & Analytics
                 </h2>
 
                 <p>
-                    Overview of your medication
-                    management.
+                    A clear overview of your medications,
+                    alarms, and reminder activity.
                 </p>
 
             </div>
@@ -3229,71 +3602,164 @@
 
             <div class="stats">
 
+                <div class="stat-card">
+                    <div class="stat-row">
+                        <div>
+                            <div class="stat-label">
+                                Total Medications
+                            </div>
+                            <div
+                                class="stat-number"
+                                id="reportTotal">
+                                0
+                            </div>
+                        </div>
+                        <div class="stat-icon">💊</div>
+                    </div>
+                </div>
+
 
                 <div class="stat-card">
+                    <div class="stat-row">
+                        <div>
+                            <div class="stat-label">
+                                Total Alarms
+                            </div>
+                            <div
+                                class="stat-number"
+                                id="reportAlarms">
+                                0
+                            </div>
+                        </div>
+                        <div class="stat-icon">⏰</div>
+                    </div>
+                </div>
 
-                    <div class="stat-label">
-                        Total Medications
+
+                <div class="stat-card">
+                    <div class="stat-row">
+                        <div>
+                            <div class="stat-label">
+                                Active Alarms
+                            </div>
+                            <div
+                                class="stat-number"
+                                id="reportEnabled">
+                                0
+                            </div>
+                        </div>
+                        <div class="stat-icon">✓</div>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-row">
+                        <div>
+                            <div class="stat-label">
+                                Alarm Coverage
+                            </div>
+                            <div
+                                class="stat-number"
+                                id="reportCoverage">
+                                0%
+                            </div>
+                        </div>
+                        <div class="stat-icon">📈</div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="report-charts">
+
+                <div class="chart-card">
+
+                    <div class="chart-title">
+                        Alarm Status
+                    </div>
+
+                    <div class="chart-subtitle">
+                        Enabled and disabled reminders.
+                    </div>
+
+                    <div class="donut-layout">
+
+                        <div
+                            class="donut"
+                            id="alarmDonut">
+
+                            <div class="donut-center">
+
+                                <strong id="donutTotal">
+                                    0
+                                </strong>
+
+                                <span>
+                                    Total
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="legend">
+
+                            <div class="legend-item">
+                                <span class="legend-dot enabled"></span>
+                                <span>Enabled</span>
+                                <span
+                                    class="legend-value"
+                                    id="enabledLegend">
+                                    0
+                                </span>
+                            </div>
+
+                            <div class="legend-item">
+                                <span class="legend-dot disabled"></span>
+                                <span>Disabled</span>
+                                <span
+                                    class="legend-value"
+                                    id="disabledLegend">
+                                    0
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <div class="chart-title">
+                        Alarms by Time
+                    </div>
+
+                    <div class="chart-subtitle">
+                        Distribution of reminders during the day.
                     </div>
 
                     <div
-                        class="stat-number"
-                        id="reportTotal">
-
-                        0
-
+                        class="bar-chart"
+                        id="alarmTimeChart">
                     </div>
 
                 </div>
 
-
-                <div class="stat-card">
-
-                    <div class="stat-label">
-                        Active Alarms
-                    </div>
-
-                    <div
-                        class="stat-number"
-                        id="reportAlarms">
-
-                        0
-
-                    </div>
-
-                </div>
+            </div>
 
 
-                <div class="stat-card">
+            <div
+                class="report-insight"
+                id="reportInsight">
 
-                    <div class="stat-label">
-                        Adherence
-                    </div>
-
-                    <div class="stat-number">
-                        100%
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <div class="stat-label">
-                        System Status
-                    </div>
-
-                    <div
-                        class="stat-number"
-                        style="
-                            color:var(--green);
-                        ">
-
-                        OK
-
-                    </div>
-
-                </div>
+                Add medications and alarms to see
+                personalized report insights.
 
             </div>
 
@@ -3302,67 +3768,37 @@
 
                 <div class="card-header">
 
-                    <h3>
-                        Medication Overview
-                    </h3>
+                    <div>
+                        <h3>
+                            Medication Report
+                        </h3>
 
-                </div>
-
-
-                <div class="progress-box">
-
-                    <div class="progress-label">
-
-                        <span>
-                            Medication Management
-                        </span>
-
-                        <span>
-                            100%
-                        </span>
-
-                    </div>
-
-
-                    <div class="progress">
-
-                        <div
-                            class="progress-bar"
-                            style="width:100%;">
-                        </div>
-
+                        <p>
+                            Current medication records.
+                        </p>
                     </div>
 
                 </div>
 
 
-                <div class="progress-box">
+                <div class="report-table-wrap">
 
-                    <div class="progress-label">
+                    <table class="report-table">
 
-                        <span>
-                            Alarm Configuration
-                        </span>
+                        <thead>
+                            <tr>
+                                <th>Medication</th>
+                                <th>Dosage</th>
+                                <th>Frequency</th>
+                                <th>Start</th>
+                                <th>End</th>
+                            </tr>
+                        </thead>
 
-                        <span
-                            id="reportAlarmPercent">
+                        <tbody id="reportTable">
+                        </tbody>
 
-                            0%
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="progress">
-
-                        <div
-                            class="progress-bar"
-                            id="reportAlarmBar"
-                            style="width:0%;">
-                        </div>
-
-                    </div>
+                    </table>
 
                 </div>
 
@@ -6503,11 +6939,13 @@ function renderCalendar() {
 
 function updateReports() {
 
-    const total =
+    const totalMedications =
         medications.length;
 
+    const totalAlarms =
+        alarms.length;
 
-    const active =
+    const enabledAlarms =
         alarms.filter(
             alarm =>
                 Number(
@@ -6515,42 +6953,449 @@ function updateReports() {
                 ) === 1
         ).length;
 
-
-    document.getElementById(
-        "reportTotal"
-    ).textContent =
-        total;
+    const disabledAlarms =
+        totalAlarms -
+        enabledAlarms;
 
 
-    document.getElementById(
-        "reportAlarms"
-    ).textContent =
-        active;
+    /*
+       Alarm coverage:
+       number of active alarms compared
+       with the number of medications.
+    */
 
-
-    const percentage =
-        total > 0
+    const coverage =
+        totalMedications > 0
             ? Math.min(
                 100,
                 Math.round(
-                    active /
-                    total *
+                    enabledAlarms /
+                    totalMedications *
                     100
                 )
             )
             : 0;
 
 
-    document.getElementById(
-        "reportAlarmPercent"
-    ).textContent =
-        `${percentage}%`;
+    /* =========================
+       SUMMARY
+    ========================= */
+
+    const reportTotal =
+        document.getElementById(
+            "reportTotal"
+        );
+
+    const reportAlarms =
+        document.getElementById(
+            "reportAlarms"
+        );
+
+    const reportEnabled =
+        document.getElementById(
+            "reportEnabled"
+        );
+
+    const reportCoverage =
+        document.getElementById(
+            "reportCoverage"
+        );
 
 
-    document.getElementById(
-        "reportAlarmBar"
-    ).style.width =
-        `${percentage}%`;
+    if (reportTotal) {
+        reportTotal.textContent =
+            totalMedications;
+    }
+
+    if (reportAlarms) {
+        reportAlarms.textContent =
+            totalAlarms;
+    }
+
+    if (reportEnabled) {
+        reportEnabled.textContent =
+            enabledAlarms;
+    }
+
+    if (reportCoverage) {
+        reportCoverage.textContent =
+            `${coverage}%`;
+    }
+
+
+    /* =========================
+       DONUT
+    ========================= */
+
+    const donut =
+        document.getElementById(
+            "alarmDonut"
+        );
+
+    const donutTotal =
+        document.getElementById(
+            "donutTotal"
+        );
+
+    const enabledLegend =
+        document.getElementById(
+            "enabledLegend"
+        );
+
+    const disabledLegend =
+        document.getElementById(
+            "disabledLegend"
+        );
+
+
+    if (donutTotal) {
+        donutTotal.textContent =
+            totalAlarms;
+    }
+
+    if (enabledLegend) {
+        enabledLegend.textContent =
+            enabledAlarms;
+    }
+
+    if (disabledLegend) {
+        disabledLegend.textContent =
+            disabledAlarms;
+    }
+
+
+    if (donut) {
+
+        if (totalAlarms === 0) {
+
+            donut.style.background =
+                "conic-gradient(var(--surface-3) 0deg 360deg)";
+
+        } else {
+
+            const enabledDegrees =
+                (
+                    enabledAlarms /
+                    totalAlarms
+                ) * 360;
+
+            donut.style.background =
+                `conic-gradient(
+                    var(--green) 0deg ${enabledDegrees}deg,
+                    var(--red) ${enabledDegrees}deg 360deg
+                )`;
+
+        }
+
+    }
+
+
+    /* =========================
+       ALARMS BY HOUR
+    ========================= */
+
+    const hourCounts =
+        Array(24).fill(0);
+
+
+    alarms.forEach(
+        alarm => {
+
+            if (
+                !alarm.alarm_time
+            ) {
+                return;
+            }
+
+
+            const hour =
+                Number(
+                    String(
+                        alarm.alarm_time
+                    ).split(":")[0]
+                );
+
+
+            if (
+                hour >= 0 &&
+                hour <= 23
+            ) {
+
+                hourCounts[hour]++;
+
+            }
+
+        }
+    );
+
+
+    const maxCount =
+        Math.max(
+            ...hourCounts,
+            1
+        );
+
+
+    const chart =
+        document.getElementById(
+            "alarmTimeChart"
+        );
+
+
+    if (chart) {
+
+        chart.innerHTML =
+            hourCounts
+                .map(
+                    (
+                        count,
+                        hour
+                    ) => {
+
+                        const height =
+                            count > 0
+                                ? Math.max(
+                                    8,
+                                    (
+                                        count /
+                                        maxCount
+                                    ) * 155
+                                )
+                                : 3;
+
+
+                        const label =
+                            String(
+                                hour
+                            ).padStart(
+                                2,
+                                "0"
+                            );
+
+
+                        return `
+
+                            <div
+                                class="bar-column">
+
+                                <div
+                                    class="bar-value">
+
+                                    ${
+                                        count ||
+                                        ""
+                                    }
+
+                                </div>
+
+
+                                <div
+                                    class="bar"
+                                    style="
+                                        height:${height}px;
+                                    "
+                                    title="${
+                                        count
+                                    } alarm${
+                                        count === 1
+                                            ? ""
+                                            : "s"
+                                    } at ${
+                                        label
+                                    }:00">
+
+                                </div>
+
+
+                                <div
+                                    class="bar-label">
+
+                                    ${label}
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+    }
+
+
+    /* =========================
+       INSIGHT
+    ========================= */
+
+    const insight =
+        document.getElementById(
+            "reportInsight"
+        );
+
+
+    if (insight) {
+
+        if (
+            totalMedications === 0 &&
+            totalAlarms === 0
+        ) {
+
+            insight.textContent =
+                "You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.";
+
+        } else if (
+            totalAlarms === 0
+        ) {
+
+            insight.textContent =
+                `You have ${totalMedications} medication${
+                    totalMedications === 1
+                        ? ""
+                        : "s"
+                }, but no alarms are configured yet.`;
+
+        } else {
+
+            const peakCount =
+                Math.max(
+                    ...hourCounts
+                );
+
+            const peakHour =
+                hourCounts.indexOf(
+                    peakCount
+                );
+
+            const peakTime =
+                String(
+                    peakHour
+                ).padStart(
+                    2,
+                    "0"
+                ) + ":00";
+
+
+            insight.textContent =
+                `You have ${totalMedications} medication${
+                    totalMedications === 1
+                        ? ""
+                        : "s"
+                } and ${totalAlarms} alarm${
+                    totalAlarms === 1
+                        ? ""
+                        : "s"
+                }. ${
+                    enabledAlarms
+                } reminder${
+                    enabledAlarms === 1
+                        ? ""
+                        : "s"
+                } currently active. ` +
+                `The busiest reminder time is around ${peakTime}.`;
+
+        }
+
+    }
+
+
+    /* =========================
+       MEDICATION TABLE
+    ========================= */
+
+    const table =
+        document.getElementById(
+            "reportTable"
+        );
+
+
+    if (table) {
+
+        if (
+            totalMedications === 0
+        ) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        style="
+                            text-align:center;
+                            color:var(--muted);
+                            padding:28px;
+                        ">
+
+                        No medications yet.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        } else {
+
+            table.innerHTML =
+                medications
+                    .map(
+                        medication => `
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        ${
+                                            escapeHtml(
+                                                medication.name
+                                            )
+                                        }
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${
+                                        escapeHtml(
+                                            medication.dosage ||
+                                            "—"
+                                        )
+                                    }
+                                </td>
+
+                                <td>
+                                    ${
+                                        escapeHtml(
+                                            medication.frequency ||
+                                            "—"
+                                        )
+                                    }
+                                </td>
+
+                                <td>
+                                    ${
+                                        medication.start_date ||
+                                        "—"
+                                    }
+                                </td>
+
+                                <td>
+                                    ${
+                                        medication.end_date ||
+                                        "—"
+                                    }
+                                </td>
+
+                            </tr>
+
+                        `
+                    )
+                    .join("");
+
+        }
+
+    }
 
 }
 

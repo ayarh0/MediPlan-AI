@@ -1920,6 +1920,89 @@
                 rgba(0,0,0,.35);
         }
 
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2500;
+            background: rgba(2, 6, 23, .72);
+            backdrop-filter: blur(7px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .confirm-modal.show {
+            display: flex;
+            animation: confirmFadeIn .18s ease;
+        }
+
+        .confirm-box {
+            width: 100%;
+            max-width: 430px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+            box-shadow: 0 30px 90px rgba(0,0,0,.42);
+            transform: translateY(8px) scale(.98);
+            animation: confirmBoxIn .2s ease forwards;
+        }
+
+        .confirm-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(239, 68, 68, .12);
+            color: #ef4444;
+            font-size: 23px;
+            margin-bottom: 16px;
+        }
+
+        .confirm-title {
+            margin: 0 0 8px;
+            color: var(--text);
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .confirm-message {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .confirm-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .confirm-actions button {
+            min-width: 100px;
+        }
+
+        @keyframes confirmFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes confirmBoxIn {
+            to { transform: translateY(0) scale(1); }
+        }
+
+        @media (max-width: 520px) {
+            .confirm-box { padding: 22px; }
+            .confirm-actions { flex-direction: column-reverse; }
+            .confirm-actions button { width: 100%; }
+        }
+        }
+
 
         .alarm-popup {
 
@@ -2253,183 +2336,6 @@
             }
         }
 
-
-        /* =====================================================
-           MEDIPLAN BRAND + TYPOGRAPHY UPGRADE
-        ===================================================== */
-
-        .brand-logo {
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
-            padding: 0;
-            transition:
-                transform .22s ease,
-                box-shadow .22s ease;
-        }
-
-        .mediplan-logo-svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-            transition: transform .22s ease;
-        }
-
-        .brand-logo:hover {
-            transform: translateY(-2px) scale(1.06);
-            box-shadow:
-                0 12px 28px rgba(56, 189, 248, 0.28);
-        }
-
-        .brand-logo:hover .mediplan-logo-svg {
-            transform: rotate(-2deg) scale(1.04);
-        }
-
-        .brand-name {
-            font-size: 22px;
-            transition:
-                transform .2s ease,
-                letter-spacing .2s ease;
-            transform-origin: left center;
-        }
-
-        .brand-name:hover {
-            transform: scale(1.07);
-            letter-spacing: -0.2px;
-        }
-
-        body {
-            font-size: 16px;
-        }
-
-        .nav-btn {
-            font-size: 15px;
-        }
-
-        .nav-btn span:not(.nav-icon) {
-            display: inline-block;
-            transition:
-                transform .18s ease,
-                letter-spacing .18s ease;
-            transform-origin: left center;
-        }
-
-        .nav-btn:hover span:not(.nav-icon) {
-            transform: scale(1.06);
-            letter-spacing: .05px;
-        }
-
-        .menu-title {
-            font-size: 12px;
-        }
-
-        .page-heading h1 {
-            font-size: 24px;
-        }
-
-        .page-heading p {
-            font-size: 14px;
-        }
-
-        .btn {
-            font-size: 14px;
-        }
-
-        .btn,
-        .theme-btn,
-        .icon-btn,
-        .close-btn,
-        .alarm-action,
-        .calendar-day,
-        .sound-option,
-        .tab-btn {
-            transition:
-                transform .18s ease,
-                background .2s ease,
-                color .2s ease,
-                border-color .2s ease,
-                box-shadow .2s ease;
-        }
-
-        .btn:hover,
-        .theme-btn:hover,
-        .icon-btn:hover,
-        .close-btn:hover,
-        .alarm-action:hover,
-        .sound-option:hover,
-        .tab-btn:hover {
-            transform: scale(1.04);
-        }
-
-        /* Words and titles gently enlarge when the pointer is over them. */
-        .page-heading h1,
-        .page-heading p,
-        .section-heading h2,
-        .section-heading h3,
-        .card h2,
-        .card h3,
-        .card h4,
-        .chart-title,
-        .chart-subtitle,
-        .report-insight,
-        .legend-item,
-        .table-title,
-        label {
-            transition:
-                transform .18s ease,
-                color .18s ease;
-        }
-
-        .page-heading h1:hover,
-        .section-heading h2:hover,
-        .section-heading h3:hover,
-        .card h2:hover,
-        .card h3:hover,
-        .card h4:hover,
-        .chart-title:hover,
-        .table-title:hover,
-        label:hover {
-            transform: scale(1.035);
-            transform-origin: left center;
-        }
-
-        .page-heading p:hover,
-        .chart-subtitle:hover,
-        .report-insight:hover,
-        .legend-item:hover {
-            transform: scale(1.025);
-            transform-origin: left center;
-        }
-
-        /* Better readability for form fields and table text. */
-        input,
-        select,
-        textarea {
-            font-size: 15px;
-        }
-
-        .report-table {
-            font-size: 14px;
-        }
-
-        @media (max-width: 700px) {
-            body {
-                font-size: 15px;
-            }
-
-            .brand-name {
-                font-size: 20px;
-            }
-
-            .page-heading h1 {
-                font-size: 21px;
-            }
-
-            .nav-btn {
-                font-size: 14px;
-            }
-        }
-
     </style>
 </head>
 
@@ -2445,30 +2351,8 @@
 
     <div class="brand">
 
-        <div class="brand-logo" aria-label="MediPlan AI logo" title="MediPlan AI">
-            <svg class="mediplan-logo-svg" viewBox="0 0 64 64" role="img" aria-hidden="true">
-                <defs>
-                    <linearGradient id="mpLogoBlue" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stop-color="#4cc9ff"/>
-                        <stop offset="100%" stop-color="#5967ff"/>
-                    </linearGradient>
-                    <linearGradient id="mpLogoPill" x1="0" y1="1" x2="1" y2="0">
-                        <stop offset="0%" stop-color="#ff9f43"/>
-                        <stop offset="52%" stop-color="#ff5b8a"/>
-                        <stop offset="100%" stop-color="#d94cff"/>
-                    </linearGradient>
-                </defs>
-
-                <rect x="1" y="1" width="62" height="62" rx="18" fill="url(#mpLogoBlue)"/>
-
-                <g transform="rotate(-42 32 32)">
-                    <rect x="20" y="14" width="24" height="36" rx="12" fill="url(#mpLogoPill)"/>
-                    <path d="M20 32h24" stroke="rgba(255,255,255,.72)" stroke-width="2"/>
-                    <path d="M28 18h8" stroke="rgba(255,255,255,.28)" stroke-width="3" stroke-linecap="round"/>
-                </g>
-
-                <circle cx="31" cy="31" r="3.5" fill="#ffffff" opacity=".92"/>
-            </svg>
+        <div class="brand-logo">
+            💊
         </div>
 
         <div class="brand-name">
@@ -3015,7 +2899,8 @@
                             </label>
 
                             <select
-                                id="medFrequency">
+                                id="medFrequency"
+                                required>
 
                                 <option value="">
                                     Select frequency
@@ -3033,20 +2918,8 @@
                                     Three times a day
                                 </option>
 
-                                <option value="Every 4 hours">
-                                    Every 4 hours
-                                </option>
-
-                                <option value="Every 6 hours">
-                                    Every 6 hours
-                                </option>
-
-                                <option value="Every 8 hours">
-                                    Every 8 hours
-                                </option>
-
-                                <option value="Every 12 hours">
-                                    Every 12 hours
+                                <option value="Four times a day">
+                                    Four times a day
                                 </option>
 
                                 <option value="As needed">
@@ -3066,7 +2939,9 @@
 
                             <input
                                 type="date"
-                                id="startDate">
+                                id="startDate"
+                                class="date-readonly"
+                                readonly>
 
                         </div>
 
@@ -3079,10 +2954,10 @@
 
                             <input
                                 type="date"
-                                id="endDate">
+                                id="endDate"
+                                min="">
 
                         </div>
-
 
                     </div>
 
@@ -3228,131 +3103,59 @@
                         </div>
 
 
-                        <div class="form-group">
+                        <div
+                            class="alarm-schedule-box"
+                            id="alarmScheduleBox">
 
-                            <label>
-                                Alarm Time *
-                            </label>
-
-                            <input
-                                type="time"
-                                id="alarmTime"
-                                required>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                Days
-                            </label>
-
-
-                            <div class="days">
-
-
-                                <button
-                                    type="button"
-                                    class="day-btn"
-                                    data-day="Mon">
-                                    M
-                                </button>
-
-
-                                <button
-                                    type="button"
-                                    class="day-btn"
-                                    data-day="Tue">
-                                    T
-                                </button>
-
-
-                                <button
-                                    type="button"
-                                    class="day-btn"
-                                    data-day="Wed">
-                                    W
-                                </button>
-
-
-                                <button
-                                    type="button"
-                                    class="day-btn"
-                                    data-day="Thu">
-                                    T
-                                </button>
-
-
-                                <button
-                                    type="button"
-                                    class="day-btn"
-                                    data-day="Fri">
-                                    F
-                                </button>
-
-
-                                <button
-                                    type="button"
-                                    class="day-btn"
-                                    data-day="Sat">
-                                    S
-                                </button>
-
-
-                                <button
-                                    type="button"
-                                    class="day-btn"
-                                    data-day="Sun">
-                                    S
-                                </button>
-
+                            <div class="alarm-schedule-title">
+                                Alarm Schedule
                             </div>
 
-                        </div>
+                            <div
+                                class="alarm-schedule-help"
+                                id="alarmScheduleHelp">
+                                Select a medication to set its alarm schedule.
+                            </div>
 
+                            <div
+                                class="alarm-time-grid"
+                                id="alarmScheduleTimes">
+                            </div>
 
-                        <div class="form-group">
+                            <div class="form-group" style="margin-top:18px;margin-bottom:0;">
+                                <label>Days for these alarms *</label>
 
-                            <label>
-                                Snooze Duration
-                            </label>
+                                <div class="days" id="alarmDays">
+                                    <button type="button" class="day-btn" data-day="Mon">M</button>
+                                    <button type="button" class="day-btn" data-day="Tue">T</button>
+                                    <button type="button" class="day-btn" data-day="Wed">W</button>
+                                    <button type="button" class="day-btn" data-day="Thu">T</button>
+                                    <button type="button" class="day-btn" data-day="Fri">F</button>
+                                    <button type="button" class="day-btn" data-day="Sat">S</button>
+                                    <button type="button" class="day-btn" data-day="Sun">S</button>
+                                </div>
+                            </div>
 
-                            <select
-                                id="snoozeMinutes">
+                            <div class="form-group" style="margin-top:18px;margin-bottom:0;">
+                                <label>Snooze Duration</label>
 
-                                <option value="5">
-                                    5 minutes
-                                </option>
-
-                                <option
-                                    value="10"
-                                    selected>
-
-                                    10 minutes
-
-                                </option>
-
-                                <option value="15">
-                                    15 minutes
-                                </option>
-
-                                <option value="20">
-                                    20 minutes
-                                </option>
-
-                                <option value="30">
-                                    30 minutes
-                                </option>
-
-                            </select>
+                                <select id="snoozeMinutes">
+                                    <option value="5">5 minutes</option>
+                                    <option value="10" selected>10 minutes</option>
+                                    <option value="15">15 minutes</option>
+                                    <option value="20">20 minutes</option>
+                                    <option value="30">30 minutes</option>
+                                </select>
+                            </div>
 
                         </div>
 
 
                         <button
                             type="submit"
-                            class="btn btn-primary">
+                            class="btn btn-primary"
+                            id="createAlarmButton"
+                            disabled>
 
                             ＋ Create Alarm
 
@@ -3881,6 +3684,23 @@
 
 
 <!-- =========================================================
+     CUSTOM CONFIRM MODAL
+========================================================= -->
+
+<div class="confirm-modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="confirm-box" id="confirmBox">
+        <div class="confirm-icon" aria-hidden="true">🗑️</div>
+        <h2 class="confirm-title" id="confirmTitle">Delete</h2>
+        <p class="confirm-message" id="confirmMessage">Are you sure?</p>
+        <div class="confirm-actions">
+            <button class="btn" id="confirmCancelBtn" type="button">Cancel</button>
+            <button class="btn btn-danger" id="confirmOkBtn" type="button">Delete</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
      ALARM MODAL
 ========================================================= -->
 
@@ -4303,9 +4123,11 @@ function updateClockDisplay() {
                 );
 
 
+            const localeMap = {en:'en-US',ar:'ar-MA',fr:'fr-FR',de:'de-DE',es:'es-ES',zh:'zh-CN',ja:'ja-JP',ko:'ko-KR',pt:'pt-PT',darija:'ar-MA'};
+            const locale = localeMap[window.mediplanCurrentLanguage || 'en'] || 'en-US';
             const formatted =
                 date.toLocaleDateString(
-                    undefined,
+                    locale,
                     {
                         weekday:
                             "long",
@@ -4402,6 +4224,200 @@ async function loadMedications() {
 
 
 /* ============================================================
+   MEDICATION ALARM SCHEDULE
+============================================================ */
+
+function getRequiredAlarmCount(frequency) {
+    const counts = {
+        "Once a day": 1,
+        "Twice a day": 2,
+        "Three times a day": 3,
+        "Four times a day": 4,
+        "As needed": 0
+    };
+    return counts[frequency] || 0;
+}
+
+function getTodayISO() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function setStartDateToday(force = false) {
+    const input = document.getElementById("startDate");
+    if (!input) return;
+    if (force || !input.value) {
+        input.value = getTodayISO();
+    }
+    input.min = getTodayISO();
+    const endInput = document.getElementById("endDate");
+    if (endInput) {
+        endInput.min = getTodayISO();
+        if (endInput.value && endInput.value < getTodayISO()) {
+            endInput.value = "";
+        }
+    }
+}
+
+function renderMedicationAlarmFields(existingTimes = []) {
+    const frequency = document.getElementById("medFrequency")?.value || "";
+    const box = document.getElementById("medicationAlarmSchedule");
+    const container = document.getElementById("medicationAlarmTimes");
+    const help = document.getElementById("medicationAlarmScheduleHelp");
+    if (!box || !container || !help) return;
+
+    const count = getRequiredAlarmCount(frequency);
+    container.innerHTML = "";
+
+    if (!count) {
+        box.classList.remove("show");
+        return;
+    }
+
+    box.classList.add("show");
+    help.textContent = `${count} alarm time${count > 1 ? "s" : ""} required for ${frequency}.`;
+
+    for (let i = 0; i < count; i++) {
+        const item = document.createElement("div");
+        item.className = "alarm-time-item";
+        item.innerHTML = `
+            <label for="medAlarmTime${i}">Alarm ${i + 1} *</label>
+            <input type="time" id="medAlarmTime${i}" class="med-alarm-time" required>
+        `;
+        container.appendChild(item);
+        if (existingTimes[i]) {
+            document.getElementById(`medAlarmTime${i}`).value = existingTimes[i];
+        }
+    }
+}
+
+function getMedicationAlarmTimes() {
+    return Array.from(document.querySelectorAll(".med-alarm-time"))
+        .map(input => input.value)
+        .filter(Boolean);
+}
+
+function validateMedicationAlarmTimes(frequency) {
+    const required = getRequiredAlarmCount(frequency);
+    if (!required) return true;
+
+    const inputs = Array.from(document.querySelectorAll(".med-alarm-time"));
+    if (inputs.length !== required || inputs.some(input => !input.value)) {
+        showToast(`Please choose all ${required} required alarm time${required > 1 ? "s" : ""}.`, "error");
+        return false;
+    }
+
+    const times = inputs.map(input => input.value);
+    if (new Set(times).size !== times.length) {
+        showToast("Alarm times must be different.", "error");
+        return false;
+    }
+
+    return true;
+}
+
+async function syncMedicationAlarms(medicationId, frequency, desiredTimes) {
+    if (!medicationId || frequency === "As needed") return;
+
+    const response = await fetch("/alarms");
+    if (!response.ok) throw new Error("Could not load alarms");
+    const allAlarms = await response.json();
+    const current = allAlarms.filter(a => Number(a.medication_id) === Number(medicationId));
+    const allDays = "Mon,Tue,Wed,Thu,Fri,Sat,Sun";
+
+    const byTime = new Map();
+    current.forEach(alarm => {
+        if (!byTime.has(alarm.alarm_time)) byTime.set(alarm.alarm_time, alarm);
+    });
+
+    for (const time of desiredTimes) {
+        if (byTime.has(time)) continue;
+        const createResponse = await fetch("/alarms", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                medication_id: Number(medicationId),
+                alarm_time: time,
+                days: allDays,
+                enabled: 1,
+                snooze_minutes: 10
+            })
+        });
+        if (!createResponse.ok) {
+            const result = await createResponse.json().catch(() => ({}));
+            throw new Error(result.error || "Could not create medication alarm");
+        }
+    }
+
+    const desiredSet = new Set(desiredTimes);
+    for (const alarm of current) {
+        if (desiredSet.has(alarm.alarm_time)) continue;
+        const deleteResponse = await fetch(`/alarms/${alarm.id}`, { method: "DELETE" });
+        if (!deleteResponse.ok) throw new Error("Could not remove an old alarm");
+    }
+}
+
+async function syncAlarmCountForFrequency(medicationId, frequency) {
+    const response = await fetch("/alarms");
+    if (!response.ok) throw new Error("Could not load alarms");
+
+    const allAlarms = await response.json();
+    const linked = allAlarms
+        .filter(alarm => Number(alarm.medication_id) === Number(medicationId))
+        .sort((a, b) => String(a.alarm_time).localeCompare(String(b.alarm_time)));
+
+    // As needed means no scheduled alarms.
+    if (frequency === "As needed") {
+        for (const alarm of linked) {
+            const response = await fetch(`/alarms/${alarm.id}`, { method: "DELETE" });
+            if (!response.ok) throw new Error("Could not remove scheduled alarms");
+        }
+        return;
+    }
+
+    const required = getRequiredAlarmCount(frequency);
+
+    // If frequency is reduced, remove only the extra alarms.
+    // If it is increased, keep existing alarms and let Alarm Clock request
+    // the missing times from the user.
+    for (const alarm of linked.slice(required)) {
+        const response = await fetch(`/alarms/${alarm.id}`, { method: "DELETE" });
+        if (!response.ok) throw new Error("Could not update alarm schedule");
+    }
+}
+
+function validateMedicationInput(name, dosage) {
+    const cleanName = String(name || "").trim();
+
+    if (cleanName.length < 2) {
+        showToast("Please enter a valid medication name.", "error");
+        return false;
+    }
+
+    // Dosage is optional, but negative quantities are never accepted.
+    const cleanDosage = String(dosage || "").trim();
+    if (cleanDosage) {
+        const negativeNumber = /(^|\s|\()[-]\s*\d+(?:[.,]\d+)?/;
+        if (negativeNumber.test(cleanDosage)) {
+            showToast("Dosage cannot contain a negative value.", "error");
+            return false;
+        }
+
+        // A numeric dosage of zero is not a meaningful medication dose.
+        const numericOnly = cleanDosage.replace(",", ".").match(/^([0-9]+(?:\.[0-9]+)?)\s*(mg|g|mcg|µg|ml|mL|%|units?|tablets?|capsules?)?$/i);
+        if (numericOnly && Number(numericOnly[1]) <= 0) {
+            showToast("Dosage must be greater than zero.", "error");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/* ============================================================
    SAVE MEDICATION
 ============================================================ */
 
@@ -4411,157 +4427,66 @@ async function saveMedication(
 
     event.preventDefault();
 
+    const id = document.getElementById("editMedicationId").value;
+    const name = document.getElementById("medName").value.trim();
+    const dosage = document.getElementById("medDosage").value.trim();
+    const frequency = document.getElementById("medFrequency").value;
+    const start_date = document.getElementById("startDate").value || getTodayISO();
+    const end_date = document.getElementById("endDate").value;
 
-    const id =
-        document.getElementById(
-            "editMedicationId"
-        ).value;
-
-
-    const name =
-        document.getElementById(
-            "medName"
-        ).value.trim();
-
-
-    const dosage =
-        document.getElementById(
-            "medDosage"
-        ).value.trim();
-
-
-    const frequency =
-        document.getElementById(
-            "medFrequency"
-        ).value;
-
-
-    const start_date =
-        document.getElementById(
-            "startDate"
-        ).value;
-
-
-    const end_date =
-        document.getElementById(
-            "endDate"
-        ).value;
-
+    if (!validateMedicationInput(name, dosage)) {
+        return;
+    }
 
     if (!name) {
-
-        showToast(
-            "Medication name is required.",
-            "error"
-        );
-
+        showToast("Medication name is required.", "error");
         return;
-
     }
 
-
-    if (
-        start_date &&
-        end_date &&
-        end_date < start_date
-    ) {
-
-        showToast(
-            "End date cannot be before start date.",
-            "error"
-        );
-
+    if (!frequency) {
+        showToast("Please select how often the medication should be taken.", "error");
         return;
-
     }
 
+    if (!start_date) {
+        showToast("Start date is required.", "error");
+        return;
+    }
+
+    if (!id && start_date !== getTodayISO()) {
+        showToast("Start date must be today.", "error");
+        return;
+    }
+
+    if (end_date && end_date < start_date) {
+        showToast("End date cannot be before start date.", "error");
+        return;
+    }
 
     const data = {
-
-        name:
-            name,
-
-        dosage:
-            dosage,
-
-        frequency:
-            frequency,
-
-        start_date:
-            start_date,
-
-        end_date:
-            end_date
-
+        name,
+        dosage,
+        frequency,
+        start_date,
+        end_date
     };
 
-
     try {
+        const response = await fetch(
+            id ? `/medications/${id}` : "/medications",
+            {
+                method: id ? "PUT" : "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            }
+        );
 
-        let response;
-
-
-        if (id) {
-
-            response =
-                await fetch(
-                    `/medications/${id}`,
-                    {
-                        method:
-                            "PUT",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify(
-                                data
-                            )
-                    }
-                );
-
-        } else {
-
-            response =
-                await fetch(
-                    "/medications",
-                    {
-                        method:
-                            "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify(
-                                data
-                            )
-                    }
-                );
-
-        }
-
-
-        const result =
-            await response.json();
-
+        const result = await response.json();
 
         if (!response.ok) {
-
-            showToast(
-                result.error ||
-                "Could not save medication.",
-                "error"
-            );
-
+            showToast(result.error || "Could not save medication.", "error");
             return;
-
         }
-
 
         showToast(
             id
@@ -4569,34 +4494,19 @@ async function saveMedication(
                 : "Medication added successfully."
         );
 
+        // Alarm times and days are managed only from Alarm Clock.
+        // Changing frequency never invents alarm times.
 
         resetMedicationForm();
-
-
         await loadMedications();
-
-
         await loadAlarms();
-
-
-        showPage(
-            "medications"
-        );
-
+        showPage("medications");
 
     } catch (error) {
-
         console.error(error);
-
-        showToast(
-            "Server error.",
-            "error"
-        );
-
+        showToast(error.message || "Server error.", "error");
     }
-
 }
-
 
 document.getElementById(
     "medicationForm"
@@ -4774,67 +4684,226 @@ function editMedication(
     id
 ) {
 
-    const med =
-        medications.find(
-            item =>
-                String(item.id) ===
-                String(id)
-        );
-
-
-    if (!med) {
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "editMedicationId"
-    ).value =
-        med.id;
-
-
-    document.getElementById(
-        "medName"
-    ).value =
-        med.name || "";
-
-
-    document.getElementById(
-        "medDosage"
-    ).value =
-        med.dosage || "";
-
-
-    document.getElementById(
-        "medFrequency"
-    ).value =
-        med.frequency || "";
-
-
-    document.getElementById(
-        "startDate"
-    ).value =
-        med.start_date || "";
-
-
-    document.getElementById(
-        "endDate"
-    ).value =
-        med.end_date || "";
-
-
-    document.getElementById(
-        "formTitle"
-    ).textContent =
-        "Edit Medication";
-
-
-    showPage(
-        "addMedication"
+    const med = medications.find(
+        item => String(item.id) === String(id)
     );
 
+    if (!med) return;
+
+    document.getElementById("editMedicationId").value = med.id;
+    document.getElementById("medName").value = med.name || "";
+    document.getElementById("medDosage").value = med.dosage || "";
+    document.getElementById("medFrequency").value = med.frequency || "";
+    document.getElementById("startDate").value = med.start_date || getTodayISO();
+    document.getElementById("endDate").value = med.end_date || "";
+    document.getElementById("formTitle").textContent = "Edit Medication";
+
+    const medAlarms = alarms
+        .filter(a => Number(a.medication_id) === Number(id))
+        .sort((a, b) => String(a.alarm_time).localeCompare(String(b.alarm_time)));
+
+    showPage("addMedication");
+
+}
+
+
+/* ============================================================
+   LOCALIZED DAY NAMES
+============================================================ */
+
+function getLocalizedDay(day) {
+    const days = {
+        en: { Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday", Sun: "Sunday" },
+        ar: { Mon: "الاثنين", Tue: "الثلاثاء", Wed: "الأربعاء", Thu: "الخميس", Fri: "الجمعة", Sat: "السبت", Sun: "الأحد" },
+        darija: { Mon: "الاثنين", Tue: "الثلاثاء", Wed: "الأربعاء", Thu: "الخميس", Fri: "الجمعة", Sat: "السبت", Sun: "الأحد" },
+        fr: { Mon: "Lundi", Tue: "Mardi", Wed: "Mercredi", Thu: "Jeudi", Fri: "Vendredi", Sat: "Samedi", Sun: "Dimanche" },
+        de: { Mon: "Montag", Tue: "Dienstag", Wed: "Mittwoch", Thu: "Donnerstag", Fri: "Freitag", Sat: "Samstag", Sun: "Sonntag" },
+        es: { Mon: "Lunes", Tue: "Martes", Wed: "Miércoles", Thu: "Jueves", Fri: "Viernes", Sat: "Sábado", Sun: "Domingo" },
+        zh: { Mon: "星期一", Tue: "星期二", Wed: "星期三", Thu: "星期四", Fri: "星期五", Sat: "星期六", Sun: "星期日" },
+        ja: { Mon: "月曜日", Tue: "火曜日", Wed: "水曜日", Thu: "木曜日", Fri: "金曜日", Sat: "土曜日", Sun: "日曜日" },
+        ko: { Mon: "월요일", Tue: "화요일", Wed: "수요일", Thu: "목요일", Fri: "금요일", Sat: "토요일", Sun: "일요일" },
+        pt: { Mon: "Segunda-feira", Tue: "Terça-feira", Wed: "Quarta-feira", Thu: "Quinta-feira", Fri: "Sexta-feira", Sat: "Sábado", Sun: "Domingo" }
+    };
+    const lang = window.mediplanCurrentLanguage || "en";
+    return days[lang]?.[day] || days.en[day] || day;
+}
+
+function getLocalizedDayShort(day) {
+    const short = {
+        en: {Mon:"M",Tue:"T",Wed:"W",Thu:"T",Fri:"F",Sat:"S",Sun:"S"},
+        ar: {Mon:"ن",Tue:"ث",Wed:"ر",Thu:"خ",Fri:"ج",Sat:"س",Sun:"ح"},
+        darija: {Mon:"ن",Tue:"ث",Wed:"ر",Thu:"خ",Fri:"ج",Sat:"س",Sun:"ح"},
+        fr: {Mon:"L",Tue:"M",Wed:"M",Thu:"J",Fri:"V",Sat:"S",Sun:"D"},
+        de: {Mon:"M",Tue:"D",Wed:"M",Thu:"D",Fri:"F",Sat:"S",Sun:"S"},
+        es: {Mon:"L",Tue:"M",Wed:"X",Thu:"J",Fri:"V",Sat:"S",Sun:"D"},
+        zh: {Mon:"一",Tue:"二",Wed:"三",Thu:"四",Fri:"五",Sat:"六",Sun:"日"},
+        ja: {Mon:"月",Tue:"火",Wed:"水",Thu:"木",Fri:"金",Sat:"土",Sun:"日"},
+        ko: {Mon:"월",Tue:"화",Wed:"수",Thu:"목",Fri:"금",Sat:"토",Sun:"일"},
+        pt: {Mon:"S",Tue:"T",Wed:"Q",Thu:"Q",Fri:"S",Sat:"S",Sun:"D"}
+    };
+    const lang = window.mediplanCurrentLanguage || "en";
+    return short[lang]?.[day] || short.en[day] || day;
+}
+
+function getLocalizedDays(dayString) {
+    return String(dayString || "")
+        .split(",")
+        .map(day => day.trim())
+        .filter(Boolean)
+        .map(day => getLocalizedDay(day))
+        .join(" • ");
+}
+
+/* ============================================================
+   CUSTOM CONFIRM MODAL
+============================================================ */
+
+function getConfirmText(key) {
+    const dictionaries = {
+        en: {
+            "Delete medication": "Delete medication",
+            "Delete alarm": "Delete alarm",
+            "Are you sure you want to delete": "Are you sure you want to delete",
+            "Are you sure you want to delete this alarm?": "Are you sure you want to delete this alarm?",
+            "Delete": "Delete",
+            "Cancel": "Cancel"
+        },
+        ar: {
+            "Delete medication": "حذف الدواء",
+            "Delete alarm": "حذف المنبه",
+            "Are you sure you want to delete": "تأكيد حذف",
+            "Are you sure you want to delete this alarm?": "تأكيد حذف هذا المنبه؟",
+            "Delete": "حذف",
+            "Cancel": "إلغاء"
+        },
+        darija: {
+            "Delete medication": "حذف الدوا",
+            "Delete alarm": "حذف المنبه",
+            "Are you sure you want to delete": "واش بغيتي تحذف",
+            "Are you sure you want to delete this alarm?": "واش بغيتي تحذف هاد المنبه؟",
+            "Delete": "حذف",
+            "Cancel": "إلغاء"
+        },
+        fr: {
+            "Delete medication": "Supprimer le médicament",
+            "Delete alarm": "Supprimer l’alarme",
+            "Are you sure you want to delete": "Voulez-vous vraiment supprimer",
+            "Are you sure you want to delete this alarm?": "Voulez-vous vraiment supprimer cette alarme ?",
+            "Delete": "Supprimer",
+            "Cancel": "Annuler"
+        },
+        de: {
+            "Delete medication": "Medikament löschen",
+            "Delete alarm": "Alarm löschen",
+            "Are you sure you want to delete": "Möchten Sie wirklich löschen",
+            "Are you sure you want to delete this alarm?": "Möchten Sie diesen Alarm wirklich löschen?",
+            "Delete": "Löschen",
+            "Cancel": "Abbrechen"
+        },
+        es: {
+            "Delete medication": "Eliminar medicamento",
+            "Delete alarm": "Eliminar alarma",
+            "Are you sure you want to delete": "¿Seguro que quieres eliminar",
+            "Are you sure you want to delete this alarm?": "¿Seguro que quieres eliminar esta alarma?",
+            "Delete": "Eliminar",
+            "Cancel": "Cancelar"
+        },
+        zh: {
+            "Delete medication": "删除药物",
+            "Delete alarm": "删除提醒",
+            "Are you sure you want to delete": "确定要删除",
+            "Are you sure you want to delete this alarm?": "确定要删除此提醒吗？",
+            "Delete": "删除",
+            "Cancel": "取消"
+        },
+        ja: {
+            "Delete medication": "薬を削除",
+            "Delete alarm": "アラームを削除",
+            "Are you sure you want to delete": "本当に削除しますか",
+            "Are you sure you want to delete this alarm?": "このアラームを削除しますか？",
+            "Delete": "削除",
+            "Cancel": "キャンセル"
+        },
+        ko: {
+            "Delete medication": "약 삭제",
+            "Delete alarm": "알람 삭제",
+            "Are you sure you want to delete": "정말 삭제하시겠습니까",
+            "Are you sure you want to delete this alarm?": "이 알람을 삭제하시겠습니까?",
+            "Delete": "삭제",
+            "Cancel": "취소"
+        },
+        pt: {
+            "Delete medication": "Excluir medicamento",
+            "Delete alarm": "Excluir alarme",
+            "Are you sure you want to delete": "Tem certeza de que deseja excluir",
+            "Are you sure you want to delete this alarm?": "Tem certeza de que deseja excluir este alarme?",
+            "Delete": "Excluir",
+            "Cancel": "Cancelar"
+        }
+    };
+
+    const lang = window.mediplanCurrentLanguage || "en";
+    return (dictionaries[lang] && dictionaries[lang][key]) || dictionaries.en[key] || key;
+}
+
+function showConfirm({ title, message, confirmText = "Delete", cancelText = "Cancel" }) {
+    return new Promise(resolve => {
+        const modal = document.getElementById("confirmModal");
+        const titleEl = document.getElementById("confirmTitle");
+        const messageEl = document.getElementById("confirmMessage");
+        const okBtn = document.getElementById("confirmOkBtn");
+        const cancelBtn = document.getElementById("confirmCancelBtn");
+
+        if (!modal || !okBtn || !cancelBtn) {
+            resolve(false);
+            return;
+        }
+
+        titleEl.textContent = title;
+        messageEl.textContent = message;
+        okBtn.textContent = confirmText;
+        cancelBtn.textContent = cancelText;
+
+        modal.classList.add("show");
+        document.body.style.overflow = "hidden";
+
+        let finished = false;
+
+        const close = value => {
+            if (finished) return;
+            finished = true;
+            modal.classList.remove("show");
+            document.body.style.overflow = "";
+            cleanup();
+            resolve(value);
+        };
+
+        const onKeyDown = event => {
+            if (event.key === "Escape") close(false);
+            if (event.key === "Enter") close(true);
+        };
+
+        const onBackdrop = event => {
+            if (event.target === modal) close(false);
+        };
+
+        const cleanup = () => {
+            okBtn.removeEventListener("click", onConfirm);
+            cancelBtn.removeEventListener("click", onCancel);
+            modal.removeEventListener("click", onBackdrop);
+            document.removeEventListener("keydown", onKeyDown);
+        };
+
+        const onConfirm = () => close(true);
+        const onCancel = () => close(false);
+
+        okBtn.addEventListener("click", onConfirm);
+        cancelBtn.addEventListener("click", onCancel);
+        modal.addEventListener("click", onBackdrop);
+        document.addEventListener("keydown", onKeyDown);
+
+        setTimeout(() => cancelBtn.focus(), 0);
+    });
 }
 
 
@@ -4861,14 +4930,15 @@ async function deleteMedication(
     }
 
 
-    if (
-        !confirm(
-            `Delete "${med.name}"?`
-        )
-    ) {
+    const confirmed = await showConfirm({
+        title: getConfirmText("Delete medication"),
+        message: `${getConfirmText("Are you sure you want to delete")} "${med.name}"?`,
+        confirmText: getConfirmText("Delete"),
+        cancelText: getConfirmText("Cancel")
+    });
 
+    if (!confirmed) {
         return;
-
     }
 
 
@@ -4947,6 +5017,8 @@ function resetMedicationForm() {
     ).textContent =
         "Add Medication";
 
+    setStartDateToday(true);
+
 }
 
 
@@ -5000,6 +5072,82 @@ async function loadAlarms() {
 }
 
 
+document.getElementById("alarmMedication")?.addEventListener("change", renderAlarmScheduleForMedication);
+
+function renderAlarmScheduleForMedication() {
+
+    const select = document.getElementById("alarmMedication");
+    const box = document.getElementById("alarmScheduleBox");
+    const help = document.getElementById("alarmScheduleHelp");
+    const timesContainer = document.getElementById("alarmScheduleTimes");
+    const button = document.getElementById("createAlarmButton");
+
+    if (!select || !box || !help || !timesContainer) return;
+
+    const medicationId = Number(select.value);
+    const medication = medications.find(med => Number(med.id) === medicationId);
+
+    timesContainer.innerHTML = "";
+    document.querySelectorAll("#alarmDays .day-btn").forEach(day => day.classList.remove("selected"));
+
+    if (!medication) {
+        box.classList.remove("show");
+        if (button) button.disabled = true;
+        return;
+    }
+
+    const today = getTodayISO();
+    if ((medication.start_date && today < medication.start_date) ||
+        (medication.end_date && today > medication.end_date)) {
+        box.classList.add("show");
+        help.textContent = "This medication is outside its treatment period.";
+        if (button) button.disabled = true;
+        return;
+    }
+
+    if (medication.frequency === "As needed") {
+        box.classList.add("show");
+        help.textContent = "As needed medication does not require scheduled alarms.";
+        if (button) button.disabled = true;
+        return;
+    }
+
+    const required = getRequiredAlarmCount(medication.frequency);
+    const linked = alarms
+        .filter(alarm => Number(alarm.medication_id) === medicationId)
+        .sort((a, b) => String(a.alarm_time).localeCompare(String(b.alarm_time)));
+
+    help.textContent = `${required} alarm time${required > 1 ? "s" : ""} required for ${medication.frequency}. Select the days below for all of these alarms.`;
+
+    for (let i = 0; i < required; i++) {
+        const item = document.createElement("div");
+        item.className = "alarm-time-item";
+        item.innerHTML = `
+            <label for="alarmScheduleTime${i}">Alarm ${i + 1} *</label>
+            <input type="time" id="alarmScheduleTime${i}" class="alarm-schedule-time" required>
+        `;
+        timesContainer.appendChild(item);
+
+        if (linked[i]?.alarm_time) {
+            document.getElementById(`alarmScheduleTime${i}`).value = linked[i].alarm_time;
+        }
+    }
+
+    const firstDays = linked[0]?.days
+        ? String(linked[0].days).split(",").map(day => day.trim())
+        : [];
+
+    if (firstDays.length) {
+        document.querySelectorAll("#alarmDays .day-btn").forEach(button => {
+            if (firstDays.includes(button.dataset.day)) button.classList.add("selected");
+        });
+    }
+
+    box.classList.add("show");
+    if (button) button.disabled = false;
+}
+
+
 /* ============================================================
    CREATE ALARM
 ============================================================ */
@@ -5010,171 +5158,104 @@ async function createAlarm(
 
     event.preventDefault();
 
+    const medication_id = Number(document.getElementById("alarmMedication").value);
+    const medication = medications.find(med => Number(med.id) === medication_id);
 
-    const medication_id =
-        document.getElementById(
-            "alarmMedication"
-        ).value;
-
-
-    const alarm_time =
-        document.getElementById(
-            "alarmTime"
-        ).value;
-
-
-    const snooze_minutes =
-        Number(
-            document.getElementById(
-                "snoozeMinutes"
-            ).value
-        );
-
-
-    const selectedDays =
-        Array.from(
-            document.querySelectorAll(
-                ".day-btn.selected"
-            )
-        ).map(
-            button =>
-                button.dataset.day
-        );
-
-
-    if (!medication_id) {
-
-        showToast(
-            "Please select a medication.",
-            "error"
-        );
-
+    if (!medication) {
+        showToast("Please select a medication.", "error");
         return;
-
     }
 
-
-    if (!alarm_time) {
-
-        showToast(
-            "Please choose an alarm time.",
-            "error"
-        );
-
+    if (medication.frequency === "As needed") {
+        showToast("This medication does not require scheduled alarms.", "error");
         return;
-
     }
 
+    const required = getRequiredAlarmCount(medication.frequency);
+    const timeInputs = Array.from(document.querySelectorAll(".alarm-schedule-time"));
+    const alarmTimes = timeInputs.map(input => input.value);
+
+    if (timeInputs.length !== required || alarmTimes.some(time => !time)) {
+        showToast(`Please choose all ${required} required alarm time${required > 1 ? "s" : ""}.`, "error");
+        return;
+    }
+
+    if (new Set(alarmTimes).size !== alarmTimes.length) {
+        showToast("Alarm times must be different.", "error");
+        return;
+    }
+
+    const selectedDays = Array.from(document.querySelectorAll("#alarmDays .day-btn.selected"))
+        .map(button => button.dataset.day);
 
     if (!selectedDays.length) {
-
-        showToast(
-            "Please select at least one day.",
-            "error"
-        );
-
+        showToast("Please select at least one day.", "error");
         return;
-
     }
 
+    const snooze_minutes = Number(document.getElementById("snoozeMinutes").value);
 
-    const data = {
+    if (!Number.isFinite(snooze_minutes) || snooze_minutes <= 0) {
+        showToast("Snooze duration must be greater than zero.", "error");
+        return;
+    }
 
-        medication_id:
-            Number(
-                medication_id
-            ),
-
-        alarm_time:
-            alarm_time,
-
-        days:
-            selectedDays.join(","),
-
-        enabled:
-            1,
-
-        snooze_minutes:
-            snooze_minutes
-
-    };
-
+    const today = getTodayISO();
+    if (medication.start_date && today < medication.start_date) {
+        showToast("This medication is not active yet.", "error");
+        return;
+    }
+    if (medication.end_date && today > medication.end_date) {
+        showToast("This medication has already ended.", "error");
+        return;
+    }
 
     try {
+        const existingResponse = await fetch("/alarms");
+        if (!existingResponse.ok) throw new Error("Could not load existing alarms.");
 
-        const response =
-            await fetch(
-                "/alarms",
-                {
-                    method:
-                        "POST",
+        const allAlarms = await existingResponse.json();
+        const linked = allAlarms.filter(alarm => Number(alarm.medication_id) === medication_id);
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify(
-                            data
-                        )
-                }
-            );
-
-
-        const result =
-            await response.json();
-
-
-        if (!response.ok) {
-
-            showToast(
-                result.error ||
-                "Could not create alarm.",
-                "error"
-            );
-
-            return;
-
+        // Save the complete schedule for this medication in one action.
+        for (const alarm of linked) {
+            const response = await fetch(`/alarms/${alarm.id}`, { method: "DELETE" });
+            if (!response.ok) throw new Error("Could not update the existing alarm schedule.");
         }
 
+        for (const alarm_time of alarmTimes) {
+            const response = await fetch("/alarms", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    medication_id,
+                    alarm_time,
+                    days: selectedDays.join(","),
+                    enabled: 1,
+                    snooze_minutes
+                })
+            });
 
-        showToast(
-            "Alarm created successfully."
-        );
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                throw new Error(result.error || "Could not create alarm.");
+            }
+        }
 
+        showToast(`${alarmTimes.length} alarm${alarmTimes.length > 1 ? "s" : ""} saved successfully.`);
 
-        document.getElementById(
-            "alarmForm"
-        ).reset();
-
-
-        document
-            .querySelectorAll(
-                ".day-btn"
-            )
-            .forEach(
-                button =>
-                    button.classList.remove(
-                        "selected"
-                    )
-            );
-
+        document.getElementById("alarmForm").reset();
+        document.querySelectorAll("#alarmDays .day-btn").forEach(button => {
+            button.classList.remove("selected");
+        });
 
         await loadAlarms();
-
+        renderAlarmScheduleForMedication();
 
     } catch (error) {
-
         console.error(error);
-
-        showToast(
-            "Server error.",
-            "error"
-        );
-
+        showToast(error.message || "Server error.", "error");
     }
-
 }
 
 
@@ -5246,13 +5327,13 @@ function renderAlarms() {
 
 
                     const days =
-                        String(
-                            alarm.days || ""
-                        )
-                        .replaceAll(
-                            ",",
-                            " • "
-                        );
+                        String(alarm.days || "")
+                        .split(",")
+                        .map(day => {
+                            const key = day.trim();
+                            return getLocalizedDay(key);
+                        })
+                        .join(" • " );
 
 
                     return `
@@ -5438,14 +5519,15 @@ async function deleteAlarm(
     id
 ) {
 
-    if (
-        !confirm(
-            "Delete this alarm?"
-        )
-    ) {
+    const confirmed = await showConfirm({
+        title: getConfirmText("Delete alarm"),
+        message: getConfirmText("Are you sure you want to delete this alarm?"),
+        confirmText: getConfirmText("Delete"),
+        cancelText: getConfirmText("Cancel")
+    });
 
+    if (!confirmed) {
         return;
-
     }
 
 
@@ -5619,6 +5701,11 @@ function updateDashboard() {
                             day.trim()
                     );
 
+
+                const med = medicationById(alarm.medication_id);
+                if (!med) return false;
+                if (med.start_date && systemLocalDate < med.start_date) return false;
+                if (med.end_date && systemLocalDate > med.end_date) return false;
 
                 return days.includes(
                     systemLocalDay
@@ -5802,13 +5889,7 @@ function renderDashboardAlarms() {
 
                                         ${
                                             escapeHtml(
-                                                String(
-                                                    alarm.days ||
-                                                    ""
-                                                ).replaceAll(
-                                                    ",",
-                                                    " • "
-                                                )
+                                                getLocalizedDays(alarm.days)
                                             )
                                         }
 
@@ -5940,6 +6021,14 @@ function checkAlarms() {
 
 
             if (med) {
+
+                if (med.start_date && systemLocalDate < med.start_date) {
+                    return;
+                }
+
+                if (med.end_date && systemLocalDate > med.end_date) {
+                    return;
+                }
 
                 showAlarmPopup(
                     alarm,
@@ -6103,6 +6192,15 @@ function snoozeCurrentAlarm() {
 
 
                     if (med) {
+
+                        const today = systemLocalDate;
+                        if (med.start_date && today < med.start_date) {
+                            return;
+                        }
+                        if (med.end_date && today > med.end_date) {
+                            showToast("This medication is outside its treatment dates.", "error");
+                            return;
+                        }
 
                         showAlarmPopup(
                             {
@@ -6644,25 +6742,12 @@ async function requestNotificationPermission() {
 ============================================================ */
 
 document
-    .querySelectorAll(
-        ".day-btn"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    button.classList.toggle(
-                        "selected"
-                    );
-
-                }
-            );
-
-        }
-    );
+    .querySelectorAll("#alarmDays .day-btn")
+    .forEach(button => {
+        button.addEventListener("click", () => {
+            button.classList.toggle("selected");
+        });
+    });
 
 
 /* ============================================================
@@ -6709,9 +6794,11 @@ function renderCalendar() {
         calendarDate.getMonth();
 
 
+    const localeMap = {en:'en-US',ar:'ar-MA',fr:'fr-FR',de:'de-DE',es:'es-ES',zh:'zh-CN',ja:'ja-JP',ko:'ko-KR',pt:'pt-PT',darija:'ar-MA'};
+    const locale = localeMap[window.mediplanCurrentLanguage || 'en'] || 'en-US';
     const title =
         calendarDate.toLocaleDateString(
-            undefined,
+            locale,
             {
                 month:
                     "long",
@@ -6744,7 +6831,7 @@ function renderCalendar() {
             .map(
                 day => `
                     <div class="calendar-head">
-                        ${day}
+                        ${getLocalizedDay(day)}
                     </div>
                 `
             )
@@ -6855,6 +6942,12 @@ function renderCalendar() {
                                 d.trim()
                         );
 
+                    const med = medicationById(alarm.medication_id);
+                    if (!med) return false;
+
+                    const calendarDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+                    if (med.start_date && calendarDate < med.start_date) return false;
+                    if (med.end_date && calendarDate > med.end_date) return false;
 
                     return days.includes(
                         dayName
@@ -6960,17 +7053,22 @@ function updateReports() {
 
     /*
        Alarm coverage:
-       number of active alarms compared
-       with the number of medications.
+       active alarms compared with the number
+       of alarms required by each medication frequency.
     */
 
+    const requiredAlarms = medications.reduce(
+        (sum, med) => sum + getRequiredAlarmCount(med.frequency),
+        0
+    );
+
     const coverage =
-        totalMedications > 0
+        requiredAlarms > 0
             ? Math.min(
                 100,
                 Math.round(
                     enabledAlarms /
-                    totalMedications *
+                    requiredAlarms *
                     100
                 )
             )
@@ -7634,6 +7732,8 @@ document.getElementById(
    INITIALIZE
 ============================================================ */
 
+setStartDateToday(true);
+
 async function initializeApp() {
 
     await loadMedications();
@@ -7653,5 +7753,274 @@ initializeApp();
 
 </script>
 
+
+
+<style id="medication-alarm-schedule-style">
+.alarm-schedule-box{margin-top:18px;padding:18px;border:1px solid var(--border);border-radius:16px;background:var(--surface-soft);display:none}
+.alarm-schedule-box.show{display:block}
+.alarm-schedule-title{font-weight:800;margin-bottom:5px;color:var(--text)}
+.alarm-schedule-help{font-size:13px;color:var(--muted);margin-bottom:14px}
+.alarm-time-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.alarm-time-item label{display:block;font-size:13px;font-weight:700;color:var(--text-soft);margin-bottom:6px}
+.alarm-time-item input{width:100%}
+.date-readonly{background:var(--surface-soft)!important;cursor:not-allowed}
+@media(max-width:600px){.alarm-time-grid{grid-template-columns:1fr 1fr}}
+</style>
+<style id="i18n-style">
+/* =========================================================
+   MULTI-LANGUAGE
+========================================================= */
+.language-picker-wrap{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.language-picker{
+    min-width:150px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    border-radius:12px;
+    padding:9px 12px;
+    font:inherit;
+    font-weight:600;
+    outline:none;
+    cursor:pointer;
+    transition:.25s ease;
+}
+.language-picker:hover,.language-picker:focus{
+    border-color:var(--primary);
+    transform:translateY(-1px);
+}
+html[dir="rtl"] body{direction:rtl}
+html[dir="rtl"] .sidebar{right:0;left:auto}
+html[dir="rtl"] .main{margin-left:0;margin-right:260px}
+html[dir="rtl"] .topbar{direction:rtl}
+html[dir="rtl"] .language-picker-wrap{direction:rtl}
+@media(max-width:900px){
+    html[dir="rtl"] .main{margin-right:0}
+}
+</style>
+
+<script id="mediplan-i18n">
+/* =========================================================
+   MEDIPLAN AI - MULTI LANGUAGE SYSTEM
+========================================================= */
+(function(){
+    const LANGUAGES = {
+        ar: 'العربية', en: 'English', fr: 'Français', de: 'Deutsch',
+        es: 'Español', zh: '中文', ja: '日本語', ko: '한국어', pt: 'Português',
+        darija: 'الدارجة المغربية'
+    };
+
+    const T = {
+      en: {
+        'Main':'Main','Tools':'Tools','Dashboard':'Dashboard','My Medications':'My Medications','Alarm Clock':'Alarm Clock','Add Medication':'Add Medication','Calendar':'Calendar','Reports':'Reports','AI Assistant':'AI Assistant',
+        'Loading...':'Loading...','Welcome to MediPlan AI':'Welcome to MediPlan AI','Manage your medications and never miss a dose.':'Manage your medications and never miss a dose.','Total Medications':'Total Medications','Active Alarms':'Active Alarms',"Today's Doses":"Today's Doses",'Adherence':'Adherence','Recent Medications':'Recent Medications','View All':'View All','Upcoming Alarms':'Upcoming Alarms',
+        'Manage all your medications in one place.':'Manage all your medications in one place.','Medication List':'Medication List','＋ Add Medication':'＋ Add Medication','Add a medication to your treatment plan.':'Add a medication to your treatment plan.','Medication Name *':'Medication Name *','Dosage':'Dosage','Frequency':'Frequency','Select frequency':'Select frequency','Once a day':'Once a day','Twice a day':'Twice a day','Three times a day':'Three times a day','Four times a day':'Four times a day','Every 4 hours':'Every 4 hours','Every 6 hours':'Every 6 hours','Every 8 hours':'Every 8 hours','Every 12 hours':'Every 12 hours','As needed':'As needed','Start Date':'Start Date','End Date':'End Date','Save Medication':'Save Medication','Cancel':'Cancel',
+        'Current Local Time':'Current Local Time','Alarm system active':'Alarm system active','Create Alarm':'Create Alarm','Medication *':'Medication *','Select medication':'Select medication','Alarm Time *':'Alarm Time *','Days':'Days','Snooze Duration':'Snooze Duration','5 minutes':'5 minutes','10 minutes':'10 minutes','15 minutes':'15 minutes','20 minutes':'20 minutes','30 minutes':'30 minutes','＋ Create Alarm':'＋ Create Alarm','My Alarms':'My Alarms','Alarm Sound':'Alarm Sound','🔔 Gentle Bell':'🔔 Gentle Bell','⏰ Classic Alarm':'⏰ Classic Alarm','🔊 Digital Beep':'🔊 Digital Beep','🌙 Soft Reminder':'🌙 Soft Reminder','🎵 My Music':'🎵 My Music','Choose your own sound':'Choose your own sound','▶ Test Sound':'▶ Test Sound','■ Stop Sound':'■ Stop Sound',
+        'View your medication schedule.':'View your medication schedule.','Reports & Analytics':'Reports & Analytics','Total Alarms':'Total Alarms','Alarm Coverage':'Alarm Coverage','Alarm Status':'Alarm Status','Enabled and disabled reminders.':'Enabled and disabled reminders.','Total':'Total','Enabled':'Enabled','Disabled':'Disabled','Alarms by Time':'Alarms by Time','Distribution of reminders during the day.':'Distribution of reminders during the day.','Add medications and alarms to see personalized report insights.':'Add medications and alarms to see personalized report insights.','Medication Report':'Medication Report','Current medication records.':'Current medication records.','Medication':'Medication','Start':'Start','End':'End',
+        'Smart assistance for your medication organization.':'Smart assistance for your medication organization.','MediPlan AI Assistant':'MediPlan AI Assistant','✨ Analyze My Plan':'✨ Analyze My Plan','Medication Reminder':'Medication Reminder','Stop Alarm':'Stop Alarm','Snooze':'Snooze','Edit Medication':'Edit Medication','No dosage':'No dosage','No end date':'No end date',
+        'Mon':'Mon','Tue':'Tue','Wed':'Wed','Thu':'Thu','Fri':'Fri','Sat':'Sat','Sun':'Sun','Testing alarm sound...':'Testing alarm sound...','Your custom sound is ready.':'Your custom sound is ready.','Your reminder system is configured and active.':'Your reminder system is configured and active.','You can create alarms to organize your medication schedule.':'You can create alarms to organize your medication schedule.','Unknown medication':'Unknown medication','active':'active'
+      },
+      fr: {
+        'Main':'Menu principal','Tools':'Outils','Dashboard':'Tableau de bord','My Medications':'Mes médicaments','Alarm Clock':'Réveil','Add Medication':'Ajouter un médicament','Calendar':'Calendrier','Reports':'Rapports','AI Assistant':'Assistant IA','Loading...':'Chargement...','Welcome to MediPlan AI':'Bienvenue sur MediPlan AI','Manage your medications and never miss a dose.':'Gérez vos médicaments et ne manquez plus aucune prise.','Total Medications':'Total des médicaments','Active Alarms':'Alarmes actives',"Today's Doses":"Prises aujourd’hui",'Adherence':'Observance','Recent Medications':'Médicaments récents','View All':'Voir tout','Upcoming Alarms':'Prochaines alarmes','Manage all your medications in one place.':'Gérez tous vos médicaments au même endroit.','Medication List':'Liste des médicaments','＋ Add Medication':'＋ Ajouter un médicament','Add a medication to your treatment plan.':'Ajoutez un médicament à votre traitement.','Medication Name *':'Nom du médicament *','Dosage':'Dosage','Frequency':'Fréquence','Select frequency':'Sélectionner la fréquence','Once a day':'Une fois par jour','Twice a day':'Deux fois par jour','Three times a day':'Trois fois par jour','Every 4 hours':'Toutes les 4 heures','Every 6 hours':'Toutes les 6 heures','Every 8 hours':'Toutes les 8 heures','Every 12 hours':'Toutes les 12 heures','As needed':'Si nécessaire','Start Date':'Date de début','End Date':'Date de fin','Save Medication':'Enregistrer','Cancel':'Annuler','Current Local Time':'Heure locale actuelle','Alarm system active':'Système d’alarme actif','Create Alarm':'Créer une alarme','Medication *':'Médicament *','Select medication':'Sélectionner un médicament','Alarm Time *':'Heure de l’alarme *','Days':'Jours','Snooze Duration':'Durée du rappel','5 minutes':'5 minutes','10 minutes':'10 minutes','15 minutes':'15 minutes','20 minutes':'20 minutes','30 minutes':'30 minutes','＋ Create Alarm':'＋ Créer une alarme','My Alarms':'Mes alarmes','Alarm Sound':'Son de l’alarme','🔔 Gentle Bell':'🔔 Cloche douce','⏰ Classic Alarm':'⏰ Alarme classique','🔊 Digital Beep':'🔊 Bip numérique','🌙 Soft Reminder':'🌙 Rappel doux','🎵 My Music':'🎵 Ma musique','Choose your own sound':'Choisir votre propre son','▶ Test Sound':'▶ Tester le son','■ Stop Sound':'■ Arrêter le son','View your medication schedule.':'Consultez votre planning de médicaments.','Reports & Analytics':'Rapports et analyses','Total Alarms':'Total des alarmes','Alarm Coverage':'Couverture des alarmes','Alarm Status':'État des alarmes','Enabled and disabled reminders.':'Rappels activés et désactivés.','Total':'Total','Enabled':'Activées','Disabled':'Désactivées','Alarms by Time':'Alarmes par heure','Distribution of reminders during the day.':'Répartition des rappels dans la journée.','Add medications and alarms to see personalized report insights.':'Ajoutez des médicaments et des alarmes pour voir les analyses personnalisées.','Medication Report':'Rapport des médicaments','Current medication records.':'Données actuelles des médicaments.','Medication':'Médicament','Start':'Début','End':'Fin','Smart assistance for your medication organization.':'Une aide intelligente pour organiser vos médicaments.','MediPlan AI Assistant':'Assistant IA MediPlan','✨ Analyze My Plan':'✨ Analyser mon plan','Medication Reminder':'Rappel de médicament','Stop Alarm':'Arrêter l’alarme','Snooze':'Reporter','Edit Medication':'Modifier le médicament','No dosage':'Aucun dosage','No end date':'Pas de date de fin','Testing alarm sound...':'Test du son de l’alarme...','Your custom sound is ready.':'Votre son personnalisé est prêt.','Your reminder system is configured and active.':'Votre système de rappel est configuré et actif.','You can create alarms to organize your medication schedule.':'Vous pouvez créer des alarmes pour organiser votre traitement.','Unknown medication':'Médicament inconnu','active':'active'
+      },
+      de: {
+        'Main':'Hauptmenü','Tools':'Werkzeuge','Dashboard':'Dashboard','My Medications':'Meine Medikamente','Alarm Clock':'Wecker','Add Medication':'Medikament hinzufügen','Calendar':'Kalender','Reports':'Berichte','AI Assistant':'KI-Assistent','Loading...':'Wird geladen...','Welcome to MediPlan AI':'Willkommen bei MediPlan AI','Manage your medications and never miss a dose.':'Verwalten Sie Ihre Medikamente und verpassen Sie keine Einnahme.','Total Medications':'Medikamente insgesamt','Active Alarms':'Aktive Alarme',"Today's Doses":"Heutige Einnahmen",'Adherence':'Einhaltung','Recent Medications':'Letzte Medikamente','View All':'Alle anzeigen','Upcoming Alarms':'Nächste Alarme','Manage all your medications in one place.':'Verwalten Sie alle Medikamente an einem Ort.','Medication List':'Medikamentenliste','＋ Add Medication':'＋ Medikament hinzufügen','Add a medication to your treatment plan.':'Fügen Sie ein Medikament zu Ihrem Behandlungsplan hinzu.','Medication Name *':'Medikamentenname *','Dosage':'Dosierung','Frequency':'Häufigkeit','Select frequency':'Häufigkeit auswählen','Once a day':'Einmal täglich','Twice a day':'Zweimal täglich','Three times a day':'Dreimal täglich','Every 4 hours':'Alle 4 Stunden','Every 6 hours':'Alle 6 Stunden','Every 8 hours':'Alle 8 Stunden','Every 12 hours':'Alle 12 Stunden','As needed':'Bei Bedarf','Start Date':'Startdatum','End Date':'Enddatum','Save Medication':'Medikament speichern','Cancel':'Abbrechen','Current Local Time':'Aktuelle Ortszeit','Alarm system active':'Alarmsystem aktiv','Create Alarm':'Alarm erstellen','Medication *':'Medikament *','Select medication':'Medikament auswählen','Alarm Time *':'Alarmzeit *','Days':'Tage','Snooze Duration':'Schlummerdauer','5 minutes':'5 Minuten','10 minutes':'10 Minuten','15 minutes':'15 Minuten','20 minutes':'20 Minuten','30 minutes':'30 Minuten','＋ Create Alarm':'＋ Alarm erstellen','My Alarms':'Meine Alarme','Alarm Sound':'Alarmton','🔔 Gentle Bell':'🔔 Sanfte Glocke','⏰ Classic Alarm':'⏰ Klassischer Alarm','🔊 Digital Beep':'🔊 Digitaler Piepton','🌙 Soft Reminder':'🌙 Sanfte Erinnerung','🎵 My Music':'🎵 Meine Musik','Choose your own sound':'Eigenen Ton wählen','▶ Test Sound':'▶ Ton testen','■ Stop Sound':'■ Ton stoppen','View your medication schedule.':'Sehen Sie Ihren Medikamentenplan.','Reports & Analytics':'Berichte und Analysen','Total Alarms':'Alarme insgesamt','Alarm Coverage':'Alarmabdeckung','Alarm Status':'Alarmstatus','Enabled and disabled reminders.':'Aktivierte und deaktivierte Erinnerungen.','Total':'Gesamt','Enabled':'Aktiviert','Disabled':'Deaktiviert','Alarms by Time':'Alarme nach Uhrzeit','Distribution of reminders during the day.':'Verteilung der Erinnerungen über den Tag.','Add medications and alarms to see personalized report insights.':'Fügen Sie Medikamente und Alarme hinzu, um personalisierte Analysen zu sehen.','Medication Report':'Medikamentenbericht','Current medication records.':'Aktuelle Medikamentendaten.','Medication':'Medikament','Start':'Start','End':'Ende','Smart assistance for your medication organization.':'Intelligente Unterstützung bei der Medikamentenorganisation.','MediPlan AI Assistant':'MediPlan KI-Assistent','✨ Analyze My Plan':'✨ Meinen Plan analysieren','Medication Reminder':'Medikamentenerinnerung','Stop Alarm':'Alarm stoppen','Snooze':'Schlummern','Edit Medication':'Medikament bearbeiten','No dosage':'Keine Dosierung','No end date':'Kein Enddatum','Testing alarm sound...':'Alarmton wird getestet...','Your custom sound is ready.':'Ihr eigener Ton ist bereit.','Your reminder system is configured and active.':'Ihr Erinnerungssystem ist eingerichtet und aktiv.','You can create alarms to organize your medication schedule.':'Sie können Alarme zur Organisation Ihres Medikamentenplans erstellen.','Unknown medication':'Unbekanntes Medikament','active':'aktiv'
+      },
+      es: {
+        'Main':'Principal','Tools':'Herramientas','Dashboard':'Panel','My Medications':'Mis medicamentos','Alarm Clock':'Alarma','Add Medication':'Añadir medicamento','Calendar':'Calendario','Reports':'Informes','AI Assistant':'Asistente IA','Loading...':'Cargando...','Welcome to MediPlan AI':'Bienvenido a MediPlan AI','Manage your medications and never miss a dose.':'Gestiona tus medicamentos y no te pierdas ninguna toma.','Total Medications':'Total de medicamentos','Active Alarms':'Alarmas activas',"Today's Doses":"Tomas de hoy",'Adherence':'Adherencia','Recent Medications':'Medicamentos recientes','View All':'Ver todo','Upcoming Alarms':'Próximas alarmas','Manage all your medications in one place.':'Gestiona todos tus medicamentos en un solo lugar.','Medication List':'Lista de medicamentos','＋ Add Medication':'＋ Añadir medicamento','Add a medication to your treatment plan.':'Añade un medicamento a tu tratamiento.','Medication Name *':'Nombre del medicamento *','Dosage':'Dosis','Frequency':'Frecuencia','Select frequency':'Seleccionar frecuencia','Once a day':'Una vez al día','Twice a day':'Dos veces al día','Three times a day':'Tres veces al día','Every 4 hours':'Cada 4 horas','Every 6 hours':'Cada 6 horas','Every 8 hours':'Cada 8 horas','Every 12 hours':'Cada 12 horas','As needed':'Según necesidad','Start Date':'Fecha de inicio','End Date':'Fecha de fin','Save Medication':'Guardar medicamento','Cancel':'Cancelar','Current Local Time':'Hora local actual','Alarm system active':'Sistema de alarmas activo','Create Alarm':'Crear alarma','Medication *':'Medicamento *','Select medication':'Seleccionar medicamento','Alarm Time *':'Hora de alarma *','Days':'Días','Snooze Duration':'Duración de repetición','5 minutes':'5 minutos','10 minutes':'10 minutos','15 minutes':'15 minutos','20 minutes':'20 minutos','30 minutes':'30 minutos','＋ Create Alarm':'＋ Crear alarma','My Alarms':'Mis alarmas','Alarm Sound':'Sonido de alarma','🔔 Gentle Bell':'🔔 Campana suave','⏰ Classic Alarm':'⏰ Alarma clásica','🔊 Digital Beep':'🔊 Pitido digital','🌙 Soft Reminder':'🌙 Recordatorio suave','🎵 My Music':'🎵 Mi música','Choose your own sound':'Elegir tu propio sonido','▶ Test Sound':'▶ Probar sonido','■ Stop Sound':'■ Detener sonido','View your medication schedule.':'Consulta tu horario de medicamentos.','Reports & Analytics':'Informes y análisis','Total Alarms':'Total de alarmas','Alarm Coverage':'Cobertura de alarmas','Alarm Status':'Estado de alarmas','Enabled and disabled reminders.':'Recordatorios activados y desactivados.','Total':'Total','Enabled':'Activadas','Disabled':'Desactivadas','Alarms by Time':'Alarmas por hora','Distribution of reminders during the day.':'Distribución de recordatorios durante el día.','Add medications and alarms to see personalized report insights.':'Añade medicamentos y alarmas para ver análisis personalizados.','Medication Report':'Informe de medicamentos','Current medication records.':'Registros actuales de medicamentos.','Medication':'Medicamento','Start':'Inicio','End':'Fin','Smart assistance for your medication organization.':'Asistencia inteligente para organizar tus medicamentos.','MediPlan AI Assistant':'Asistente IA de MediPlan','✨ Analyze My Plan':'✨ Analizar mi plan','Medication Reminder':'Recordatorio de medicamento','Stop Alarm':'Detener alarma','Snooze':'Posponer','Edit Medication':'Editar medicamento','No dosage':'Sin dosis','No end date':'Sin fecha de fin','Testing alarm sound...':'Probando sonido de alarma...','Your custom sound is ready.':'Tu sonido personalizado está listo.','Your reminder system is configured and active.':'Tu sistema de recordatorios está configurado y activo.','You can create alarms to organize your medication schedule.':'Puedes crear alarmas para organizar tu horario de medicamentos.','Unknown medication':'Medicamento desconocido','active':'activa'
+      },
+      pt: {
+        'Main':'Principal','Tools':'Ferramentas','Dashboard':'Painel','My Medications':'Meus medicamentos','Alarm Clock':'Alarme','Add Medication':'Adicionar medicamento','Calendar':'Calendário','Reports':'Relatórios','AI Assistant':'Assistente IA','Loading...':'Carregando...','Welcome to MediPlan AI':'Bem-vindo ao MediPlan AI','Manage your medications and never miss a dose.':'Gerencie seus medicamentos e não perca nenhuma dose.','Total Medications':'Total de medicamentos','Active Alarms':'Alarmes ativos',"Today's Doses":"Doses de hoje",'Adherence':'Adesão','Recent Medications':'Medicamentos recentes','View All':'Ver tudo','Upcoming Alarms':'Próximos alarmes','Manage all your medications in one place.':'Gerencie todos os seus medicamentos em um só lugar.','Medication List':'Lista de medicamentos','＋ Add Medication':'＋ Adicionar medicamento','Add a medication to your treatment plan.':'Adicione um medicamento ao seu plano de tratamento.','Medication Name *':'Nome do medicamento *','Dosage':'Dosagem','Frequency':'Frequência','Select frequency':'Selecionar frequência','Once a day':'Uma vez por dia','Twice a day':'Duas vezes por dia','Three times a day':'Três vezes por dia','Every 4 hours':'A cada 4 horas','Every 6 hours':'A cada 6 horas','Every 8 hours':'A cada 8 horas','Every 12 hours':'A cada 12 horas','As needed':'Conforme necessário','Start Date':'Data de início','End Date':'Data final','Save Medication':'Guardar medicamento','Cancel':'Cancelar','Current Local Time':'Hora local atual','Alarm system active':'Sistema de alarme ativo','Create Alarm':'Criar alarme','Medication *':'Medicamento *','Select medication':'Selecionar medicamento','Alarm Time *':'Hora do alarme *','Days':'Dias','Snooze Duration':'Duração da soneca','5 minutes':'5 minutos','10 minutes':'10 minutos','15 minutes':'15 minutos','20 minutes':'20 minutos','30 minutes':'30 minutos','＋ Create Alarm':'＋ Criar alarme','My Alarms':'Meus alarmes','Alarm Sound':'Som do alarme','🔔 Gentle Bell':'🔔 Sino suave','⏰ Classic Alarm':'⏰ Alarme clássico','🔊 Digital Beep':'🔊 Bipe digital','🌙 Soft Reminder':'🌙 Lembrete suave','🎵 My Music':'🎵 Minha música','Choose your own sound':'Escolher seu próprio som','▶ Test Sound':'▶ Testar som','■ Stop Sound':'■ Parar som','View your medication schedule.':'Veja seu calendário de medicamentos.','Reports & Analytics':'Relatórios e análises','Total Alarms':'Total de alarmes','Alarm Coverage':'Cobertura de alarmes','Alarm Status':'Estado dos alarmes','Enabled and disabled reminders.':'Lembretes ativados e desativados.','Total':'Total','Enabled':'Ativados','Disabled':'Desativados','Alarms by Time':'Alarmes por hora','Distribution of reminders during the day.':'Distribuição dos lembretes ao longo do dia.','Add medications and alarms to see personalized report insights.':'Adicione medicamentos e alarmes para ver análises personalizadas.','Medication Report':'Relatório de medicamentos','Current medication records.':'Registos atuais de medicamentos.','Medication':'Medicamento','Start':'Início','End':'Fim','Smart assistance for your medication organization.':'Ajuda inteligente para organizar seus medicamentos.','MediPlan AI Assistant':'Assistente IA MediPlan','✨ Analyze My Plan':'✨ Analisar meu plano','Medication Reminder':'Lembrete de medicamento','Stop Alarm':'Parar alarme','Snooze':'Adiar','Edit Medication':'Editar medicamento','No dosage':'Sem dosagem','No end date':'Sem data final','Testing alarm sound...':'Testando som do alarme...','Your custom sound is ready.':'Seu som personalizado está pronto.','Your reminder system is configured and active.':'Seu sistema de lembretes está configurado e ativo.','You can create alarms to organize your medication schedule.':'Você pode criar alarmes para organizar seu plano de medicamentos.','Unknown medication':'Medicamento desconhecido','active':'ativo'
+      },
+      ar: {
+        'Main':'الرئيسية','Tools':'الأدوات','Dashboard':'لوحة التحكم','My Medications':'أدويتي','Alarm Clock':'المنبه','Add Medication':'إضافة دواء','Calendar':'التقويم','Reports':'التقارير','AI Assistant':'المساعد الذكي','Loading...':'جارٍ التحميل...','Welcome to MediPlan AI':'مرحباً بك في MediPlan AI','Manage your medications and never miss a dose.':'نظّم أدويتك ولا تفوّت أي جرعة.','Total Medications':'مجموع الأدوية','Active Alarms':'المنبهات النشطة',"Today's Doses":"جرعات اليوم",'Adherence':'الالتزام','Recent Medications':'الأدوية الأخيرة','View All':'عرض الكل','Upcoming Alarms':'المنبهات القادمة','Manage all your medications in one place.':'نظّم جميع أدويتك في مكان واحد.','Medication List':'قائمة الأدوية','＋ Add Medication':'＋ إضافة دواء','Add a medication to your treatment plan.':'أضف دواءً إلى خطة العلاج.','Medication Name *':'اسم الدواء *','Dosage':'الجرعة','Frequency':'التكرار','Select frequency':'اختر التكرار','Once a day':'مرة واحدة يومياً','Twice a day':'مرتين يومياً','Three times a day':'ثلاث مرات يومياً','Every 4 hours':'كل 4 ساعات','Every 6 hours':'كل 6 ساعات','Every 8 hours':'كل 8 ساعات','Every 12 hours':'كل 12 ساعة','As needed':'عند الحاجة','Start Date':'تاريخ البداية','End Date':'تاريخ النهاية','Save Medication':'حفظ الدواء','Cancel':'إلغاء','Current Local Time':'الوقت المحلي الحالي','Alarm system active':'نظام المنبه نشط','Create Alarm':'إنشاء منبه','Medication *':'الدواء *','Select medication':'اختر الدواء','Alarm Time *':'وقت المنبه *','Days':'الأيام','Snooze Duration':'مدة التأجيل','5 minutes':'5 دقائق','10 minutes':'10 دقائق','15 minutes':'15 دقيقة','20 minutes':'20 دقيقة','30 minutes':'30 دقيقة','＋ Create Alarm':'＋ إنشاء منبه','My Alarms':'منبهاتي','Alarm Sound':'صوت المنبه','🔔 Gentle Bell':'🔔 جرس هادئ','⏰ Classic Alarm':'⏰ منبه كلاسيكي','🔊 Digital Beep':'🔊 صفارة رقمية','🌙 Soft Reminder':'🌙 تذكير هادئ','🎵 My Music':'🎵 موسيقاي','Choose your own sound':'اختر صوتك الخاص','▶ Test Sound':'▶ اختبار الصوت','■ Stop Sound':'■ إيقاف الصوت','View your medication schedule.':'شاهد جدول أدويتك.','Reports & Analytics':'التقارير والتحليلات','Total Alarms':'مجموع المنبهات','Alarm Coverage':'تغطية المنبهات','Alarm Status':'حالة المنبهات','Enabled and disabled reminders.':'التذكيرات المفعلة وغير المفعلة.','Total':'المجموع','Enabled':'مفعلة','Disabled':'غير مفعلة','Alarms by Time':'المنبهات حسب الوقت','Distribution of reminders during the day.':'توزيع التذكيرات خلال اليوم.','Add medications and alarms to see personalized report insights.':'أضف الأدوية والمنبهات لرؤية تحليلات مخصصة.','Medication Report':'تقرير الأدوية','Current medication records.':'سجلات الأدوية الحالية.','Medication':'الدواء','Start':'البداية','End':'النهاية','Smart assistance for your medication organization.':'مساعدة ذكية لتنظيم أدويتك.','MediPlan AI Assistant':'مساعد MediPlan الذكي','✨ Analyze My Plan':'✨ حلّل خطتي','Medication Reminder':'تذكير بالدواء','Stop Alarm':'إيقاف المنبه','Snooze':'تأجيل','Edit Medication':'تعديل الدواء','No dosage':'بدون جرعة','No end date':'بدون تاريخ نهاية','Testing alarm sound...':'جارٍ اختبار صوت المنبه...','Your custom sound is ready.':'الصوت المخصص جاهز.','Your reminder system is configured and active.':'نظام التذكير مضبوط ونشط.','You can create alarms to organize your medication schedule.':'يمكنك إنشاء منبهات لتنظيم جدول أدويتك.','Unknown medication':'دواء غير معروف','active':'نشط'
+      },
+      darija: {
+        'Main':'الرئيسية','Tools':'الأدوات','Dashboard':'الواجهة الرئيسية','My Medications':'دواياتي','Alarm Clock':'المنبه','Add Medication':'زيد دوا','Calendar':'التقويم','Reports':'التقارير','AI Assistant':'المساعد الذكي','Loading...':'كنحمّلو...','Welcome to MediPlan AI':'مرحبا بك فـ MediPlan AI','Manage your medications and never miss a dose.':'نظّم دواياتك وماتفوّتش حتى جرعة.','Total Medications':'مجموع دواياتك','Active Alarms':'المنبهات الخدامين','Today\'s Doses':'جرعات اليوم','Adherence':'الالتزام','Recent Medications':'آخر دوايات','View All':'شوف الكل','Upcoming Alarms':'المنبهات الجايين','Manage all your medications in one place.':'نظّم دواياتك كاملين فبلاصة وحدة.','Medication List':'لائحة الدوايات','＋ Add Medication':'＋ زيد دوا','Add a medication to your treatment plan.':'زيد دوا لخطة العلاج ديالك.','Medication Name *':'سمية الدوا *','Dosage':'الجرعة','Frequency':'عدد المرات','Select frequency':'ختار عدد المرات','Once a day':'مرة فالنهار','Twice a day':'جوج مرات فالنهار','Three times a day':'3 مرات فالنهار','Every 4 hours':'كل 4 سوايع','Every 6 hours':'كل 6 سوايع','Every 8 hours':'كل 8 سوايع','Every 12 hours':'كل 12 ساعة','As needed':'إلا احتاجيتيه','Start Date':'تاريخ البداية','End Date':'تاريخ النهاية','Save Medication':'حفظ الدوا','Cancel':'إلغاء','Current Local Time':'الوقت المحلي دابا','Alarm system active':'نظام المنبه خدام','Create Alarm':'صايب منبه','Medication *':'الدوا *','Select medication':'ختار الدوا','Alarm Time *':'وقت المنبه *','Days':'الأيام','Snooze Duration':'مدة التأجيل','5 minutes':'5 دقايق','10 minutes':'10 دقايق','15 minutes':'15 دقيقة','20 minutes':'20 دقيقة','30 minutes':'30 دقيقة','＋ Create Alarm':'＋ صايب منبه','My Alarms':'المنبهات ديالي','Alarm Sound':'صوت المنبه','🔔 Gentle Bell':'🔔 جرس هادئ','⏰ Classic Alarm':'⏰ منبه كلاسيكي','🔊 Digital Beep':'🔊 بيب رقمي','🌙 Soft Reminder':'🌙 تذكير هادئ','🎵 My Music':'🎵 الموسيقى ديالي','Choose your own sound':'ختار الصوت ديالك','▶ Test Sound':'▶ جرّب الصوت','■ Stop Sound':'■ حبّس الصوت','View your medication schedule.':'شوف برنامج الدوايات ديالك.','Reports & Analytics':'التقارير والتحليلات','Total Alarms':'مجموع المنبهات','Alarm Coverage':'تغطية المنبهات','Alarm Status':'حالة المنبهات','Enabled and disabled reminders.':'التذكيرات الخدامة والواقفة.','Total':'المجموع','Enabled':'خدامة','Disabled':'واقفة','Alarms by Time':'المنبهات حسب الوقت','Distribution of reminders during the day.':'كيفاش موزعين المنبهات فالنهار.','Add medications and alarms to see personalized report insights.':'زيد دوايات ومنبهات باش تشوف التحليلات ديالك.','Medication Report':'تقرير الدوايات','Current medication records.':'المعلومات الحالية ديال الدوايات.','Medication':'الدوا','Start':'البداية','End':'النهاية','Smart assistance for your medication organization.':'مساعدة ذكية باش تنظّم دواياتك.','MediPlan AI Assistant':'المساعد الذكي ديال MediPlan','✨ Analyze My Plan':'✨ حلّل الخطة ديالي','Medication Reminder':'تذكير بالدوا','Stop Alarm':'حبّس المنبه','Snooze':'أجّل','Edit Medication':'عدّل الدوا','No dosage':'ماكايناش الجرعة','No end date':'ماكاينش تاريخ النهاية','Testing alarm sound...':'كنجرّبو صوت المنبه...','Your custom sound is ready.':'الصوت لي اخترتي واجد.','Your reminder system is configured and active.':'نظام التذكير ديالك مضبوط وخدام.','You can create alarms to organize your medication schedule.':'تقدر تصايب منبهات باش تنظّم برنامج الدوايات ديالك.','Unknown medication':'دوا ما معروفش','active':'خدام'
+      }
+    };
+
+    // Copy the close Latin-language structure for East Asian languages with concise UI labels.
+    T.zh = {'Main':'主菜单','Tools':'工具','Dashboard':'仪表板','My Medications':'我的药物','Alarm Clock':'闹钟','Add Medication':'添加药物','Calendar':'日历','Reports':'报告','AI Assistant':'AI 助手','Loading...':'加载中...','Welcome to MediPlan AI':'欢迎使用 MediPlan AI','Manage your medications and never miss a dose.':'管理药物，不错过任何一次服药。','Total Medications':'药物总数','Active Alarms':'启用的提醒','Today\'s Doses':'今日服药','Adherence':'依从性','Recent Medications':'最近药物','View All':'查看全部','Upcoming Alarms':'即将到来的提醒','Manage all your medications in one place.':'在一个地方管理所有药物。','Medication List':'药物列表','＋ Add Medication':'＋ 添加药物','Medication Name *':'药物名称 *','Dosage':'剂量','Frequency':'频率','Select frequency':'选择频率','Once a day':'每天一次','Twice a day':'每天两次','Three times a day':'每天三次','Every 4 hours':'每4小时','Every 6 hours':'每6小时','Every 8 hours':'每8小时','Every 12 hours':'每12小时','As needed':'按需','Start Date':'开始日期','End Date':'结束日期','Save Medication':'保存药物','Cancel':'取消','Current Local Time':'当前本地时间','Alarm system active':'提醒系统已启用','Create Alarm':'创建提醒','Medication *':'药物 *','Select medication':'选择药物','Alarm Time *':'提醒时间 *','Days':'日期','Snooze Duration':'延后时长','5 minutes':'5分钟','10 minutes':'10分钟','15 minutes':'15分钟','20 minutes':'20分钟','30 minutes':'30分钟','＋ Create Alarm':'＋ 创建提醒','My Alarms':'我的提醒','Alarm Sound':'提醒声音','Choose your own sound':'选择自定义声音','▶ Test Sound':'▶ 测试声音','■ Stop Sound':'■ 停止声音','View your medication schedule.':'查看药物计划。','Reports & Analytics':'报告与分析','Total Alarms':'提醒总数','Alarm Coverage':'提醒覆盖率','Alarm Status':'提醒状态','Enabled and disabled reminders.':'已启用和已停用的提醒。','Total':'总数','Enabled':'已启用','Disabled':'已停用','Alarms by Time':'按时间统计提醒','Distribution of reminders during the day.':'全天提醒分布。','Medication Report':'药物报告','Current medication records.':'当前药物记录。','Medication':'药物','Start':'开始','End':'结束','Smart assistance for your medication organization.':'帮助你智能管理药物。','MediPlan AI Assistant':'MediPlan AI 助手','✨ Analyze My Plan':'✨ 分析我的计划','Medication Reminder':'服药提醒','Stop Alarm':'停止提醒','Snooze':'延后','Edit Medication':'编辑药物','No dosage':'无剂量','No end date':'无结束日期'};
+    T.ja = {'Main':'メイン','Tools':'ツール','Dashboard':'ダッシュボード','My Medications':'服薬管理','Alarm Clock':'アラーム','Add Medication':'薬を追加','Calendar':'カレンダー','Reports':'レポート','AI Assistant':'AIアシスタント','Loading...':'読み込み中...','Welcome to MediPlan AI':'MediPlan AIへようこそ','Manage your medications and never miss a dose.':'薬を管理して、飲み忘れを防ぎましょう。','Total Medications':'薬の数','Active Alarms':'有効なアラーム','Today\'s Doses':'今日の服薬','Adherence':'服薬遵守','Recent Medications':'最近の薬','View All':'すべて表示','Upcoming Alarms':'次のアラーム','Medication List':'薬の一覧','＋ Add Medication':'＋ 薬を追加','Medication Name *':'薬名 *','Dosage':'用量','Frequency':'頻度','Select frequency':'頻度を選択','Once a day':'1日1回','Twice a day':'1日2回','Three times a day':'1日3回','Every 4 hours':'4時間ごと','Every 6 hours':'6時間ごと','Every 8 hours':'8時間ごと','Every 12 hours':'12時間ごと','As needed':'必要時','Start Date':'開始日','End Date':'終了日','Save Medication':'薬を保存','Cancel':'キャンセル','Current Local Time':'現在の現地時刻','Alarm system active':'アラームは有効です','Create Alarm':'アラームを作成','Medication *':'薬 *','Select medication':'薬を選択','Alarm Time *':'アラーム時刻 *','Days':'曜日','Snooze Duration':'スヌーズ時間','5 minutes':'5分','10 minutes':'10分','15 minutes':'15分','20 minutes':'20分','30 minutes':'30分','＋ Create Alarm':'＋ アラームを作成','My Alarms':'マイアラーム','Alarm Sound':'アラーム音','Choose your own sound':'音声ファイルを選択','▶ Test Sound':'▶ 音をテスト','■ Stop Sound':'■ 音を停止','View your medication schedule.':'服薬スケジュールを表示します。','Reports & Analytics':'レポートと分析','Total Alarms':'アラーム総数','Alarm Coverage':'アラームカバー率','Alarm Status':'アラーム状態','Total':'合計','Enabled':'有効','Disabled':'無効','Alarms by Time':'時間別アラーム','Medication Report':'薬のレポート','Medication':'薬','Start':'開始','End':'終了','MediPlan AI Assistant':'MediPlan AI アシスタント','✨ Analyze My Plan':'✨ プランを分析','Medication Reminder':'服薬リマインダー','Stop Alarm':'アラームを停止','Snooze':'スヌーズ','Edit Medication':'薬を編集','No dosage':'用量なし','No end date':'終了日なし'};
+    T.ko = {'Main':'메인','Tools':'도구','Dashboard':'대시보드','My Medications':'내 약','Alarm Clock':'알람','Add Medication':'약 추가','Calendar':'캘린더','Reports':'보고서','AI Assistant':'AI 어시스턴트','Loading...':'로딩 중...','Welcome to MediPlan AI':'MediPlan AI에 오신 것을 환영합니다','Manage your medications and never miss a dose.':'약을 관리하고 복용을 놓치지 마세요.','Total Medications':'약 개수','Active Alarms':'활성 알람','Today\'s Doses':'오늘 복용','Adherence':'복약 순응도','Recent Medications':'최근 약','View All':'모두 보기','Upcoming Alarms':'다가오는 알람','Medication List':'약 목록','＋ Add Medication':'＋ 약 추가','Medication Name *':'약 이름 *','Dosage':'용량','Frequency':'복용 빈도','Select frequency':'빈도 선택','Once a day':'하루 한 번','Twice a day':'하루 두 번','Three times a day':'하루 세 번','Every 4 hours':'4시간마다','Every 6 hours':'6시간마다','Every 8 hours':'8시간마다','Every 12 hours':'12시간마다','As needed':'필요 시','Start Date':'시작일','End Date':'종료일','Save Medication':'약 저장','Cancel':'취소','Current Local Time':'현재 현지 시간','Alarm system active':'알람 시스템 활성','Create Alarm':'알람 만들기','Medication *':'약 *','Select medication':'약 선택','Alarm Time *':'알람 시간 *','Days':'요일','Snooze Duration':'다시 알림 시간','5 minutes':'5분','10 minutes':'10분','15 minutes':'15분','20 minutes':'20분','30 minutes':'30분','＋ Create Alarm':'＋ 알람 만들기','My Alarms':'내 알람','Alarm Sound':'알람 소리','Choose your own sound':'사용자 소리 선택','▶ Test Sound':'▶ 소리 테스트','■ Stop Sound':'■ 소리 중지','View your medication schedule.':'약 복용 일정을 확인하세요.','Reports & Analytics':'보고서 및 분석','Total Alarms':'전체 알람','Alarm Coverage':'알람 커버리지','Alarm Status':'알람 상태','Total':'전체','Enabled':'활성','Disabled':'비활성','Alarms by Time':'시간별 알람','Medication Report':'약 보고서','Medication':'약','Start':'시작','End':'종료','MediPlan AI Assistant':'MediPlan AI 어시스턴트','✨ Analyze My Plan':'✨ 내 계획 분석','Medication Reminder':'복약 알림','Stop Alarm':'알람 중지','Snooze':'다시 알림','Edit Medication':'약 수정','No dosage':'용량 없음','No end date':'종료일 없음'};
+
+    const EXTRA_TRANSLATIONS = {
+      en: {'Alarm Schedule':'Alarm Schedule','Choose the required alarm time(s) for this frequency.':'Choose the required alarm time(s) for this frequency.','Alarm':'Alarm','alarms':'alarms','alarm':'alarm','Please choose all':'Please choose all','required alarm times.':'required alarm times.','Alarm times must be different.':'Alarm times must be different.','This alarm already exists for this medication and schedule.':'This alarm already exists for this medication and schedule.','This medication is outside its treatment dates.':'This medication is outside its treatment dates.','Start date must be today.':'Start date must be today.'},
+      ar: {'Alarm Schedule':'مواعيد التنبيه','Choose the required alarm time(s) for this frequency.':'اختر أوقات التنبيه المطلوبة حسب وتيرة الدواء.','Alarm':'التنبيه','alarms':'تنبيهات','alarm':'تنبيه','Please choose all':'يرجى اختيار جميع','required alarm times.':'أوقات التنبيه المطلوبة.','Alarm times must be different.':'يجب أن تكون أوقات التنبيه مختلفة.','This alarm already exists for this medication and schedule.':'هذا التنبيه موجود بالفعل لهذا الدواء ولهذا الجدول.','This medication is outside its treatment dates.':'هذا الدواء خارج فترة العلاج المحددة.','Start date must be today.':'تاريخ البداية يجب أن يكون اليوم.'},
+      fr: {'Alarm Schedule':'Horaires des alarmes','Choose the required alarm time(s) for this frequency.':'Choisissez les heures d’alarme requises selon la fréquence.','Alarm':'Alarme','alarms':'alarmes','alarm':'alarme','Please choose all':'Veuillez choisir toutes les','required alarm times.':'heures d’alarme requises.','Alarm times must be different.':'Les heures d’alarme doivent être différentes.','This alarm already exists for this medication and schedule.':'Cette alarme existe déjà pour ce médicament et ce planning.','This medication is outside its treatment dates.':'Ce médicament est en dehors de sa période de traitement.','Start date must be today.':'La date de début doit être aujourd’hui.'},
+      de: {'Alarm Schedule':'Alarmplan','Choose the required alarm time(s) for this frequency.':'Wählen Sie die erforderlichen Alarmzeiten entsprechend der Einnahmehäufigkeit.','Alarm':'Alarm','alarms':'Alarme','alarm':'Alarm','Please choose all':'Bitte wählen Sie alle','required alarm times.':'erforderlichen Alarmzeiten.','Alarm times must be different.':'Die Alarmzeiten müssen unterschiedlich sein.','This alarm already exists for this medication and schedule.':'Dieser Alarm existiert bereits für dieses Medikament und diesen Zeitplan.','This medication is outside its treatment dates.':'Dieses Medikament liegt außerhalb des Behandlungszeitraums.','Start date must be today.':'Das Startdatum muss heute sein.'},
+      es: {'Alarm Schedule':'Horario de alarmas','Choose the required alarm time(s) for this frequency.':'Elige las horas de alarma necesarias según la frecuencia.','Alarm':'Alarma','alarms':'alarmas','alarm':'alarma','Please choose all':'Elige todas las','required alarm times.':'horas de alarma necesarias.','Alarm times must be different.':'Las horas de alarma deben ser diferentes.','This alarm already exists for this medication and schedule.':'Esta alarma ya existe para este medicamento y horario.','This medication is outside its treatment dates.':'Este medicamento está fuera de su periodo de tratamiento.','Start date must be today.':'La fecha de inicio debe ser hoy.'},
+      zh: {'Alarm Schedule':'闹钟时间安排','Choose the required alarm time(s) for this frequency.':'请根据用药频率选择所需的提醒时间。','Alarm':'提醒','alarms':'提醒','alarm':'提醒','Please choose all':'请选择全部','required alarm times.':'所需提醒时间。','Alarm times must be different.':'提醒时间必须不同。','This alarm already exists for this medication and schedule.':'该药物和时间安排已存在此提醒。','This medication is outside its treatment dates.':'该药物不在治疗日期范围内。','Start date must be today.':'开始日期必须是今天。'},
+      ja: {'Alarm Schedule':'アラームスケジュール','Choose the required alarm time(s) for this frequency.':'服用頻度に応じて必要なアラーム時刻を選択してください。','Alarm':'アラーム','alarms':'アラーム','alarm':'アラーム','Please choose all':'すべて選択してください','required alarm times.':'必要なアラーム時刻。','Alarm times must be different.':'アラーム時刻は重複できません。','This alarm already exists for this medication and schedule.':'この薬とスケジュールにはすでに同じアラームがあります。','This medication is outside its treatment dates.':'この薬は治療期間外です。','Start date must be today.':'開始日は今日である必要があります。'},
+      ko: {'Alarm Schedule':'알람 일정','Choose the required alarm time(s) for this frequency.':'복용 빈도에 맞는 필요한 알람 시간을 선택하세요.','Alarm':'알람','alarms':'알람','alarm':'알람','Please choose all':'모두 선택하세요','required alarm times.':'필요한 알람 시간.','Alarm times must be different.':'알람 시간은 서로 달라야 합니다.','This alarm already exists for this medication and schedule.':'이 약과 일정에 이미 같은 알람이 있습니다.','This medication is outside its treatment dates.':'이 약은 치료 기간이 아닙니다.','Start date must be today.':'시작 날짜는 오늘이어야 합니다.'},
+      pt: {'Alarm Schedule':'Horário dos alarmes','Choose the required alarm time(s) for this frequency.':'Escolha os horários de alarme necessários de acordo com a frequência.','Alarm':'Alarme','alarms':'alarmes','alarm':'alarme','Please choose all':'Escolha todos os','required alarm times.':'horários de alarme necessários.','Alarm times must be different.':'Os horários dos alarmes devem ser diferentes.','This alarm already exists for this medication and schedule.':'Este alarme já existe para este medicamento e horário.','This medication is outside its treatment dates.':'Este medicamento está fora do período de tratamento.','Start date must be today.':'A data de início deve ser hoje.'},
+      darija: {'Alarm Schedule':'مواعيد المنبه','Choose the required alarm time(s) for this frequency.':'ختاري الأوقات ديال المنبه حسب عدد المرات اللي خاصك تاخدي فيها الدوا.','Alarm':'المنبه','alarms':'المنبهات','alarm':'منبه','Please choose all':'عافاك اختاري جميع','required alarm times.':'الأوقات المطلوبة ديال المنبه.','Alarm times must be different.':'خاص أوقات المنبه تكون مختلفة.','This alarm already exists for this medication and schedule.':'هاد المنبه راه موجود من قبل لهاد الدوا ونفس الجدول.','This medication is outside its treatment dates.':'هاد الدوا خارج المدة المحددة ديال العلاج.','Start date must be today.':'تاريخ البداية خاصو يكون اليوم.'}
+    };
+    for(const code of Object.keys(EXTRA_TRANSLATIONS)){ Object.assign(T[code] || (T[code]={}), EXTRA_TRANSLATIONS[code]); }
+
+    // Dynamic and modal text used after the page is rendered.
+    const DYNAMIC_TRANSLATIONS = {
+      en: {
+        'AI Plan Overview':'AI Plan Overview','You currently have':'You currently have','medication(s) registered.':'medication(s) registered.','You have':'You have','active alarm(s).':'active alarm(s).','No medications yet.':'No medications yet.','No alarms yet.':'No alarms yet.','Unknown medication':'Unknown medication','Delete medication':'Delete medication','Delete alarm':'Delete alarm','Are you sure?':'Are you sure?','Are you sure you want to delete':'Are you sure you want to delete','Are you sure you want to delete this alarm?':'Are you sure you want to delete this alarm?','Delete':'Delete','Could not load medications.':'Could not load medications.','Could not load alarms.':'Could not load alarms.','Could not delete medication.':'Could not delete medication.','Could not delete alarm.':'Could not delete alarm.','Medication deleted.':'Medication deleted.','Alarm deleted.':'Alarm deleted.','Server error.':'Server error.','Please select a medication.':'Please select a medication.','This medication does not require scheduled alarms.':'This medication does not require scheduled alarms.','Please select at least one day.':'Please select at least one day.','End date cannot be before start date.':'End date cannot be before start date.','Medication name is required.':'Medication name is required.','Start date is required.':'Start date is required.','Testing alarm sound...':'Testing alarm sound...','Your custom sound is ready.':'Your custom sound is ready.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.','You can create alarms to organize your medication schedule.':'You can create alarms to organize your medication schedule.','Your reminder system is configured and active.':'Your reminder system is configured and active.','The busiest reminder time is around':'The busiest reminder time is around','Medication Reminder':'Medication Reminder','Dosage':'Dosage'},
+      ar: {
+        'AI Plan Overview':'نظرة عامة على خطة الدواء','You currently have':'لديك حالياً','medication(s) registered.':'دواء(أدوية) مسجلة.','You have':'لديك','active alarm(s).':'منبه(ات) نشطة.','No medications yet.':'لا توجد أدوية بعد.','No alarms yet.':'لا توجد منبهات بعد.','Unknown medication':'دواء غير معروف','Delete medication':'حذف الدواء','Delete alarm':'حذف المنبه','Are you sure?':'تأكيد؟','Are you sure you want to delete':'تأكيد حذف','Are you sure you want to delete this alarm?':'تأكيد حذف هذا المنبه؟','Delete':'حذف','Could not load medications.':'تعذر تحميل الأدوية.','Could not load alarms.':'تعذر تحميل المنبهات.','Could not delete medication.':'تعذر حذف الدواء.','Could not delete alarm.':'تعذر حذف المنبه.','Medication deleted.':'تم حذف الدواء.','Alarm deleted.':'تم حذف المنبه.','Server error.':'خطأ في الخادم.','Please select a medication.':'يرجى اختيار دواء.','This medication does not require scheduled alarms.':'هذا الدواء لا يحتاج إلى منبهات مجدولة.','Please select at least one day.':'يرجى اختيار يوم واحد على الأقل.','End date cannot be before start date.':'لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية.','Medication name is required.':'اسم الدواء مطلوب.','Start date is required.':'تاريخ البداية مطلوب.','Testing alarm sound...':'جارٍ اختبار صوت المنبه...','Your custom sound is ready.':'الصوت المخصص جاهز.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'لا توجد لديك أدوية أو منبهات بعد. أضف دواءً وأنشئ تذكيراً لبدء خطتك.','You can create alarms to organize your medication schedule.':'يمكنك إنشاء منبهات لتنظيم جدول أدويتك.','Your reminder system is configured and active.':'نظام التذكير مضبوط ونشط.','The busiest reminder time is around':'أكثر وقت فيه منبهات هو حوالي','Medication Reminder':'تذكير بالدواء'},
+      fr: {
+        'AI Plan Overview':'Vue d’ensemble du plan de traitement','You currently have':'Vous avez actuellement','medication(s) registered.':'médicament(s) enregistré(s).','You have':'Vous avez','active alarm(s).':'alarme(s) active(s).','No medications yet.':'Aucun médicament pour le moment.','No alarms yet.':'Aucune alarme pour le moment.','Unknown medication':'Médicament inconnu','Delete medication':'Supprimer le médicament','Delete alarm':'Supprimer l’alarme','Are you sure?':'Êtes-vous sûr ?','Are you sure you want to delete':'Êtes-vous sûr de vouloir supprimer','Are you sure you want to delete this alarm?':'Êtes-vous sûr de vouloir supprimer cette alarme ?','Delete':'Supprimer','Could not load medications.':'Impossible de charger les médicaments.','Could not load alarms.':'Impossible de charger les alarmes.','Could not delete medication.':'Impossible de supprimer le médicament.','Could not delete alarm.':'Impossible de supprimer l’alarme.','Medication deleted.':'Médicament supprimé.','Alarm deleted.':'Alarme supprimée.','Server error.':'Erreur du serveur.','Please select a medication.':'Veuillez sélectionner un médicament.','This medication does not require scheduled alarms.':'Ce médicament ne nécessite pas d’alarmes programmées.','Please select at least one day.':'Veuillez sélectionner au moins un jour.','End date cannot be before start date.':'La date de fin ne peut pas être antérieure à la date de début.','Medication name is required.':'Le nom du médicament est obligatoire.','Start date is required.':'La date de début est obligatoire.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'Vous n’avez encore aucun médicament ni aucune alarme. Ajoutez un médicament et créez un rappel pour commencer votre plan.','You can create alarms to organize your medication schedule.':'Vous pouvez créer des alarmes pour organiser votre traitement.','The busiest reminder time is around':'L’heure avec le plus de rappels est vers','Medication Reminder':'Rappel de médicament'},
+      de: {
+        'AI Plan Overview':'Übersicht über den Medikationsplan','You currently have':'Sie haben derzeit','medication(s) registered.':'registrierte(s) Medikament(e).','You have':'Sie haben','active alarm(s).':'aktive(n) Alarm(e).','No medications yet.':'Noch keine Medikamente.','No alarms yet.':'Noch keine Alarme.','Unknown medication':'Unbekanntes Medikament','Delete medication':'Medikament löschen','Delete alarm':'Alarm löschen','Are you sure?':'Sind Sie sicher?','Are you sure you want to delete':'Möchten Sie wirklich löschen','Are you sure you want to delete this alarm?':'Möchten Sie diesen Alarm wirklich löschen?','Delete':'Löschen','Could not load medications.':'Medikamente konnten nicht geladen werden.','Could not load alarms.':'Alarme konnten nicht geladen werden.','Could not delete medication.':'Medikament konnte nicht gelöscht werden.','Could not delete alarm.':'Alarm konnte nicht gelöscht werden.','Medication deleted.':'Medikament gelöscht.','Alarm deleted.':'Alarm gelöscht.','Server error.':'Serverfehler.','Please select a medication.':'Bitte wählen Sie ein Medikament.','This medication does not require scheduled alarms.':'Dieses Medikament benötigt keine geplanten Alarme.','Please select at least one day.':'Bitte wählen Sie mindestens einen Tag.','End date cannot be before start date.':'Das Enddatum darf nicht vor dem Startdatum liegen.','Medication name is required.':'Der Medikamentenname ist erforderlich.','Start date is required.':'Das Startdatum ist erforderlich.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'Sie haben noch keine Medikamente oder Alarme. Fügen Sie ein Medikament und eine Erinnerung hinzu, um Ihren Plan zu erstellen.','You can create alarms to organize your medication schedule.':'Sie können Alarme erstellen, um Ihren Medikamentenplan zu organisieren.','The busiest reminder time is around':'Die häufigste Erinnerungszeit ist etwa','Medication Reminder':'Medikamentenerinnerung'},
+      es: {
+        'AI Plan Overview':'Resumen del plan de medicación','You currently have':'Actualmente tienes','medication(s) registered.':'medicamento(s) registrado(s).','You have':'Tienes','active alarm(s).':'alarma(s) activa(s).','No medications yet.':'Aún no hay medicamentos.','No alarms yet.':'Aún no hay alarmas.','Unknown medication':'Medicamento desconocido','Delete medication':'Eliminar medicamento','Delete alarm':'Eliminar alarma','Are you sure?':'¿Estás seguro?','Are you sure you want to delete':'¿Estás seguro de que quieres eliminar','Are you sure you want to delete this alarm?':'¿Estás seguro de que quieres eliminar esta alarma?','Delete':'Eliminar','Could not load medications.':'No se pudieron cargar los medicamentos.','Could not load alarms.':'No se pudieron cargar las alarmas.','Could not delete medication.':'No se pudo eliminar el medicamento.','Could not delete alarm.':'No se pudo eliminar la alarma.','Medication deleted.':'Medicamento eliminado.','Alarm deleted.':'Alarma eliminada.','Server error.':'Error del servidor.','Please select a medication.':'Selecciona un medicamento.','This medication does not require scheduled alarms.':'Este medicamento no requiere alarmas programadas.','Please select at least one day.':'Selecciona al menos un día.','End date cannot be before start date.':'La fecha de fin no puede ser anterior a la fecha de inicio.','Medication name is required.':'El nombre del medicamento es obligatorio.','Start date is required.':'La fecha de inicio es obligatoria.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'Aún no tienes medicamentos ni alarmas. Añade un medicamento y crea un recordatorio para empezar tu plan.','You can create alarms to organize your medication schedule.':'Puedes crear alarmas para organizar tu tratamiento.','The busiest reminder time is around':'La hora con más recordatorios es alrededor de','Medication Reminder':'Recordatorio de medicamento'},
+      zh: {
+        'AI Plan Overview':'用药计划概览','You currently have':'目前有','medication(s) registered.':'个已登记的药物。','You have':'你有','active alarm(s).':'个启用的提醒。','No medications yet.':'还没有药物。','No alarms yet.':'还没有提醒。','Unknown medication':'未知药物','Delete medication':'删除药物','Delete alarm':'删除提醒','Are you sure?':'确定吗？','Are you sure you want to delete':'确定要删除','Are you sure you want to delete this alarm?':'确定要删除此提醒吗？','Delete':'删除','Could not load medications.':'无法加载药物。','Could not load alarms.':'无法加载提醒。','Could not delete medication.':'无法删除药物。','Could not delete alarm.':'无法删除提醒。','Medication deleted.':'药物已删除。','Alarm deleted.':'提醒已删除。','Server error.':'服务器错误。','Please select a medication.':'请选择药物。','This medication does not require scheduled alarms.':'该药物不需要定时提醒。','Please select at least one day.':'请至少选择一天。','End date cannot be before start date.':'结束日期不能早于开始日期。','Medication name is required.':'请输入药物名称。','Start date is required.':'开始日期为必填项。','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'你还没有药物或提醒。添加药物并创建提醒来开始制定计划。','You can create alarms to organize your medication schedule.':'你可以创建提醒来安排用药时间。','The busiest reminder time is around':'提醒最集中的时间约为','Medication Reminder':'服药提醒'},
+      ja: {
+        'AI Plan Overview':'服薬プランの概要','You currently have':'現在','medication(s) registered.':'件の薬が登録されています。','You have':'現在','active alarm(s).':'件の有効なアラームがあります。','No medications yet.':'薬はまだありません。','No alarms yet.':'アラームはまだありません。','Unknown medication':'不明な薬','Delete medication':'薬を削除','Delete alarm':'アラームを削除','Are you sure?':'本当に削除しますか？','Are you sure you want to delete':'削除してもよろしいですか：','Are you sure you want to delete this alarm?':'このアラームを削除してもよろしいですか？','Delete':'削除','Could not load medications.':'薬を読み込めませんでした。','Could not load alarms.':'アラームを読み込めませんでした。','Could not delete medication.':'薬を削除できませんでした。','Could not delete alarm.':'アラームを削除できませんでした。','Medication deleted.':'薬を削除しました。','Alarm deleted.':'アラームを削除しました。','Server error.':'サーバーエラーです。','Please select a medication.':'薬を選択してください。','This medication does not require scheduled alarms.':'この薬には定時アラームは必要ありません。','Please select at least one day.':'少なくとも1日選択してください。','End date cannot be before start date.':'終了日は開始日より前にできません。','Medication name is required.':'薬名は必須です。','Start date is required.':'開始日は必須です。','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'薬やアラームはまだありません。薬を追加してリマインダーを作成しましょう。','You can create alarms to organize your medication schedule.':'アラームを作成して服薬スケジュールを整理できます。','The busiest reminder time is around':'リマインダーが最も多い時間は約','Medication Reminder':'服薬リマインダー'},
+      ko: {
+        'AI Plan Overview':'복약 계획 개요','You currently have':'현재','medication(s) registered.':'개의 약이 등록되어 있습니다.','You have':'현재','active alarm(s).':'개의 활성 알람이 있습니다.','No medications yet.':'아직 약이 없습니다.','No alarms yet.':'아직 알람이 없습니다.','Unknown medication':'알 수 없는 약','Delete medication':'약 삭제','Delete alarm':'알람 삭제','Are you sure?':'정말 삭제하시겠습니까?','Are you sure you want to delete':'다음 항목을 삭제하시겠습니까','Are you sure you want to delete this alarm?':'이 알람을 삭제하시겠습니까?','Delete':'삭제','Could not load medications.':'약을 불러올 수 없습니다.','Could not load alarms.':'알람을 불러올 수 없습니다.','Could not delete medication.':'약을 삭제할 수 없습니다.','Could not delete alarm.':'알람을 삭제할 수 없습니다.','Medication deleted.':'약이 삭제되었습니다.','Alarm deleted.':'알람이 삭제되었습니다.','Server error.':'서버 오류입니다.','Please select a medication.':'약을 선택하세요.','This medication does not require scheduled alarms.':'이 약은 예약 알람이 필요하지 않습니다.','Please select at least one day.':'하루 이상 선택하세요.','End date cannot be before start date.':'종료일은 시작일보다 빠를 수 없습니다.','Medication name is required.':'약 이름은 필수입니다.','Start date is required.':'시작일은 필수입니다.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'아직 약이나 알람이 없습니다. 약을 추가하고 알림을 만들어 계획을 시작하세요.','You can create alarms to organize your medication schedule.':'알람을 만들어 복약 일정을 관리할 수 있습니다.','The busiest reminder time is around':'알림이 가장 많은 시간은 약','Medication Reminder':'복약 알림'},
+      pt: {
+        'AI Plan Overview':'Visão geral do plano de medicação','You currently have':'Atualmente você tem','medication(s) registered.':'medicamento(s) registrado(s).','You have':'Você tem','active alarm(s).':'alarme(s) ativo(s).','No medications yet.':'Ainda não há medicamentos.','No alarms yet.':'Ainda não há alarmes.','Unknown medication':'Medicamento desconhecido','Delete medication':'Excluir medicamento','Delete alarm':'Excluir alarme','Are you sure?':'Tem certeza?','Are you sure you want to delete':'Tem certeza de que deseja excluir','Are you sure you want to delete this alarm?':'Tem certeza de que deseja excluir este alarme?','Delete':'Excluir','Could not load medications.':'Não foi possível carregar os medicamentos.','Could not load alarms.':'Não foi possível carregar os alarmes.','Could not delete medication.':'Não foi possível excluir o medicamento.','Could not delete alarm.':'Não foi possível excluir o alarme.','Medication deleted.':'Medicamento excluído.','Alarm deleted.':'Alarme excluído.','Server error.':'Erro do servidor.','Please select a medication.':'Selecione um medicamento.','This medication does not require scheduled alarms.':'Este medicamento não requer alarmes programados.','Please select at least one day.':'Selecione pelo menos um dia.','End date cannot be before start date.':'A data final não pode ser anterior à data inicial.','Medication name is required.':'O nome do medicamento é obrigatório.','Start date is required.':'A data inicial é obrigatória.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'Você ainda não tem medicamentos ou alarmes. Adicione um medicamento e crie um lembrete para começar seu plano.','You can create alarms to organize your medication schedule.':'Você pode criar alarmes para organizar seu horário de medicação.','The busiest reminder time is around':'O horário com mais lembretes é por volta de','Medication Reminder':'Lembrete de medicamento'},
+      darija: {
+        'AI Plan Overview':'نظرة عامة على خطة الدوا','You currently have':'دابا عندك','medication(s) registered.':'دوايات مسجلين.','You have':'عندك','active alarm(s).':'منبهات خدامين.','No medications yet.':'مازال ماكاين حتى دوا.','No alarms yet.':'مازال ماكاين حتى منبه.','Unknown medication':'دوا ما معروفش','Delete medication':'حذف الدوا','Delete alarm':'حذف المنبه','Are you sure?':'واش بغيتي تأكد؟','Are you sure you want to delete':'واش بغيتي تحذف','Are you sure you want to delete this alarm?':'واش بغيتي تحذف هاد المنبه؟','Delete':'حذف','Could not load medications.':'ما قدرناش نحملو الدوايات.','Could not load alarms.':'ما قدرناش نحملو المنبهات.','Could not delete medication.':'ما قدرناش نحذفو الدوا.','Could not delete alarm.':'ما قدرناش نحذفو المنبه.','Medication deleted.':'تحيد الدوا.','Alarm deleted.':'تحيد المنبه.','Server error.':'وقع مشكل فالسيرفر.','Please select a medication.':'عافاك اختاري دوا.','This medication does not require scheduled alarms.':'هاد الدوا ما محتاجش منبهات مبرمجة.','Please select at least one day.':'عافاك اختاري نهار واحد على الأقل.','End date cannot be before start date.':'تاريخ النهاية ما يقدرش يكون قبل تاريخ البداية.','Medication name is required.':'سمية الدوا ضرورية.','Start date is required.':'تاريخ البداية ضروري.','You have no medications or alarms yet. Add a medication and create a reminder to start building your plan.':'مازال ما عندك لا دوايات لا منبهات. زيدي دوا وديري تذكير باش تبداي الخطة ديالك.','You can create alarms to organize your medication schedule.':'تقدري تديري منبهات باش تنظمي أوقات الدوا ديالك.','The busiest reminder time is around':'أكثر وقت فيه المنبهات هو تقريباً','Medication Reminder':'تذكير بالدوا'}
+    };
+    const DAY_TRANSLATIONS = {
+        en:{Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'},
+        ar:{Mon:'الاثنين',Tue:'الثلاثاء',Wed:'الأربعاء',Thu:'الخميس',Fri:'الجمعة',Sat:'السبت',Sun:'الأحد'},
+        fr:{Mon:'Lundi',Tue:'Mardi',Wed:'Mercredi',Thu:'Jeudi',Fri:'Vendredi',Sat:'Samedi',Sun:'Dimanche'},
+        de:{Mon:'Montag',Tue:'Dienstag',Wed:'Mittwoch',Thu:'Donnerstag',Fri:'Freitag',Sat:'Samstag',Sun:'Sonntag'},
+        es:{Mon:'Lunes',Tue:'Martes',Wed:'Miércoles',Thu:'Jueves',Fri:'Viernes',Sat:'Sábado',Sun:'Domingo'},
+        zh:{Mon:'星期一',Tue:'星期二',Wed:'星期三',Thu:'星期四',Fri:'星期五',Sat:'星期六',Sun:'星期日'},
+        ja:{Mon:'月曜日',Tue:'火曜日',Wed:'水曜日',Thu:'木曜日',Fri:'金曜日',Sat:'土曜日',Sun:'日曜日'},
+        ko:{Mon:'월요일',Tue:'화요일',Wed:'수요일',Thu:'목요일',Fri:'금요일',Sat:'토요일',Sun:'일요일'},
+        pt:{Mon:'Segunda-feira',Tue:'Terça-feira',Wed:'Quarta-feira',Thu:'Quinta-feira',Fri:'Sexta-feira',Sat:'Sábado',Sun:'Domingo'},
+        darija:{Mon:'الاثنين',Tue:'الثلاثاء',Wed:'الأربعاء',Thu:'الخميس',Fri:'الجمعة',Sat:'السبت',Sun:'الأحد'}
+    };
+    for(const code of Object.keys(DYNAMIC_TRANSLATIONS)){ Object.assign(T[code] || (T[code]={}), DYNAMIC_TRANSLATIONS[code]); }
+    for(const code of Object.keys(DAY_TRANSLATIONS)){ Object.assign(T[code] || (T[code]={}), DAY_TRANSLATIONS[code]); }
+
+    const AI_DYNAMIC = {
+        en:{'AI Plan Overview':'AI Plan Overview','You currently have':'You currently have','medication(s) registered.':'medication(s) registered.','You have':'You have','active alarm(s).':'active alarm(s).'},
+        ar:{'AI Plan Overview':'نظرة عامة على خطة الدواء','You currently have':'لديك حالياً','medication(s) registered.':'دواء(أدوية) مسجلة.','You have':'لديك','active alarm(s).':'منبه(ات) نشطة.'},
+        darija:{'AI Plan Overview':'نظرة عامة على خطة الدوا','You currently have':'دابا عندك','medication(s) registered.':'دوايات مسجلين.','You have':'عندك','active alarm(s).':'منبهات خدامين.'}
+    };
+    for(const code of Object.keys(AI_DYNAMIC)){ Object.assign(T[code] || (T[code]={}), AI_DYNAMIC[code]); }
+
+    // Fill missing translations by falling back to English so the UI never loses text.
+    for(const code of Object.keys(LANGUAGES)){
+        if(!T[code]) T[code]={};
+        for(const key of Object.keys(T.en)) if(!(key in T[code])) T[code][key]=T.en[key];
+    }
+
+    const originalText = new WeakMap();
+    const originalPlaceholder = new WeakMap();
+
+    function remember(node){
+        if(node.nodeType===Node.TEXT_NODE && node.parentElement && !originalText.has(node)) originalText.set(node,node.nodeValue.trim());
+    }
+
+    function translateTree(root=document.body){
+        const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+        const nodes=[];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
+        const dict=T[currentLanguage]||T.en;
+        for(const node of nodes){
+            remember(node);
+            const rawKey=originalText.get(node);
+            const key=(rawKey||'').trim();
+            if(!key || ['SCRIPT','STYLE'].includes(node.parentElement?.tagName)) continue;
+            if(dict[key]!==undefined){
+                const leading=(node.nodeValue.match(/^\s*/)||[''])[0];
+                const trailing=(node.nodeValue.match(/\s*$/)||[''])[0];
+                node.nodeValue=leading+dict[key]+trailing;
+            }
+        }
+        root.querySelectorAll?.('input[placeholder], textarea[placeholder]').forEach(el=>{
+            if(!originalPlaceholder.has(el)) originalPlaceholder.set(el,el.getAttribute('placeholder'));
+            const key=originalPlaceholder.get(el);
+            if(dict[key]!==undefined) el.setAttribute('placeholder',dict[key]);
+        });
+    }
+
+    function updateDayButtonsLanguage(){
+        document.querySelectorAll('#alarmDays .day-btn').forEach(button => {
+            const day = button.dataset.day;
+            if (day) {
+                button.textContent = getLocalizedDayShort(day);
+                button.setAttribute('title', getLocalizedDay(day));
+                button.setAttribute('aria-label', getLocalizedDay(day));
+            }
+        });
+    }
+
+    function applyLanguage(code){
+        currentLanguage=LANGUAGES[code]?code:'en';
+        window.mediplanCurrentLanguage=currentLanguage;
+        window.mediplanTranslate=function(key){
+            const dict=T[currentLanguage]||T.en;
+            return dict[key]!==undefined?dict[key]:key;
+        };
+        localStorage.setItem('mediplan-language',currentLanguage);
+        const rtl=currentLanguage==='ar'||currentLanguage==='darija';
+        document.documentElement.lang=currentLanguage==='darija'?'ar-MA':currentLanguage;
+        document.documentElement.dir=rtl?'rtl':'ltr';
+        translateTree(document.body);
+        updateDayButtonsLanguage();
+        const picker=document.getElementById('languagePicker');
+        if(picker) picker.value=currentLanguage;
+        window.dispatchEvent(new CustomEvent('mediplan-language-change',{detail:{language:currentLanguage}}));
+    }
+
+    let currentLanguage=localStorage.getItem('mediplan-language')||'en';
+    window.mediplanCurrentLanguage=currentLanguage;
+
+    function addPicker(){
+        const topbar=document.querySelector('.topbar');
+        const actions=document.querySelector('.top-actions');
+        if(!topbar || !actions || document.getElementById('languagePicker')) return;
+        const wrap=document.createElement('div');
+        wrap.className='language-picker-wrap';
+        wrap.innerHTML=`<select id="languagePicker" class="language-picker" aria-label="Language selector"></select>`;
+        const select=wrap.firstElementChild;
+        for(const [code,name] of Object.entries(LANGUAGES)){
+            const opt=document.createElement('option'); opt.value=code; opt.textContent=name; select.appendChild(opt);
+        }
+        select.addEventListener('change',e=>applyLanguage(e.target.value));
+        actions.insertBefore(wrap,actions.firstChild);
+    }
+
+    const observer=new MutationObserver(mutations=>{
+        if(window.__mediplanTranslating) return;
+        // New alarm/medication/calendar content can be translated after each render.
+        window.__mediplanTranslating=true;
+        requestAnimationFrame(()=>{translateTree(document.body);window.__mediplanTranslating=false;});
+    });
+
+    window.addEventListener('mediplan-language-change',()=>{
+        if(typeof updateClockDisplay==='function') updateClockDisplay();
+        if(typeof renderCalendar==='function') renderCalendar();
+        if(typeof renderMedications==='function') renderMedications();
+        if(typeof renderAlarms==='function') renderAlarms();
+        updateDayButtonsLanguage();
+        if(typeof updateReports==='function') updateReports();
+        if(typeof runAI==='function'){ const response=document.getElementById('aiResponse'); if(response && response.style.display!=='none') runAI(); }
+    });
+
+    function start(){
+        addPicker();
+        applyLanguage(currentLanguage);
+        observer.observe(document.body,{childList:true,subtree:true});
+    }
+
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true});
+    else start();
+})();
+</script>
+
+
+<style>
+#createAlarmButton:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+</style>
 </body>
 </html> 
